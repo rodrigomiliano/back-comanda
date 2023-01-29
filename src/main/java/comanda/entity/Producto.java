@@ -1,5 +1,6 @@
 package comanda.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,43 +16,58 @@ public class Producto {
 	@Id // para que se sepa que es primary key
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // para que la pk sea autoincremental y la estrategia de cómo se
 														// va a generar (en mysql).
+	@Column(name = "PRODUC_ID")
 	private Integer id;
+	@Column(name = "PRODUC_NOMBRE")
 	private String nombre;
+	@Column(name = "PRODUC_DESCRP")
 	private String descripcion;
+	@Column(name = "PRODUC_PRECIO")
 	private Double precio;
 	@OneToOne
-	@JoinColumn(name = "categoria_id") //"idCategoria")
+	@JoinColumn(name = "PRODUC_CATEGO") // "idCategoria")
 	private Categoria categoria;
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getNombre() {
 		return nombre;
 	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 	public String getDescripcion() {
 		return descripcion;
 	}
+
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
 	public Double getPrecio() {
 		return precio;
 	}
+
 	public void setPrecio(Double precio) {
 		this.precio = precio;
 	}
+
 	public Categoria getCategoria() {
 		return categoria;
 	}
+
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
+
 	@Override
 	public String toString() {
 		return "Producto [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", precio=" + precio

@@ -7,5 +7,5 @@ public interface ICategoriasService {
 	
 	List<Categoria> buscarTodas();
 	void guardar(Categoria categoria);
-	void eliminar(int idAlbum);
+	void eliminar(int idCategoria);
 }

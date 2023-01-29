@@ -1,0 +1,224 @@
+/************ COLLATION DB ***********/
+-- ALTER DATABASE comandabd CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI;
+
+/********** BASE A UTILIZAR **********/
+USE comandadbtest;
+
+/********** QUITAR VALIDACIÓN **********/
+SET SQL_SAFE_UPDATES = 0;
+
+/********** CREACIÓN DE TABLAS **********/
+
+-- OK
+-- CATEGORÍAS
+CREATE TABLE `CATEGORIAS` (
+  `CATEGO_ID` int NOT NULL AUTO_INCREMENT,
+  `CATEGO_NOMBRE` varchar(255) NOT NULL,
+  /*`CATEGO_DESCRP` varchar(255) DEFAULT NULL,*/
+  PRIMARY KEY (`CATEGO_ID`),
+  UNIQUE KEY (`CATEGO_NOMBRE`)
+) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+
+-- ETIQUETAS:
+CREATE TABLE `ETIQUETAS` (
+`ETIQUE_ID` int NOT NULL AUTO_INCREMENT,
+`ETIQUE_NOMBRE` varchar(255) NOT NULL,
+`ETIQUE_DESCRP` varchar(255) DEFAULT NULL,
+PRIMARY KEY (`ETIQUE_ID`),
+UNIQUE KEY (`ETIQUE_NOMBRE`)
+) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+
+-- OK
+-- PRODUCTOS:
+CREATE TABLE `PRODUCTOS` (
+  `PRODUC_ID` int NOT NULL AUTO_INCREMENT,
+  `PRODUC_NOMBRE` varchar(255) NOT NULL,
+  `PRODUC_DESCRP` varchar(255) DEFAULT NULL,
+  `PRODUC_PRECIO` double DEFAULT NULL,
+  `PRODUC_CATEGO` int NOT NULL,
+  -- `PRODUC_ETIQUE` int NOT NULL,
+  PRIMARY KEY (`PRODUC_ID`),
+  UNIQUE KEY (`PRODUC_NOMBRE`),
+  KEY `FK_PRODUC_CATEGO_ID` (`PRODUC_CATEGO`),
+  -- KEY `FK_PRODUC_ETIQUE_ID` (`PRODUC_ETIQUE`),
+  CONSTRAINT `FK_PRODUC_CATEGO` FOREIGN KEY (`PRODUC_CATEGO`) REFERENCES `CATEGORIAS` (`CATEGO_ID`)
+  -- CONSTRAINT `FK_PRODUC_ETIQUE` FOREIGN KEY (`PRODUC_ETIQUE`) REFERENCES `ETIQUETAS` (`ETIQUE_ID`)
+) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+
+-- MENU
+CREATE TABLE `MENU` (
+  `MENU_ID` int NOT NULL AUTO_INCREMENT,
+  `MENU_NOMBRE` varchar(255) NOT NULL,
+  `MENU_VIGDDE` DATE NOT NULL,
+  `MENU_VIGHTA` DATE NOT NULL,
+  `MENU_PRELIS` INT NOT NULL,
+  PRIMARY KEY (`MENU_ID`),
+  UNIQUE KEY (`MENU_NOMBRE`),
+  KEY `FK_MENU_PRELIS` (`MENU_PRELIS`),
+  CONSTRAINT `FK_MENU_PRELIS` FOREIGN KEY (`MENU_PRELIS`) REFERENCES `PRECIOS` (`PRELIS_ID`)
+) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE `MENUIT` (
+  `MENUIT_ID` int NOT NULL,
+  `MENUIT_PRODUC` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`MENU_ID`),
+  KEY `FK_MENUIT_ID` (`MENUIT_ID`),
+  KEY `FK_MENUIT_PRODUC` (`MENUIT_PRODUC`),
+  CONSTRAINT `FK_MENUIT_ID` FOREIGN KEY (`MENUIT_ID`) REFERENCES `MENU` (`MENU_ID`),
+  CONSTRAINT `FK_MENUIT_PRODUC` FOREIGN KEY (`MENUIT_PRODUC`) REFERENCES `PRODUC` (`PRODUC_ID`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+
+CREATE TABLE `PRECIOS` (
+  `PRELIS_ID` int NOT NULL,
+  `PRELIS_NOMBRE` varchar(255) NOT NULL,
+  `PRELIS_PRODUC` int NOT NULL,
+  `PRELIS_PRECIO` double NOT NULL,
+  `PRELIS_VIGDDE` DATE NOT NULL,
+  `PRELIS_VIGHTA` DATE NOT NULL,
+  PRIMARY KEY (`PRELIS_ID`,`PRELIS_PRODUC`),
+  -- KEY (`PRELIS_NOMBRE`),
+  -- UNIQUE KEY (`PRELIS_NOMBRE`),
+  KEY `FK_PRELIS_PRODUC` (`PRELIS_PRODUC`),
+  CONSTRAINT `FK_PRELIS_PRODUC` FOREIGN KEY (`PRELIS_PRODUC`) REFERENCES `PRODUCTOS` (`PRODUC_ID`)
+) ENGINE = InnoDB /*AUTO_INCREMENT = 1*/ DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+
+/*
+CREATE TABLE `TIPPRO` (
+  `TIPPRO_ID` int NOT NULL,
+  `TIPPRO_NOMBRE` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`TIPPRO_ID`),
+  UNIQUE KEY (`TIPPRO_NOMBRE`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+*/
+
+/********** PARA ELIMINAR LAS TABLAS **********/
+/*
+DROP TABLE PRODUCTOS;
+DROP TABLE CATEGORIAS;
+DROP TABLE ETIQUETAS;
+DROP TABLE MENU;
+DROP TABLE PRECIOS;
+*/
+
+/********** PARA BORRAR LAS TABLAS (DATOS) **********/
+TRUNCATE TABLE PRODUCTOS;
+TRUNCATE TABLE CATEGORIAS;
+TRUNCATE TABLE ETIQUETAS;
+TRUNCATE TABLE MENU;
+TRUNCATE TABLE PRECIOS;
+
+/********** INSERTAR REGISTROS **********/
+-- ¿Es necesario tener nombre y descripción? 
+	-- Tal vez es suficiente solo con el nombre.
+    -- OK
+INSERT INTO `comandadbtest`.`CATEGORIAS`
+(`CATEGO_NOMBRE`)
+VALUES
+('Entradas'),
+('Parrilla'),
+('Pastas'),
+('Minutas'),
+('Pizzas y Empanadas'),
+('Bebidas'),
+('Postres'),
+('Vinos')
+;
+
+INSERT INTO `comandabd`.`ETIQUETAS`
+(`ETIQUE_NOMBRE`,`ETIQUE_DESCRP`)
+VALUES
+('Varios','Varios.'),
+('Vegano','Productos sin origen animal.'),
+('Vegetariano','Productos sin carne.'),
+('Sodio','Productos sin sodio agregado.'),
+('Light','Productos bajos en grasas.'),
+('Kids','Productos aptos para chicos.')
+;
+
+INSERT INTO `comandadbtest`.`PRODUCTOS`
+(`PRODUC_NOMBRE`,`PRODUC_DESCRP`,`PRODUC_PRECIO`,`PRODUC_CATEGO`/*,`PRODUC_ETIQUE`*/)
+VALUES
+('Provoleta','Provoleta grillada a la parrilla con finas hierbas.',950,1),
+('Mozzarelitas','Bastones de mozzarella con panko y salsa criolla.',1100,1),
+('Tabla de Quesos','Variedad de quesos.',850,1),
+('Entraña Provenzal','Entraña a la provenzal con papas fritas.',2600,2),
+('Vacío','Porción de vacío con guarnición.',2300,2),
+('Asado','Porción de asado con guarnición.',2300,2),
+('Mix de achuras','Molleja, riñón, chinchulín, chorizo y morcilla.',2750,2),
+('Tallarines Fileto','Tallarines con salsa fileto',1300,3),
+('tagliatelle Bolognesa','Tagliatelle con salsa bolognesa.',1550,3),
+('Ñoquis Azafrán','Ñoquis con salsa crema de azafrán.',1450,3),
+('Tortilla de Papas','Clásica tortilla de papas con cebolla. Para compartir.',1900,4),
+('Empanada Casera','Empanda sabor a elección: carne, pollo, jamon y queso.',250,5),
+('Pizza Mozzarella Chica','Pizza Mozzarella 6 porciones.',1650,5),
+('Pizza Mozzarella Grande','Pizza Mozzarella 8 porciones, para compartir.',2450,5),
+('Aguas','Agua con o sin gas.',650,6),
+('Gaseosas','Gaseosa lína Coca - Cola.',650,6),
+('Jarra de Limonada','Limonada con menta y jengibre.', 950,6),
+('Flan Casero','Flan casero con crema y dulce de leche.',1500,7),
+('Helado','Dos bochas de helado, gustos a elección.',1300,7),
+('Trumpeter','Malbec, Cabernet - Sauvignon.',2500,8),
+('Lugi Bosca','Malbec, Cabernet - Sauvignon.',3300,8)
+;
+
+INSERT INTO `comandabd`.`PRECIOS`
+(`PRELIS_ID`,`PRELIS_NOMBRE`,`PRELIS_PRODUC`,`PRELIS_PRECIO`,`PRELIS_VIGDDE`,`PRELIS_VIGHTA`)
+VALUES 
+(1,'2022/10',1,1000.00,'20221001','20221031'),
+(1,'2022/10',2,850.00,'20221001','20221031'),
+(1,'2022/10',3,2100.00,'20221001','20221031'),
+(1,'2022/10',4,3200.00,'20221001','20221031'),
+(1,'2022/10',5,2800.00,'20221001','20221031'),
+(2,'2022/11',1,1200.00,'20221101','20221030'),
+(2,'2022/11',2,1150.00,'20221101','20221030'),
+(2,'2022/11',3,2450.00,'20221101','20221030'),
+(2,'2022/11',4,3400.00,'20221101','20221030'),
+(2,'2022/11',5,3100.00,'20221101','20221030')
+;
+
+INSERT INTO `comandabd`.`MENU`
+(`MENU_NOMBRE`,`MENU_VIGDDE`,`MENU_VIGHTA`,`MENU_PRELIS`)
+VALUES 
+('Ejecutivo - Primavera 2022','20220901','20220930',1),
+('Mediodía - Primavera 2022','20220901','20220930',1),
+('Fin de Semana - Primavera 2022','20220901','20221230',1),
+('Ejecutivo - Verano 2023','20230101','20230331',2),
+('Mediodía - Verano 2023','20230101','20230331',2),
+('Fin de Semana - Verano 2023','20230101','20230331',2)
+;
+
+/********** CONSULTAR LAS TABLAS **********/
+	-- ¿El orden de las columnas está definido así al crear la tabla?
+SELECT * FROM CATEGORIAS;
+SELECT * FROM ETIQUETAS;
+SELECT * FROM PRODUCTOS;
+SELECT * FROM MENU;
+SELECT * FROM PRECIOS;
+
+-- LISTADO DE PRECIOS POR CATEGORÍA Y VIGENCIA:
+SELECT CATEGO_DESCRP CATEGORIA, PRODUC_ID ID, PRODUC_DESCRP PRODUCTO, PRELIS_PRECIO PRECIO, ETIQUE_DESCRP ETIQUETA
+FROM PRODUCTOS
+INNER JOIN CATEGORIAS ON PRODUCTOS.PRODUC_CATEGO = CATEGORIAS.CATEGO_ID
+INNER JOIN ETIQUETAS ON PRODUCTOS.PRODUC_ETIQUE = ETIQUETAS.ETIQUE_ID
+INNER JOIN PRECIOS ON PRODUCTOS.PRODUC_ID = PRECIOS.PRELIS_PRODUC
+WHERE PRELIS_VIGDDE <= '20221015' AND PRELIS_VIGHTA >= '20221015'
+ORDER BY CATEGORIAS.CATEGO_ID;
+
+/********** ACTUALIZAR REGISTROS **********/
+UPDATE CATEGORIAS SET CATEGO_DESCRP = 'Pizzas y Empanadas' WHERE CATEGO_ID = 5;
+
+/********** ELIMINAR REGISTROS **********/
+DELETE CATEGORIAS FROM CATEGORIAS WHERE CATEGO_ID >= 1;
+DELETE PRODUCTOS FROM PRODUCTOS WHERE PRODUC_ID >= 1;
+
+/********** RESTAURAR NUMERACIÓN (ID) **********/
+ALTER TABLE CATEGORIAS AUTO_INCREMENT = 0;
+ALTER TABLE PRODUCTOS AUTO_INCREMENT = 0;
+ALTER TABLE PRECIOS AUTO_INCREMENT = 0;
+
+/* SIN USO
+SELECT @MAX := MAX(ID)+ 1 FROM CATEGORIAS;
+PREPARE stmt FROM 'ALTER TABLE CATEGORIAS AUTO_INCREMENT = ?';
+EXECUTE stmt USING @max;
+DEALLOCATE PREPARE stmt;
+*/

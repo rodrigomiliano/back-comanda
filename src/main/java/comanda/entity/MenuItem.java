@@ -1,5 +1,7 @@
 package comanda.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,17 +10,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Categorias") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
-public class Categoria {
+@Table(name = "Menuit") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
+public class MenuItem {
 
-	@Id
+	@Id // para que se sepa que es primary key
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // para que la pk sea autoincremental y la estrategia de cómo se
 														// va a generar (en mysql).
-	@Column(name = "CATEGO_ID")
+	@Column(name = "MENUIT_ID")
 	private Integer id;
-	@Column(name = "CATEGO_NOMBRE")
-	private String nombre;
-	// private String descripcion;
+	@Column(name = "MENUIT_PRODUC")
+	private String producto;
 
 	public Integer getId() {
 		return id;
@@ -28,17 +29,17 @@ public class Categoria {
 		this.id = id;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getProducto() {
+		return producto;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setProducto(String producto) {
+		this.producto = producto;
 	}
 
 	@Override
 	public String toString() {
-		return "Categoria [id=" + id + ", nombre=" + nombre + "]";
+		return "MenuItem [id=" + id + ", producto=" + producto + "]";
 	}
 
 }

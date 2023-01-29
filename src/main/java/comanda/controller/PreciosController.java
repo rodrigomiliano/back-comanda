@@ -1,6 +1,7 @@
 package comanda.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,36 +11,37 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import comanda.entity.Categoria;
-import comanda.service.ICategoriasService;
+
+import comanda.entity.Precio;
+import comanda.service.IPreciosService;
 
 @RestController
 @RequestMapping("/comanda")
-public class CategoriasController {
+public class PreciosController {
 	
 	@Autowired
-	private ICategoriasService serviceCategorias;
+	private IPreciosService servicePrecios;
 	
-	@GetMapping("/categoria")
-	public List<Categoria> buscarTodas(){
-		return serviceCategorias.buscarTodas();
+	@GetMapping("/precio")
+	public List<Precio> buscarTodos(){
+		return servicePrecios.buscarTodos();
 	}
 	
-	@PostMapping("/categoria") 
-	public Categoria guardar(@RequestBody Categoria categoria) {
-		serviceCategorias.guardar(categoria);
-		return categoria;
+	@PostMapping("/precio") 
+	public Precio guardar(@RequestBody Precio precio) {
+		servicePrecios.guardar(precio);
+		return precio;
 	}
 	
-	@PutMapping("/categoria")
-	public Categoria modificar(@RequestBody Categoria categoria) {
-		serviceCategorias.guardar(categoria);
-		return categoria;
+	@PutMapping("/precio")
+	public Precio modificar(@RequestBody Precio precio) {
+		servicePrecios.guardar(precio);
+		return precio;
 	} 
 	
-	@DeleteMapping("/categoria/{id}")
-	public String eliminar(@PathVariable("id") int idCategoria) {
-		serviceCategorias.eliminar(idCategoria);
+	@DeleteMapping("/precio/{id}")
+	public String eliminar(@PathVariable("id") int idPrecio) {
+		servicePrecios.eliminar(idPrecio);
 		return "Registro Eliminado";
 	}
 

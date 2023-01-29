@@ -30,12 +30,14 @@ public class ProductosController {
 	@PostMapping("/producto") 
 	public Producto guardar(@RequestBody Producto producto) {
 		serviceProductos.guardar(producto);
+		// se podria hacer un find del producto enviado antes de mostrar, esto para no ver el nombre null
 		return producto;
 	}
 	
 	@PutMapping("/producto")
 	public Producto modificar(@RequestBody Producto producto) {
-		serviceProductos.guardar(producto);		
+		serviceProductos.guardar(producto);
+		// se podria pasar el id por url (como en delete)
 		return producto;
 	} 
 	
