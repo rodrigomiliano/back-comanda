@@ -1,9 +1,9 @@
 package comanda.service.jpa;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import comanda.entity.Producto;
 import comanda.repository.ProductosRepository;
 import comanda.service.IProductosService;
@@ -24,5 +24,9 @@ public class ProductosService implements IProductosService {
 
 	public void eliminar(int idProducto) {
 		repoProductos.deleteById(idProducto);
+	}
+	
+	public Optional<Producto> buscarProducto(int idProducto) {
+		return repoProductos.findById(idProducto);
 	}
 }

@@ -8,16 +8,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Menuit") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
-public class MenuItem {
+@Table(name = "Monedas") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
+public class Moneda {
 
-	@Id // para que se sepa que es primary key
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // para que la pk sea autoincremental y la estrategia de cómo se
 														// va a generar (en mysql).
-	@Column(name = "MENUIT_ID")
+	@Column(name = "MONEDA_ID")
 	private Integer id;
-	@Column(name = "MENUIT_PRODUC")
-	private String producto;
+	@Column(name = "MONEDA_NOMBRE")
+	private String nombre;
 
 	public Integer getId() {
 		return id;
@@ -27,17 +27,17 @@ public class MenuItem {
 		this.id = id;
 	}
 
-	public String getProducto() {
-		return producto;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setProducto(String producto) {
-		this.producto = producto;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	@Override
 	public String toString() {
-		return "MenuItem [id=" + id + ", producto=" + producto + "]";
+		return "Moneda [id=" + id + ", nombre=" + nombre + "]";
 	}
 
 }

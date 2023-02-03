@@ -1,6 +1,7 @@
 package comanda.service.jpa;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import comanda.entity.Precio;
@@ -23,5 +24,9 @@ public class PreciosService implements IPreciosService {
 
 	public void eliminar(int idPrecio) {
 		repoPrecios.deleteById(idPrecio);
+	}
+	
+	public Optional<Precio> buscarPrecio(int idPrecio) {
+		return repoPrecios.findById(idPrecio);
 	}
 }

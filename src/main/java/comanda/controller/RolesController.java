@@ -11,42 +11,41 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import comanda.entity.Menu;
-import comanda.service.IMenusService;
-
+import comanda.entity.Rol;
+import comanda.service.IRolesService;
 
 @RestController
 @RequestMapping("/comanda")
-public class MenusController {
+public class RolesController {
 
 	@Autowired
-	private IMenusService serviceMenus;
-	
-	@GetMapping("/menu")
-	public List<Menu> buscarTodos(){
-		return serviceMenus.buscarTodos();
+	private IRolesService serviceRoles;
+
+	@GetMapping("/rol")
+	public List<Rol> buscarTodos() {
+		return serviceRoles.buscarTodos();
 	}
-	
-	@GetMapping("/menu/{id}")
-	public Optional<Menu> buscarMenu(@PathVariable("id") int idMenu) {
-		return serviceMenus.buscarMenu(idMenu);
+
+	@GetMapping("/rol/{id}")
+	public Optional<Rol> buscarRol(@PathVariable("id") int idRol) {
+		return serviceRoles.buscarRol(idRol);
 	}
-	
-	@PostMapping("/menu") 
-	public Menu guardar(@RequestBody Menu menu) {
-		serviceMenus.guardar(menu);
-		return menu;
+
+	@PostMapping("/rol")
+	public Rol guardar(@RequestBody Rol rol) {
+		serviceRoles.guardar(rol);
+		return rol;
 	}
-	
-	@PutMapping("/menu")
-	public Menu modificar(@RequestBody Menu menu) {
-		serviceMenus.guardar(menu);
-		return menu;
-	} 
-	
-	@DeleteMapping("/menu/{id}")
-	public String eliminar(@PathVariable("id") int idMenu) {
-		serviceMenus.eliminar(idMenu);
+
+	@PutMapping("/rol")
+	public Rol modificar(@RequestBody Rol rol) {
+		serviceRoles.guardar(rol);
+		return rol;
+	}
+
+	@DeleteMapping("/rol/{id}")
+	public String eliminar(@PathVariable("id") int idRol) {
+		serviceRoles.eliminar(idRol);
 		return "Registro Eliminado";
 	}
 

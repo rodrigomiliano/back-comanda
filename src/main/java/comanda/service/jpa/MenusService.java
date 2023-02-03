@@ -1,6 +1,7 @@
 package comanda.service.jpa;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import comanda.entity.Menu;
@@ -23,6 +24,10 @@ public class MenusService implements IMenusService {
 
 	public void eliminar(int idMenu) {
 		repoMenus.deleteById(idMenu);
+	}
+	
+	public Optional<Menu> buscarMenu(int idMenu) {
+		return repoMenus.findById(idMenu);
 	}
 
 }
