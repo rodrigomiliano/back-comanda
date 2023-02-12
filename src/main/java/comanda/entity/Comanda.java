@@ -5,10 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Reservas") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
+@Table(name = "Comandas") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
 public class Comanda {
 
 	@Id // para que se sepa que es primary key
@@ -16,12 +18,21 @@ public class Comanda {
 														// va a generar (en mysql).
 	@Column(name = "COMAND_ID")
 	private Integer id;
-	@Column(name = "COMAND_RESERV")
-	private Integer reserva;
-	@Column(name = "COMAND_MENU")
-	private Integer menu;
-	@Column(name = "COMAND_ESTADO")
-	private String estado;
+	// @Column(name = "COMAND_RESERV")
+	// private Integer reserva;
+	@OneToOne
+	@JoinColumn(name = "COMAND_RESERV") // "idReserva")
+	private Reserva reserva;
+	// @Column(name = "COMAND_MENU")
+	// private Integer menu;
+	@OneToOne
+	@JoinColumn(name = "COMAND_MENU") // "idMenu")
+	private Menu menu;
+	// @Column(name = "COMAND_ESTADO")
+	// private String estado;
+	@OneToOne
+	@JoinColumn(name = "COMAND_ESTADO") // "idEstado")
+	private Estado estado;
 
 	public Integer getId() {
 		return id;
@@ -31,27 +42,27 @@ public class Comanda {
 		this.id = id;
 	}
 
-	public Integer getReserva() {
+	public Reserva getReserva() {
 		return reserva;
 	}
 
-	public void setReserva(Integer reserva) {
+	public void setReserva(Reserva reserva) {
 		this.reserva = reserva;
 	}
 
-	public Integer getMenu() {
+	public Menu getMenu() {
 		return menu;
 	}
 
-	public void setMenu(Integer menu) {
+	public void setMenu(Menu menu) {
 		this.menu = menu;
 	}
 
-	public String getEstado() {
+	public Estado getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
 

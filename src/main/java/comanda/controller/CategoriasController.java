@@ -24,6 +24,7 @@ public class CategoriasController {
 	@GetMapping("/categoria")
 	public List<Categoria> buscarTodas() {
 		return serviceCategorias.buscarTodas();
+		// buscar como agregar el order by id
 	}
 
 	@GetMapping("/categoria/{id}")

@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,8 +18,14 @@ public class MenuItem {
 														// va a generar (en mysql).
 	@Column(name = "MENUIT_ID")
 	private Integer id;
-	@Column(name = "MENUIT_PRODUC")
-	private String producto;
+	// @Column(name = "MENUIT_MENU")
+	// private Integer menu;
+	@OneToOne
+	@JoinColumn(name = "MENUIT_MENU") // "idMenu")
+	private Menu menu;
+	@OneToOne
+	@JoinColumn(name = "MENUIT_PRODUC") // "idProducto")
+	private Producto producto;
 
 	public Integer getId() {
 		return id;
@@ -27,17 +35,31 @@ public class MenuItem {
 		this.id = id;
 	}
 
-	public String getProducto() {
-		return producto;
+	/*public Menu getMenu() {
+		return menu;
+	}*/
+	public String getMenu() {
+		return menu.getNombre();
 	}
 
-	public void setProducto(String producto) {
+	public void setMenu(Menu menu) {
+		this.menu = menu;
+	}
+
+	/*public Producto getProducto() {
+		return producto;
+	}*/
+	public String getProducto() {
+		return producto.getNombre();
+	}
+
+	public void setProducto(Producto producto) {
 		this.producto = producto;
 	}
 
 	@Override
 	public String toString() {
-		return "MenuItem [id=" + id + ", producto=" + producto + "]";
+		return "MenuItem [id=" + id + ", menu=" + menu + ", producto=" + producto + "]";
 	}
 
 }

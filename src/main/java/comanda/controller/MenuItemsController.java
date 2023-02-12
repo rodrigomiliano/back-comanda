@@ -21,29 +21,29 @@ public class MenuItemsController {
 	@Autowired
 	private IMenuItemsService serviceMenuItems;
 	
-	@GetMapping("/menuItem")
+	@GetMapping("/menuitem")
 	public List<MenuItem> buscarTodos(){
 		return serviceMenuItems.buscarTodos();
 	}
 	
-	@GetMapping("/menuItem/{id}")
+	@GetMapping("/menuitem/{id}")
 	public Optional<MenuItem> buscarMenuItem(@PathVariable("id") int idMenuItem) {
 		return serviceMenuItems.buscarMenuItem(idMenuItem);
 	}
 	
-	@PostMapping("/menuItem") 
+	@PostMapping("/menuitem") 
 	public MenuItem guardar(@RequestBody MenuItem menuItem) {
 		serviceMenuItems.guardar(menuItem);
 		return menuItem;
 	}
 	
-	@PutMapping("/menuItem")
+	@PutMapping("/menuitem")
 	public MenuItem modificar(@RequestBody MenuItem menuItem) {
 		serviceMenuItems.guardar(menuItem);
 		return menuItem;
 	} 
 	
-	@DeleteMapping("/menuItem/{id}")
+	@DeleteMapping("/menuitem/{id}")
 	public String eliminar(@PathVariable("id") int idMenuItem) {
 		serviceMenuItems.eliminar(idMenuItem);
 		return "Registro Eliminado";

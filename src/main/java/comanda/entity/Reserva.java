@@ -19,24 +19,22 @@ public class Reserva {
 														// va a generar (en mysql).
 	@Column(name = "RESERV_ID")
 	private Integer id;
-	// @Column(name = "RESERV_USER")
-	// private Integer usuario;
 	@OneToOne
-	@JoinColumn(name = "RESERV_USER") // "idUsuario")
-	private Usuario usuario;
+	@JoinColumn(name = "RESERV_CLIENTE") // "idUsuario")
+	private Cliente cliente;
 	@Column(name = "RESERV_FECALT")
 	private Date fecha_alta;
 	@Column(name = "RESERV_FECRES")
 	private Date fecha_reserva;
 	@Column(name = "RESERV_COMENS")
 	private Integer comensal;
-	@Column(name = "RESERV_ESTADO")
-	private String estado;
-	// @Column(name = "RESERV_MESA")
-	// private Integer mesa;
 	@OneToOne
 	@JoinColumn(name = "RESERV_MESA") // "idMesa")
 	private Mesa mesa;
+	@OneToOne
+	@JoinColumn(name = "RESERV_ESTADO") // "idEstado")
+	private Estado estado;
+	
 
 	public Integer getId() {
 		return id;
@@ -46,12 +44,15 @@ public class Reserva {
 		this.id = id;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	/*public Cliente getCliente() {
+		return cliente;
+	}*/
+	public String getCliente() {
+		return cliente.getApellido() + " " + cliente.getNombre();
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	public Date getFecha_alta() {
@@ -78,16 +79,22 @@ public class Reserva {
 		this.comensal = comensal;
 	}
 
-	public String getEstado() {
+	/*public String getEstado() {
 		return estado;
+	}*/
+	public String getEstado() {
+		return estado.getNombre();
 	}
-
-	public void setEstado(String estado) {
+	
+	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
 
-	public Mesa getMesa() {
+	/*public Mesa getMesa() {
 		return mesa;
+	}*/
+	public String getMesa() {
+		return mesa.getSillas() + " sillas ";
 	}
 
 	public void setMesa(Mesa mesa) {
@@ -96,7 +103,7 @@ public class Reserva {
 
 	@Override
 	public String toString() {
-		return "Reserva [id=" + id + ", usuario=" + usuario + ", fecha_alta=" + fecha_alta + ", fecha_reserva="
+		return "Reserva [id=" + id + ", cliente=" + cliente + ", fecha_alta=" + fecha_alta + ", fecha_reserva="
 				+ fecha_reserva + ", comensal=" + comensal + ", estado=" + estado + ", mesa=" + mesa + "]";
 	}
 

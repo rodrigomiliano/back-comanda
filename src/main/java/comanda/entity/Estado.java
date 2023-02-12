@@ -5,28 +5,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Productos") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
-public class Producto {
+@Table(name = "Estados") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
+public class Estado {
 
 	@Id // para que se sepa que es primary key
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // para que la pk sea autoincremental y la estrategia de cómo se
 														// va a generar (en mysql).
-	@Column(name = "PRODUC_ID")
+	@Column(name = "ESTADO_ID")
 	private Integer id;
-	@Column(name = "PRODUC_NOMBRE")
+	@Column(name = "ESTADO_NOMBRE")
 	private String nombre;
-	@Column(name = "PRODUC_DESCRP")
+	@Column(name = "ESTADO_DESCRP")
 	private String descripcion;
-	// @Column(name = "PRODUC_PRECIO")
-	// private Double precio;
-	@OneToOne
-	@JoinColumn(name = "PRODUC_CATEGO") // "idCategoria")
-	private Categoria categoria;
 
 	public Integer getId() {
 		return id;
@@ -52,21 +45,9 @@ public class Producto {
 		this.descripcion = descripcion;
 	}
 
-	/*
-	 * public Categoria getCategoria() { return categoria; }
-	 */
-	public String getCategoria() {
-		return categoria.getNombre();
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
-
 	@Override
 	public String toString() {
-		return "Producto [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", categoria=" + categoria
-				+ "]";
+		return "Estado [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + "]";
 	}
 
 }

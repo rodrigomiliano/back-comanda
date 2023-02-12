@@ -22,12 +22,14 @@ public class Mesa {
 	private Integer sillas;
 	@Column(name = "MESA_OBSERV")
 	private String observacion;
-	@Column(name = "MESA_ESTADO")
-	private String estado;
+	// @Column(name = "MESA_ESTADO")
+	// private String estado;
 	@OneToOne
-	@JoinColumn(name = "MESA_LOCAL") // "idLocal")
-	private Local local;
-
+	@JoinColumn(name = "MESA_ESTADO") // "idEstado")
+	private Estado estado;
+	// @OneToOne
+	// @JoinColumn(name = "MESA_LOCAL") // "idLocal")
+	// private Local local;
 	public Integer getId() {
 		return id;
 	}
@@ -52,26 +54,17 @@ public class Mesa {
 		this.observacion = observacion;
 	}
 
-	public String getEstado() {
+	public Estado getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(Estado estado) {
 		this.estado = estado;
-	}
-
-	public Local getLocal() {
-		return local;
-	}
-
-	public void setLocal(Local local) {
-		this.local = local;
 	}
 
 	@Override
 	public String toString() {
-		return "Mesa [id=" + id + ", sillas=" + sillas + ", observacion=" + observacion + ", estado=" + estado
-				+ ", local=" + local + "]";
+		return "Mesa [id=" + id + ", sillas=" + sillas + ", observacion=" + observacion + ", estado=" + estado + "]";
 	}
 
 }
