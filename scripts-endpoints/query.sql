@@ -2,14 +2,14 @@
 -- ALTER DATABASE comandabd CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI;
 
 /********** BASE A UTILIZAR **********/
-USE comandadbtest;
+USE comandabd;
 
 /********** QUITAR VALIDACIÓN **********/
 SET SQL_SAFE_UPDATES = 0;
 
 /********** CREACIÓN DE TABLAS **********/
 
--- CATEGORÍAS
+-- CATEGORÍAS: OK
 CREATE TABLE `CATEGORIAS` (
   `CATEGO_ID` int NOT NULL AUTO_INCREMENT,
   `CATEGO_NOMBRE` varchar(255) NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE `CATEGORIAS` (
   UNIQUE KEY (`CATEGO_NOMBRE`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
--- ETIQUETAS:
+-- ETIQUETAS: NO VA MAS
 /*CREATE TABLE `ETIQUETAS` (
 `ETIQUE_ID` int NOT NULL AUTO_INCREMENT,
 `ETIQUE_NOMBRE` varchar(255) NOT NULL,
@@ -27,12 +27,12 @@ PRIMARY KEY (`ETIQUE_ID`),
 UNIQUE KEY (`ETIQUE_NOMBRE`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;*/
 
--- PRODCUTOS:
+-- PRODCUTOS: OK, VUELVO A PONER PRECIO
 CREATE TABLE `PRODUCTOS` (
   `PRODUC_ID` int NOT NULL AUTO_INCREMENT,
   `PRODUC_NOMBRE` varchar(255) NOT NULL,
   `PRODUC_DESCRP` varchar(255) DEFAULT NULL,
-  -- `PRODUC_PRECIO` double DEFAULT NULL,
+  `PRODUC_PRECIO` double NOT NULL,
   `PRODUC_CATEGO` int NOT NULL,
   -- `PRODUC_ETIQUE` int NOT NULL,
   PRIMARY KEY (`PRODUC_ID`),
@@ -43,8 +43,8 @@ CREATE TABLE `PRODUCTOS` (
   -- CONSTRAINT `FK_PRODUC_ETIQUE` FOREIGN KEY (`PRODUC_ETIQUE`) REFERENCES `ETIQUETAS` (`ETIQUE_ID`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
--- PRECIOS (LISTA DE PRECIOS): agrego al ID auto increment
-CREATE TABLE `PRECIOS` (
+-- PRECIOS (LISTA DE PRECIOS): OK, agrego al ID auto increment, NO VA MASSSSSS
+/*CREATE TABLE `PRECIOS` (
   `PRELIS_ID` int NOT NULL AUTO_INCREMENT,
   `PRELIS_NOMBRE` varchar(255) NOT NULL,
   `PRELIS_PRODUC` int NOT NULL,
@@ -56,10 +56,10 @@ CREATE TABLE `PRECIOS` (
   -- UNIQUE KEY (`PRELIS_NOMBRE`),
   KEY `FK_PRELIS_PRODUC` (`PRELIS_PRODUC`),
   CONSTRAINT `FK_PRELIS_PRODUC` FOREIGN KEY (`PRELIS_PRODUC`) REFERENCES `PRODUCTOS` (`PRODUC_ID`)
-) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;*/
 
--- MENU
-CREATE TABLE `MENU` (
+-- MENU: OK, NO VA MASSSS
+/*CREATE TABLE `MENU` (
   `MENU_ID` int NOT NULL AUTO_INCREMENT,
   `MENU_NOMBRE` varchar(255) NOT NULL,
   `MENU_VIGDDE` DATE NOT NULL,
@@ -69,9 +69,10 @@ CREATE TABLE `MENU` (
   UNIQUE KEY (`MENU_NOMBRE`),
   KEY `FK_MENU_PRELIS` (`MENU_PRELIS`),
   CONSTRAINT `FK_MENU_PRELIS` FOREIGN KEY (`MENU_PRELIS`) REFERENCES `PRECIOS` (`PRELIS_ID`)
-) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;*/
 
-CREATE TABLE `MENUIT` ( /*agregue el auto increment*/
+-- MENUIT: OK, agregue el auto increment, NO VA MASSSS
+/*CREATE TABLE `MENUIT` ( 
   `MENUIT_ID` int NOT NULL AUTO_INCREMENT,
   `MENUIT_MENU` int NOT NULL,
   `MENUIT_PRODUC` int NOT NULL,
@@ -80,9 +81,9 @@ CREATE TABLE `MENUIT` ( /*agregue el auto increment*/
   KEY `FK_MENUIT_PRODUC` (`MENUIT_PRODUC`),
   CONSTRAINT `FK_MENUIT_MENU` FOREIGN KEY (`MENUIT_MENU`) REFERENCES `MENU` (`MENU_ID`),
   CONSTRAINT `FK_MENUIT_PRODUC` FOREIGN KEY (`MENUIT_PRODUC`) REFERENCES `PRODUCTOS` (`PRODUC_ID`)
-) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;*/
 
--- LOCALES: le agregue auto increment
+-- LOCALES: OK, le agregue auto increment, ver como poner los horarios
 CREATE TABLE `LOCALES` (
   `LOCAL_ID` int NOT NULL AUTO_INCREMENT,
   `LOCAL_NOMBRE` varchar(255) NOT NULL,
@@ -105,7 +106,7 @@ HORA HASTA
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 */
 
--- ESTADOS:
+-- ESTADOS: OK, VAMOS A USAR ESTA PARA ESTADO DE MESA Y ESTADO DE PEDIDOS TODO UNIFICADO?
 CREATE TABLE `ESTADOS` (
   `ESTADO_ID` int NOT NULL AUTO_INCREMENT,
   `ESTADO_NOMBRE` varchar(255) NOT NULL,
@@ -113,7 +114,7 @@ CREATE TABLE `ESTADOS` (
   PRIMARY KEY (`ESTADO_ID`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
--- ROLES:
+-- ROLES: OK
 CREATE TABLE `ROLES` (
   `ROL_ID` int NOT NULL AUTO_INCREMENT,
   `ROL_NOMBRE` varchar(255) NOT NULL,
@@ -122,7 +123,7 @@ CREATE TABLE `ROLES` (
   UNIQUE KEY (`ROL_NOMBRE`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
--- USUARIOS:
+-- USUARIOS: OK
 CREATE TABLE `USUARIOS` (
   `USER_ID` int NOT NULL AUTO_INCREMENT,
   `USER_USER` varchar(255) NOT NULL,
@@ -139,7 +140,7 @@ CREATE TABLE `USUARIOS` (
   CONSTRAINT `FK_USER_ROL` FOREIGN KEY (`USER_ROL`) REFERENCES `ROLES` (`ROL_ID`)
 ) ENGINE = InnoDB /*AUTO_INCREMENT = 1*/ DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
--- CLIENTES:
+-- CLIENTES: OK
 CREATE TABLE `CLIENTES` (
   `CLIENT_ID` int NOT NULL AUTO_INCREMENT,
   `CLIENT_USER` varchar(255) NOT NULL,
@@ -156,7 +157,7 @@ CREATE TABLE `CLIENTES` (
   CONSTRAINT `FK_CLIENT_ROL` FOREIGN KEY (`CLIENT_ROL`) REFERENCES `ROLES` (`ROL_ID`)
 ) ENGINE = InnoDB /*AUTO_INCREMENT = 1*/ DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
--- MESAS:
+-- MESAS: OK, VER LO DE LOS ESTADOS 
 CREATE TABLE `MESAS` (
   `MESA_ID` int NOT NULL AUTO_INCREMENT,
   `MESA_SILLAS` int NOT NULL,
@@ -165,7 +166,7 @@ CREATE TABLE `MESAS` (
   PRIMARY KEY (`MESA_ID`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
--- RESEVAS: /*se cambia usuario por cliente para no confundir*/
+-- RESEVAS: OK, se cambia usuario por cliente para no confundir, ver lo de estado.
 CREATE TABLE `RESERVAS` (
   `RESERV_ID` int NOT NULL AUTO_INCREMENT,
   `RESERV_CLIENTE` int NOT NULL, 
@@ -181,12 +182,12 @@ CREATE TABLE `RESERVAS` (
   CONSTRAINT `FK_RESERV_ESTADO` FOREIGN KEY (`RESERV_ESTADO`) REFERENCES `ESTADOS` (`ESTADO_ID`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
--- COMANDAS:
+-- COMANDAS: saco MENU y RESERVA, cambio mesa x mesauso
 CREATE TABLE `COMANDAS` (
   `COMAND_ID` int NOT NULL AUTO_INCREMENT,
-  `COMAND_RESERV` int NOT NULL,
+  -- `COMAND_RESERV` int NOT NULL,
   -- `COMAND_MESA` int NOT NULL,
-  `COMAND_MENU` int NOT NULL,
+  -- `COMAND_MENU` int NOT NULL,
   `COMAND_ESTADO` int NOT NULL,
   PRIMARY KEY (`COMAND_ID`),
   KEY `FK_COMAND_RESERV` (`COMAND_RESERV`),
@@ -199,8 +200,8 @@ CREATE TABLE `COMANDAS` (
   CONSTRAINT `FK_COMAND_ESTADO` FOREIGN KEY (`COMAND_ESTADO`) REFERENCES `ESTADOS` (`ESTADO_ID`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
--- COMANDAS:
-CREATE TABLE `COMITEMS` (
+-- COMITEMS: queda pendiente, replico y la hago de prueba en ITEMCOMANDAS
+/*CREATE TABLE `COMITEMS` (
   `COMITS_ID` int NOT NULL AUTO_INCREMENT,
   `COMITS_COMAND` int NOT NULL,
   `COMITS_PRODUC` int NOT NULL,
@@ -213,6 +214,20 @@ CREATE TABLE `COMITEMS` (
   CONSTRAINT `FK_COMITS_COMAND` FOREIGN KEY (`COMITS_COMAND`) REFERENCES `COMANDAS` (`COMAND_ID`),
   CONSTRAINT `FK_COMITS_PRODUC` FOREIGN KEY (`COMITS_PRODUC`) REFERENCES `PRODUCTOS` (`PRODUC_ID`),
   CONSTRAINT `FK_COMITS_ESTADO` FOREIGN KEY (`COMITS_ESTADO`) REFERENCES `ESTADOS` (`ESTADO_ID`)
+) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;*/
+
+-- ITEMCOMANDAS: 
+CREATE TABLE `ITEMCOMANDAS` (
+  `ITEMCOM_ID` int NOT NULL AUTO_INCREMENT,
+  `ITEMCOM_PRODUC` int NOT NULL,
+  `ITEMCOM_TOTAL` double NOT NULL,  
+  PRIMARY KEY (`ITEMCOM_ID`),
+  -- KEY `FK_COMITS_COMAND` (`COMITS_COMAND`),
+  KEY `FK_ITEMCOM_PRODUC` (`ITEMCOM_PRODUC`),
+  -- KEY `FK_COMITS_ESTADO` (`COMITS_ESTADO`),
+  -- CONSTRAINT `FK_COMITS_COMAND` FOREIGN KEY (`COMITS_COMAND`) REFERENCES `COMANDAS` (`COMAND_ID`),
+  CONSTRAINT `FK_ITEMCOM_PRODUC` FOREIGN KEY (`ITEMCOM_PRODUC`) REFERENCES `PRODUCTOS` (`PRODUC_ID`)
+  -- CONSTRAINT `FK_COMITS_ESTADO` FOREIGN KEY (`COMITS_ESTADO`) REFERENCES `ESTADOS` (`ESTADO_ID`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 /********** PARA ELIMINAR LAS TABLAS **********/
@@ -256,7 +271,7 @@ TRUNCATE TABLE MENU;
 /********** INSERTAR REGISTROS **********/
 -- ¿Es necesario tener nombre y descripción? 
 	-- Tal vez es suficiente solo con el nombre.
-INSERT INTO `comandadbtest`.`CATEGORIAS`
+INSERT INTO `comandabd`.`CATEGORIAS`
 (`CATEGO_NOMBRE`/*,`CATEGO_DESCRP`*/)
 VALUES
 ('Entradas'/*,'Entradas'*/),
@@ -280,30 +295,30 @@ VALUES
 ('Kids','Productos aptos para chicos.')
 ;*/
 
-INSERT INTO `comandadbtest`.`PRODUCTOS`
-(`PRODUC_NOMBRE`,`PRODUC_DESCRP`,/*`PRODUC_PRECIO`,*/`PRODUC_CATEGO`/*,`PRODUC_ETIQUE`*/)
+INSERT INTO `comandabd`.`PRODUCTOS`
+(`PRODUC_NOMBRE`,`PRODUC_DESCRP`,`PRODUC_PRECIO`,`PRODUC_CATEGO`/*,`PRODUC_ETIQUE`*/)
 VALUES
-('Provoleta','Provoleta grillada a la parrilla con finas hierbas.',/*950,*/1),
-('Mozzarelitas','Bastones de mozzarella con panko y salsa criolla.',/*1100,*/1),
-('Tabla de Quesos','Variedad de quesos.',/*850,*/1),
-('Entraña Provenzal','Entraña a la provenzal con papas fritas.',/*2600,*/2),
-('Vacío','Porción de vacío con guarnición.',/*2300,*/2),
-('Asado','Porción de asado con guarnición.',/*2300,*/2),
-('Mix de achuras','Molleja, riñón, chinchulín, chorizo y morcilla.',/*2750,*/2),
-('Tallarines Fileto','Tallarines con salsa fileto',/*1300,*/3),
-('Tagliatelle Bolognesa','Tagliatelle con salsa bolognesa.',/*1550,*/3),
-('Ñoquis Azafrán','Ñoquis con salsa crema de azafrán.',/*1450,*/3),
-('Tortilla de Papas','Clásica tortilla de papas con cebolla. Para compartir.',/*1900,*/4),
-('Empanada Casera','Empanda sabor a elección: carne, pollo, jamon y queso.',/*250,*/5),
-('Pizza Mozzarella Chica','Pizza Mozzarella 6 porciones.',/*1650,*/5),
-('Pizza Mozzarella Grande','Pizza Mozzarella 8 porciones, para compartir.',/*2450,*/5),
-('Aguas','Agua con o sin gas.',/*650,*/6),
-('Gaseosas','Gaseosa lína Coca - Cola.',/*650,*/6),
-('Jarra de Limonada','Limonada con menta y jengibre.',/*950,*/6),
-('Flan Casero','Flan casero con crema y dulce de leche.',/*1500,*/7),
-('Helado','Dos bochas de helado, gustos a elección.',/*1300,*/7),
-('Trumpeter','Malbec, Cabernet - Sauvignon.',/*2500,*/8),
-('Lugi Bosca','Malbec, Cabernet - Sauvignon.',/*300,*/8)
+('Provoleta','Provoleta grillada a la parrilla con finas hierbas.',950,1),
+('Mozzarelitas','Bastones de mozzarella con panko y salsa criolla.',1100,1),
+('Tabla de Quesos','Variedad de quesos.',850,1),
+('Entraña Provenzal','Entraña a la provenzal con papas fritas.',2600,2),
+('Vacío','Porción de vacío con guarnición.',2300,2),
+('Asado','Porción de asado con guarnición.',2300,2),
+('Mix de achuras','Molleja, riñón, chinchulín, chorizo y morcilla.',2750,2),
+('Tallarines Fileto','Tallarines con salsa fileto',1300,3),
+('Tagliatelle Bolognesa','Tagliatelle con salsa bolognesa.',1550,3),
+('Ñoquis Azafrán','Ñoquis con salsa crema de azafrán.',1450,3),
+('Tortilla de Papas','Clásica tortilla de papas con cebolla. Para compartir.',1900,4),
+('Empanada Casera','Empanda sabor a elección: carne, pollo, jamon y queso.',250,5),
+('Pizza Mozzarella Chica','Pizza Mozzarella 6 porciones.',1650,5),
+('Pizza Mozzarella Grande','Pizza Mozzarella 8 porciones, para compartir.',2450,5),
+('Aguas','Agua con o sin gas.',650,6),
+('Gaseosas','Gaseosa lína Coca - Cola.',650,6),
+('Jarra de Limonada','Limonada con menta y jengibre.',950,6),
+('Flan Casero','Flan casero con crema y dulce de leche.',1500,7),
+('Helado','Dos bochas de helado, gustos a elección.',1300,7),
+('Trumpeter','Malbec, Cabernet - Sauvignon.',2500,8),
+('Lugi Bosca','Malbec, Cabernet - Sauvignon.',300,8)
 ;
 
 INSERT INTO `comandadbtest`.`PRECIOS`
@@ -358,7 +373,7 @@ VALUES
 (/*5,*/'Kentucky Microcentro 2','Calle Microcentro 2',1234,1111,'44444444')
 ;
 
-INSERT INTO `comandadbtest`.`ROLES`
+INSERT INTO `comandabd`.`ROLES`
 (/*`ROL_ID`,*/`ROL_NOMBRE`)
 VALUES 
 (/*1,*/'ADMIN'),
@@ -366,7 +381,7 @@ VALUES
 (/*3,*/'USER_APP')
 ;
 
-INSERT INTO `comandadbtest`.`USUARIOS`
+INSERT INTO `comandabd`.`USUARIOS`
 (/*`USER_ID`,*/`USER_USER`,`USER_NOMBRE`,`USER_APELLI`,`USER_NRODOC`,`USER_EMAIL`,`USER_TELEFN`,`USER_ROL`,`USER_PASWRD`)
 VALUES 
 (/*1,*/'RMILANO','Rodrigo','Miliano',99999999,'rodrigo.miliano@davinci.edu.ar','1167390317',1,'1234'),
@@ -374,7 +389,7 @@ VALUES
 (/*3,*/'IESSES','Ignacio','Esses',99999999,'ignacio.esses@davinci.edu.ar','1169344326',2,'1234')
 ;
 
-INSERT INTO `comandadbtest`.`CLIENTES`
+INSERT INTO `comandabd`.`CLIENTES`
 (/*`USER_ID`,*/`CLIENT_USER`,`CLIENT_NOMBRE`,`CLIENT_APELLI`,`CLIENT_NRODOC`,`CLIENT_EMAIL`,`CLIENT_TELEFN`,`CLIENT_ROL`,`CLIENT_PASWRD`)
 VALUES 
 (/*1,*/'JMILANO','Juan','Miliano',99999999,'rodrigo.miliano@davinci.edu.ar','1167390317',3,'1234'),
@@ -382,7 +397,7 @@ VALUES
 (/*3,*/'JESSES','Juan','Esses',99999999,'ignacio.esses@davinci.edu.ar','1169344326',3,'1234')
 ;
 
-INSERT INTO `comandadbtest`.`MESAS` /*OJO: aca cambie el string por integer para hacer el join con estados*/
+INSERT INTO `comandabd`.`MESAS` /*OJO: aca cambie el string por integer para hacer el join con estados*/
 (/*`MESA_ID`,*/`MESA_SILLAS`,`MESA_OBSERV`,`MESA_ESTADO`)
 VALUES 
 (/*1,*/2,'',/*'ALTA'*/1),
@@ -397,7 +412,7 @@ VALUES
 (/*10,*/8,'Solo reservas.',/*'ALTA'*/1)
 ;
 
-INSERT INTO `comandadbtest`.`ESTADOS`
+INSERT INTO `comandabd`.`ESTADOS`
 (`ESTADO_NOMBRE`,`ESTADO_DESCRP`)
 VALUES 
 ('ALTA','De alta'),
@@ -436,6 +451,15 @@ VALUES
 (1,14,1,5)
 ;
 
+INSERT INTO `comandabd`.`ITEMCOMANDAS`
+(`ITEMCOM_PRODUC`,`ITEMCOM_TOTAL`)
+VALUES 
+(1,2000),
+(5,1450.50),
+(3,4000),
+(14,2500.20)
+;
+
 /********** CONSULTAR LAS TABLAS **********/
 	-- ¿El orden de las columnas está definido así al crear la tabla?
 SELECT * FROM CATEGORIAS;
@@ -453,6 +477,7 @@ SELECT * FROM RESERVAS;
 SELECT * FROM ESTADOS;
 SELECT * FROM COMANDAS;
 SELECT * FROM COMITEMS;
+SELECT * FROM ITEMCOMANDAS;
 
 -- LISTADO DE PRECIOS POR CATEGORÍA Y VIGENCIA:
 SELECT CATEGO_DESCRP CATEGORIA, PRODUC_ID ID, PRODUC_DESCRP PRODUCTO, PRELIS_PRECIO PRECIO, ETIQUE_DESCRP ETIQUETA

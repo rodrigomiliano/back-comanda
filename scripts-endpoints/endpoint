@@ -1553,6 +1553,123 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "ItemComanda",
+			"item": [
+				{
+					"name": "http://localhost:8080/comanda/itemcomanda",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comanda/itemcomanda",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"itemcomanda"
+							]
+						},
+						"description": "GET ALL"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/comanda/itemcomanda",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comanda\": 1,\r\n    \"producto\": 11,\r\n    \"cantidad\": 1,\r\n    \"estado\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/comanda/comitem",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"comitem"
+							]
+						},
+						"description": "POST"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/comanda/comitem",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"comanda\": 1,\r\n    \"producto\": 4,\r\n    \"cantidad\": 16,\r\n    \"estado\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/comanda/comitem",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"comitem"
+							]
+						},
+						"description": "PUT categoria"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/comanda/comitem/5",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 9,\r\n    \"nombre\": \"Vegano\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/comanda/comitem/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"comitem",
+								"5"
+							]
+						},
+						"description": "DELETE categoria"
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

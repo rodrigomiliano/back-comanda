@@ -22,8 +22,8 @@ public class Producto {
 	private String nombre;
 	@Column(name = "PRODUC_DESCRP")
 	private String descripcion;
-	// @Column(name = "PRODUC_PRECIO")
-	// private Double precio;
+	@Column(name = "PRODUC_PRECIO")
+	private Double precio;
 	@OneToOne
 	@JoinColumn(name = "PRODUC_CATEGO") // "idCategoria")
 	private Categoria categoria;
@@ -52,6 +52,14 @@ public class Producto {
 		this.descripcion = descripcion;
 	}
 
+	public Double getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(Double precio) {
+		this.precio = precio;
+	}
+
 	/*
 	 * public Categoria getCategoria() { return categoria; }
 	 */
@@ -65,8 +73,8 @@ public class Producto {
 
 	@Override
 	public String toString() {
-		return "Producto [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", categoria=" + categoria
-				+ "]";
+		return "Producto [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", precio=" + precio
+				+ ", categoria=" + categoria + "]";
 	}
 
 }
