@@ -30,67 +30,18 @@ public class ItemComanda {
 														// va a generar (en mysql).
 	@Column(name = "ITEMCOM_ID")
 	private Integer id;
-
-	// @Column(name = "ITEMCOM_PRODUC")
-	// private Integer producto;
-
-	/*
-	@ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "employee_project", 
-             joinColumns = { @JoinColumn(name = "employee_id") }, 
-             inverseJoinColumns = { @JoinColumn(name = "project_id") })
-	*/
 	
+	@OneToOne
+	@JoinColumn(name = "ITEMCOM_COMANDA") // "idComanda")
+	private Comanda comanda;
 	
-	 @ManyToMany(cascade = CascadeType.ALL)
-	    @JoinTable(name = "ItemComandas", 
-	             joinColumns = { @JoinColumn(name = "ITEMCOM_PRODUC") }, 
-	             inverseJoinColumns = { @JoinColumn(name = "PRODUC_ID") })
-	//@OneToOne	
-	//@JoinColumn(name = "ITEMCOM_PRODUC") // "idProducto")
-	private List<Producto> producto = new ArrayList<Producto>();
+	@OneToOne
+	@JoinColumn(name = "ITEMCOM_PRODUC") // "idProducto")
+	private Producto producto;
+	 
+	//@Column(name = "ITEMCOM_TOTAL")
+	//private Double total;
+
 	
-	/*@OneToMany(mappedBy="producto", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, orphanRemoval = true)
-	@JsonManagedReference
-	private List<Producto> productos;*/
-
-	@Column(name = "ITEMCOM_TOTAL")
-	private Double total;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	
-	public List<Producto> getProducto() {
-		return producto;
-	}
-
-	public void setProducto(List<Producto> productos) {
-		this.producto = productos;
-	}
-
-	public Double getTotal() {
-		return total;
-	}
-
-	public void setTotal(Double total) {
-		this.total = total;
-	}
-
-	public void addProductto(Producto producto) {
-		if (this.producto == null) {
-			this.producto = new ArrayList<Producto>();
-		}
-		this.producto.add(producto);
-	}
-	
-	@Override
-	public String toString() {
-		return "ItemComanda [id=" + id + ", producto=" + producto + ", total=" + total + "]";
-	}
 
 }
