@@ -77,4 +77,15 @@ public class Producto {
 				+ ", categoria=" + categoria + "]";
 	}
 
+	
+	public ItemComanda get(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int size() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+    
 }

@@ -20,9 +20,9 @@ public class Comanda {
 	private Integer id;
 	// @Column(name = "COMAND_RESERV")
 	// private Integer reserva;
-	@OneToOne
-	@JoinColumn(name = "COMAND_RESERV") // "idReserva")
-	private Reserva reserva;
+	//@OneToOne
+	//@JoinColumn(name = "COMAND_RESERV") // "idReserva")
+	//private Reserva reserva;
 	// @Column(name = "COMAND_MENU")
 	// private Integer menu;
 	//@OneToOne
@@ -33,36 +33,22 @@ public class Comanda {
 	@OneToOne
 	@JoinColumn(name = "COMAND_ESTADO") // "idEstado")
 	private Estado estado;
-
 	public Integer getId() {
 		return id;
 	}
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	public Reserva getReserva() {
-		return reserva;
-	}
-
-	public void setReserva(Reserva reserva) {
-		this.reserva = reserva;
-	}
-
-	
-
 	public Estado getEstado() {
 		return estado;
 	}
-
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
-
 	@Override
 	public String toString() {
-		return "Comanda [id=" + id + ", reserva=" + reserva + ", estado=" + estado + "]";
+		return "Comanda [id=" + id + ", estado=" + estado + "]";
 	}
 
+	
 }

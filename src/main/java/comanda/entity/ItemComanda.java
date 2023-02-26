@@ -38,10 +38,89 @@ public class ItemComanda {
 	@OneToOne
 	@JoinColumn(name = "ITEMCOM_PRODUC") // "idProducto")
 	private Producto producto;
-	 
-	//@Column(name = "ITEMCOM_TOTAL")
-	//private Double total;
+	
+	@Column(name = "ITEMCOM_TOTAL")
+	private Double total;
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	/*public Comanda getComanda() {
+		return comanda;
+	}*/
+	
+	public Integer getComanda() {
+		return comanda.getId();
+	}
+
+	public void setComanda(Comanda comanda) {
+		this.comanda = comanda;
+	}
+
+	/*public Producto getProducto() {
+		return producto;
+	}*/
+	
+	public String getProducto() {
+		return producto.getNombre();
+	}
+	
+	public Double getPrecio() {
+		return producto.getPrecio();
+	}
+	
+	public void setProducto(Producto producto) {
+		this.producto = producto;
+	}
+	
+	public void setPrecio(Producto producto) {
+		this.producto = producto;
+	}
+	
+	/*
+	public Double getTotal() {
+		return total;
+	}
+
+	public void setTotal(Double total) {
+		total = (double) 0;		
+	    for(int i=0;i<producto.size();i++){
+	      total = total + producto.get(i).getPrecio();
+	    }
+	}
+    */
+		
+	 public double mostrarPrecioTotal() {
+	    	double total = 0;	    	    	
+	    	for(int i = 0; i < producto.size(); i++){
+	    		
+	    			total += producto.get(i).getPrecio();
+	    		    	
+	    	}
+	    	return total;	
+	  	}
 	
 
+	public Double getTotal() {
+		return mostrarPrecioTotal();
+	}
+	
+	public void setTotal(Double total) {
+		this.total = mostrarPrecioTotal();
+	}
+
+	@Override
+	public String toString() {
+		return "ItemComanda [id=" + id + ", comanda=" + comanda + ", producto=" + producto + ", total=" + total + "]";
+	}
+
+	
+	 	
+
+	
 }
