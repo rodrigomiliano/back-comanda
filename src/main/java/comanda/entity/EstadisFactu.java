@@ -14,7 +14,7 @@ public class EstadisFactu {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // para que la pk sea autoincremental y la estrategia de cómo se
 														// va a generar (en mysql).
-	@Column(name = "")
+	@Column(name = "EstadisFactus")
 	private Integer id;
 
 	public Integer getId() {

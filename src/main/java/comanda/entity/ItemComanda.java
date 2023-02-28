@@ -1,25 +1,13 @@
 package comanda.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.springframework.web.bind.annotation.GetMapping;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "ItemComandas") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
@@ -30,15 +18,18 @@ public class ItemComanda {
 														// va a generar (en mysql).
 	@Column(name = "ITEMCOM_ID")
 	private Integer id;
-	
+
 	@OneToOne
 	@JoinColumn(name = "ITEMCOM_COMANDA") // "idComanda")
 	private Comanda comanda;
-	
+
 	@OneToOne
 	@JoinColumn(name = "ITEMCOM_PRODUC") // "idProducto")
 	private Producto producto;
-	
+
+	@Column(name = "ITEMCOM_CANTIDAD")
+	private Integer cantidad;
+
 	@Column(name = "ITEMCOM_TOTAL")
 	private Double total;
 
@@ -50,10 +41,10 @@ public class ItemComanda {
 		this.id = id;
 	}
 
-	/*public Comanda getComanda() {
-		return comanda;
-	}*/
-	
+	/*
+	 * public Comanda getComanda() { return comanda; }
+	 */
+
 	public Integer getComanda() {
 		return comanda.getId();
 	}
@@ -62,56 +53,28 @@ public class ItemComanda {
 		this.comanda = comanda;
 	}
 
-	/*public Producto getProducto() {
+	public Producto getProducto() {
 		return producto;
-	}*/
-	
-	public String getProducto() {
-		return producto.getNombre();
 	}
-	
-	public Double getPrecio() {
-		return producto.getPrecio();
-	}
-	
+
 	public void setProducto(Producto producto) {
 		this.producto = producto;
 	}
-	
-	public void setPrecio(Producto producto) {
-		this.producto = producto;
+
+	public Integer getCantidad() {
+		return cantidad;
 	}
-	
-	/*
+
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
+	}
+
 	public Double getTotal() {
 		return total;
 	}
 
-	public void setTotal(Double total) {
-		total = (double) 0;		
-	    for(int i=0;i<producto.size();i++){
-	      total = total + producto.get(i).getPrecio();
-	    }
-	}
-    */
-		
-	 public double mostrarPrecioTotal() {
-	    	double total = 0;	    	    	
-	    	for(int i = 0; i < producto.size(); i++){
-	    		
-	    			total += producto.get(i).getPrecio();
-	    		    	
-	    	}
-	    	return total;	
-	  	}
-	
-
-	public Double getTotal() {
-		return mostrarPrecioTotal();
-	}
-	
-	public void setTotal(Double total) {
-		this.total = mostrarPrecioTotal();
+	public void setTotal() {
+		this.total = getProducto().getPrecio() * this.cantidad;
 	}
 
 	@Override
@@ -119,8 +82,4 @@ public class ItemComanda {
 		return "ItemComanda [id=" + id + ", comanda=" + comanda + ", producto=" + producto + ", total=" + total + "]";
 	}
 
-	
-	 	
-
-	
 }

@@ -22,7 +22,7 @@ public class Comprobante {
 	
 	private Date fecha;
 	
-	private MesaUso mesUso;
+	//private MesaUso mesUso;
 	
 	private double total;
 	
@@ -52,13 +52,13 @@ public class Comprobante {
 		this.fecha = fecha;
 	}
 
-	public MesaUso getMesUso() {
+	/*public MesaUso getMesUso() {
 		return mesUso;
 	}
 
 	public void setMesUso(MesaUso mesUso) {
 		this.mesUso = mesUso;
-	}
+	}*/
 
 	public double getTotal() {
 		return total;
@@ -68,11 +68,11 @@ public class Comprobante {
 		this.total = total;
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		return "Comprobante [id=" + id + ", nro_comprobante=" + nro_comprobante + ", fecha=" + fecha + ", mesUso="
 				+ mesUso + ", total=" + total + "]";
-	}
+	}*/
 	
 
 	

@@ -3,10 +3,13 @@ package comanda.service.jpa;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import comanda.entity.EstadisFactu;
 import comanda.repository.EstadisFactusRepository;
 import comanda.service.IEstadisFactusService;
 
+@Service
 public class EstadisFactusService implements IEstadisFactusService{
 
 	@Autowired
