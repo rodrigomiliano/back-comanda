@@ -19,9 +19,22 @@ public class Categoria {
 	@Column(name = "CATEGO_NOMBRE")
 	private String nombre;
 	// private String descripcion;
+	
+	
 
 	public Integer getId() {
 		return id;
+	}
+	
+	public Categoria() {
+	}
+
+	public Categoria(Integer id) {
+		this.id = id;
+	}
+	
+	public Categoria(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public void setId(Integer id) {

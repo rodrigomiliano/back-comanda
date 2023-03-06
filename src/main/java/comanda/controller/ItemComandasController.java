@@ -38,11 +38,11 @@ public class ItemComandasController {
 
 	@PostMapping("/itemcomanda")
 	public ItemComanda guardar(@RequestBody ItemComanda itemComanda) {
-		Integer productoId = itemComanda.getProducto().getId();
-		System.out.println("Envio el producto con el id: " + productoId);
-		Optional<Producto> productoObtenido =  serviceProductos.buscarProducto(productoId);
-		itemComanda.setProducto(productoObtenido.get());
-		itemComanda.setTotal();
+		//Integer productoId = itemComanda.getProducto().getId();
+		//System.out.println("Envio el producto con el id: " + productoId);
+		//Optional<Producto> productoObtenido =  serviceProductos.buscarProducto(productoId);
+		//itemComanda.setProducto(productoObtenido.get());
+		//itemComanda.setTotal();
 		serviceItemComandas.guardar(itemComanda);
 		return itemComanda;
 	}

@@ -38,8 +38,10 @@ public class MesaUsosController {
 	}
 
 	@PutMapping("/mesauso")
-	public MesaUso modificar(@RequestBody MesaUso mesauso) {
-		serviceMesaUsos.guardar(mesauso);
+	public MesaUso modificar(@RequestBody MesaUso mesauso, @PathVariable("id") int idMesa) {
+		System.out.println(mesauso);
+		System.out.println(idMesa);
+		// serviceMesaUsos.guardar(mesauso);
 		return mesauso;
 	}
 

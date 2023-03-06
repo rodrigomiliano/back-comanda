@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -27,6 +28,23 @@ public class Producto {
 	@OneToOne
 	@JoinColumn(name = "PRODUC_CATEGO") // "idCategoria")
 	private Categoria categoria;
+	
+	@ManyToOne()
+	@JoinColumn(name="ITEMCOM_ID")
+	private ItemComanda itemComanda;
+	
+	
+	
+	
+	public Producto() {
+	}
+
+	public Producto(String nombre, String descripcion, Double precio, Categoria categoria) {
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.precio = precio;
+		this.categoria = categoria;
+	}
 
 	public Integer getId() {
 		return id;

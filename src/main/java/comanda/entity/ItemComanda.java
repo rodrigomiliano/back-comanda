@@ -1,11 +1,15 @@
 package comanda.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -23,9 +27,8 @@ public class ItemComanda {
 	@JoinColumn(name = "ITEMCOM_COMANDA") // "idComanda")
 	private Comanda comanda;
 
-	@OneToOne
-	@JoinColumn(name = "ITEMCOM_PRODUC") // "idProducto")
-	private Producto producto;
+	@OneToMany(mappedBy = "itemComanda")
+	private List<Producto> productos = new ArrayList<>();
 
 	@Column(name = "ITEMCOM_CANTIDAD")
 	private Integer cantidad;
@@ -53,12 +56,12 @@ public class ItemComanda {
 		this.comanda = comanda;
 	}
 
-	public Producto getProducto() {
-		return producto;
+	public List<Producto> getProducto() {
+		return productos;
 	}
 
-	public void setProducto(Producto producto) {
-		this.producto = producto;
+	public void setProducto(List<Producto> productos) {
+		this.productos = productos;
 	}
 
 	public Integer getCantidad() {
@@ -73,13 +76,13 @@ public class ItemComanda {
 		return total;
 	}
 
-	public void setTotal() {
-		this.total = getProducto().getPrecio() * this.cantidad;
-	}
+	//public void setTotal() {
+	//	this.total = getProducto().getPrecio() * this.cantidad;
+	//}
 
 	@Override
 	public String toString() {
-		return "ItemComanda [id=" + id + ", comanda=" + comanda + ", producto=" + producto + ", total=" + total + "]";
+		return "ItemComanda [id=" + id + ", comanda=" + comanda + ", total=" + total + "]";
 	}
 
 }

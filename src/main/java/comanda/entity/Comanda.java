@@ -33,6 +33,21 @@ public class Comanda {
 	@OneToOne
 	@JoinColumn(name = "COMAND_ESTADO") // "idEstado")
 	private Estado estado;
+	
+	
+	
+	public Comanda() {
+
+	}
+	
+	
+	
+	public Comanda(Integer id) {
+		this.id = id;
+	}
+
+
+
 	public Integer getId() {
 		return id;
 	}

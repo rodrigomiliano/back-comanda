@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import comanda.entity.Categoria;
 import comanda.entity.Producto;
 import comanda.service.IProductosService;
 
@@ -20,6 +22,20 @@ public class ProductosController {
 
 	@Autowired
 	private IProductosService serviceProductos;
+	
+	@GetMapping("/cargar-productos")
+	public void cargarProductos(){
+		Producto p1 = new Producto("Producto 1", "Descripcion 1", 100.0, new Categoria(1));
+		Producto p2 = new Producto("Producto 2", "Descripcion 2", 200.0, new Categoria(2));
+		Producto p3 = new Producto("Producto 3", "Descripcion 3", 300.0, new Categoria(4));
+		Producto p4 = new Producto("Producto 4", "Descripcion 4", 400.0, new Categoria(5));
+		Producto p5 = new Producto("Producto 5", "Descripcion 5", 500.0, new Categoria(2));
+		serviceProductos.guardar(p1);
+		serviceProductos.guardar(p2);
+		serviceProductos.guardar(p3);
+		serviceProductos.guardar(p4);
+		serviceProductos.guardar(p5);
+	}
 	
 	@GetMapping("/producto")
 	public List<Producto> buscarTodos(){

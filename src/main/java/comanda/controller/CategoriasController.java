@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import comanda.entity.Categoria;
+import comanda.entity.Producto;
 import comanda.service.ICategoriasService;
 
 @RestController
@@ -20,6 +21,20 @@ public class CategoriasController {
 
 	@Autowired
 	private ICategoriasService serviceCategorias;
+	
+	@GetMapping("/cargar-categorias")
+	public void cargarProductos(){
+		Categoria c1 = new Categoria("Categoria 1");
+		Categoria c2 = new Categoria("Categoria 2");
+		Categoria c3 = new Categoria("Categoria 3");
+		Categoria c4 = new Categoria("Categoria 4");
+		Categoria c5 = new Categoria("Categoria 5");
+		serviceCategorias.guardar(c1);
+		serviceCategorias.guardar(c2);
+		serviceCategorias.guardar(c3);
+		serviceCategorias.guardar(c4);
+		serviceCategorias.guardar(c5);
+	}
 
 	@GetMapping("/categoria")
 	public List<Categoria> buscarTodas() {
