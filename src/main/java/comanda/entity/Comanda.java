@@ -33,6 +33,7 @@ public class Comanda {
 	@OneToOne
 	@JoinColumn(name = "COMAND_ESTADO") // "idEstado")
 	private Estado estado;
+	
 	public Integer getId() {
 		return id;
 	}

@@ -1,6 +1,7 @@
 package comanda.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,17 +27,17 @@ public class MesaUso {
 	// private Date fin;
 
 	// private Mesa mesa;
-
-	// private Comanda comanda;
-
+	
 	@OneToOne
-	@JoinColumn(name = "MESAUSO_ITEMCOM") // "idEstado")
-	private ItemComanda itemComanda;
+	@JoinColumn(name = "MESAUSO_COMANDA")
+	private Comanda comanda;
+
+	//@OneToOne
+	//@JoinColumn(name = "MESAUSO_ITEMCOM") // "idEstado")
+	//private ItemComanda itemComanda;
 
 	@Column(name = "MESAUSO_TOTAL")
 	private Double Total;
-
-	// private Comprobante comprobante;
 
 	public Integer getId() {
 		return id;
@@ -46,12 +47,12 @@ public class MesaUso {
 		this.id = id;
 	}
 
-	public ItemComanda getItemComanda() {
-		return itemComanda;
+	public Comanda getComanda() {
+		return comanda;
 	}
 
-	public void setItemComanda(ItemComanda itemComanda) {
-		this.itemComanda = itemComanda;
+	public void setComanda(Comanda comanda) {
+		this.comanda = comanda;
 	}
 
 	public Double getTotal() {
@@ -64,7 +65,12 @@ public class MesaUso {
 
 	@Override
 	public String toString() {
-		return "MesaUso [id=" + id + ", itemComanda=" + itemComanda + ", Total=" + Total + "]";
+		return "MesaUso [id=" + id + ", comanda=" + comanda + ", Total=" + Total + "]";
 	}
 
+	// private Comprobante comprobante;
+
+		
+
+	
 }

@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -19,11 +20,13 @@ public class ItemComanda {
 	@Column(name = "ITEMCOM_ID")
 	private Integer id;
 
-	@OneToOne
+	//@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "ITEMCOM_COMANDA") // "idComanda")
 	private Comanda comanda;
 
-	@OneToOne
+	//@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "ITEMCOM_PRODUC") // "idProducto")
 	private Producto producto;
 
