@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -34,6 +35,10 @@ public class Comanda {
 	@JoinColumn(name = "COMAND_ESTADO") // "idEstado")
 	private Estado estado;
 	
+	@ManyToOne
+	@JoinColumn(name = "COMAND_MESAUSO") // "idProducto")
+	private MesaUso mesaUso;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -46,10 +51,18 @@ public class Comanda {
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
+	public MesaUso getMesaUso() {
+		return mesaUso;
+	}
+	public void setMesaUso(MesaUso mesaUso) {
+		this.mesaUso = mesaUso;
+	}
 	@Override
 	public String toString() {
-		return "Comanda [id=" + id + ", estado=" + estado + "]";
+		return "Comanda [id=" + id + ", estado=" + estado + ", mesaUso=" + mesaUso + "]";
 	}
+
+	
 
 	
 }

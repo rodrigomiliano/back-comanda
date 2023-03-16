@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Mesauso") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
+@Table(name = "Mesausos") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
 public class MesaUso {
 
 	@Id // para que se sepa que es primary key
@@ -28,16 +28,16 @@ public class MesaUso {
 
 	// private Mesa mesa;
 	
-	@OneToOne
-	@JoinColumn(name = "MESAUSO_COMANDA")
-	private Comanda comanda;
+	//@OneToOne
+	//@JoinColumn(name = "MESAUSO_COMANDA")
+	//private Comanda comanda;
 
 	//@OneToOne
 	//@JoinColumn(name = "MESAUSO_ITEMCOM") // "idEstado")
 	//private ItemComanda itemComanda;
 
-	@Column(name = "MESAUSO_TOTAL")
-	private Double Total;
+	//@Column(name = "MESAUSO_TOTAL")
+	//private Double Total;
 
 	public Integer getId() {
 		return id;
@@ -47,29 +47,12 @@ public class MesaUso {
 		this.id = id;
 	}
 
-	public Comanda getComanda() {
-		return comanda;
-	}
-
-	public void setComanda(Comanda comanda) {
-		this.comanda = comanda;
-	}
-
-	public Double getTotal() {
-		return Total;
-	}
-
-	public void setTotal(Double total) {
-		Total = total;
-	}
-
 	@Override
 	public String toString() {
-		return "MesaUso [id=" + id + ", comanda=" + comanda + ", Total=" + Total + "]";
+		return "MesaUso [id=" + id + "]";
 	}
 
-	// private Comprobante comprobante;
-
+	
 		
 
 	
