@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -24,19 +23,11 @@ public class Comanda {
 	//@OneToOne
 	//@JoinColumn(name = "COMAND_RESERV") // "idReserva")
 	//private Reserva reserva;
-	// @Column(name = "COMAND_MENU")
-	// private Integer menu;
-	//@OneToOne
-	//@JoinColumn(name = "COMAND_MENU") // "idMenu")
-	//private Menu menu;
-	// @Column(name = "COMAND_ESTADO")
-	// private String estado;
-	@OneToOne
-	@JoinColumn(name = "COMAND_ESTADO") // "idEstado")
-	private Estado estado;
-	
 	@ManyToOne
-	@JoinColumn(name = "COMAND_MESAUSO") // "idProducto")
+	@JoinColumn(name = "COMAND_ESTADO") // "idEstado")
+	private Estado estado;	
+	@ManyToOne
+	@JoinColumn(name = "COMAND_MESAUSO") // "idMesaUso")
 	private MesaUso mesaUso;
 	
 	public Integer getId() {
@@ -61,8 +52,5 @@ public class Comanda {
 	public String toString() {
 		return "Comanda [id=" + id + ", estado=" + estado + ", mesaUso=" + mesaUso + "]";
 	}
-
-	
-
 	
 }

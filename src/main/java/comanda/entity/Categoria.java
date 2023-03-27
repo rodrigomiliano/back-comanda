@@ -18,8 +18,7 @@ public class Categoria {
 	private Integer id;
 	@Column(name = "CATEGO_NOMBRE")
 	private String nombre;
-	// private String descripcion;
-
+	
 	public Integer getId() {
 		return id;
 	}

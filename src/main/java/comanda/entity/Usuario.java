@@ -102,12 +102,12 @@ public class Usuario {
 		this.contrasena = contrasena;
 	}
 
-	/*public Rol getRol() {
+	public Rol getRol() {
 		return rol;
-	}*/
-	public String getRol() {
-		return rol.getNombre();
 	}
+	/*public String getRol() {
+		return rol.getNombre();
+	}*/
 
 	public void setRol(Rol rol) {
 		this.rol = rol;

@@ -1,15 +1,12 @@
 package comanda.entity;
 
-import java.util.Date;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -26,18 +23,12 @@ public class MesaUso {
 
 	// private Date fin;
 
-	// private Mesa mesa;
-	
-	//@OneToOne
-	//@JoinColumn(name = "MESAUSO_COMANDA")
-	//private Comanda comanda;
+	@ManyToOne
+	@JoinColumn(name = "MESAUSO_MESA") // "idMesa")
+	private Mesa mesa;
 
-	//@OneToOne
-	//@JoinColumn(name = "MESAUSO_ITEMCOM") // "idEstado")
-	//private ItemComanda itemComanda;
-
-	//@Column(name = "MESAUSO_TOTAL")
-	//private Double Total;
+	// @Column(name = "MESAUSO_TOTAL")
+	// private Double Total;
 
 	public Integer getId() {
 		return id;
@@ -47,13 +38,17 @@ public class MesaUso {
 		this.id = id;
 	}
 
-	@Override
-	public String toString() {
-		return "MesaUso [id=" + id + "]";
+	public Mesa getMesa() {
+		return mesa;
 	}
 
-	
-		
+	public void setMesa(Mesa mesa) {
+		this.mesa = mesa;
+	}
 
-	
+	@Override
+	public String toString() {
+		return "MesaUso [id=" + id + ", mesa=" + mesa + "]";
+	}
+
 }

@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,14 +22,16 @@ public class Mesa {
 	private Integer sillas;
 	@Column(name = "MESA_OBSERV")
 	private String observacion;
-	// @Column(name = "MESA_ESTADO")
-	// private String estado;
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "MESA_ESTADO") // "idEstado")
 	private Estado estado;
-	// @OneToOne
-	// @JoinColumn(name = "MESA_LOCAL") // "idLocal")
-	// private Local local;
+	@ManyToOne
+	@JoinColumn(name = "MESA_USUARIO") // "idUsuario")
+	private Usuario usuario;
+	@ManyToOne
+	@JoinColumn(name = "MESA_LOCAL") // "idLocal")
+	private Local local;
+
 	public Integer getId() {
 		return id;
 	}
@@ -62,9 +64,28 @@ public class Mesa {
 		this.estado = estado;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Local getLocal() {
+		return local;
+	}
+
+	public void setLocal(Local local) {
+		this.local = local;
+	}
+
 	@Override
 	public String toString() {
-		return "Mesa [id=" + id + ", sillas=" + sillas + ", observacion=" + observacion + ", estado=" + estado + "]";
+		return "Mesa [id=" + id + ", sillas=" + sillas + ", observacion=" + observacion + ", estado=" + estado
+				+ ", usuario=" + usuario + ", local=" + local + "]";
 	}
+
+	
 
 }
