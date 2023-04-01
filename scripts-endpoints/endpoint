@@ -388,7 +388,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{    \r\n    \"mesa\": {\r\n        \"id\": 3\r\n    }\r\n}",
+							"raw": "{\r\n    \"mesa\": {\r\n        \"id\": 8\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -418,7 +418,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{    \r\n    \"id\": 4,\r\n    \"mesa\": {\r\n        \"id\": 2\r\n    }\r\n}",
+							"raw": "{\r\n    \"id\": 4,\r\n    \"mesa\": {\r\n        \"id\": 4\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1147,13 +1147,13 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/producto",
+					"name": "http://localhost:8080/comanda/comprobante",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"Chorizaurio\",\r\n    \"descripcion\": \"Chori clásico con chimichurri\",    \r\n    \"categoria\": {\r\n        \"id\": 1\r\n    }\r\n}",
+							"raw": "{\r\n    \"mesaUso\": {\r\n        \"id\": 4\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1161,7 +1161,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/comanda/producto",
+							"raw": "http://localhost:8080/comanda/comprobante",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1169,7 +1169,7 @@
 							"port": "8080",
 							"path": [
 								"comanda",
-								"producto"
+								"comprobante"
 							]
 						},
 						"description": "POST producto"
@@ -1177,13 +1177,13 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/producto",
+					"name": "http://localhost:8080/comanda/comprobante",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 22,\r\n    \"nombre\": \"Chorizaurio\",\r\n    \"descripcion\": \"Chori clásico con abundante chimichurri\",    \r\n    \"categoria\": {\r\n        \"id\": 1\r\n    }\r\n}",
+							"raw": "{\r\n    \"id\": 10,\r\n    \"mesaUso\": {\r\n        \"id\": 5\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1191,7 +1191,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/comanda/producto",
+							"raw": "http://localhost:8080/comanda/comprobante",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1199,7 +1199,7 @@
 							"port": "8080",
 							"path": [
 								"comanda",
-								"producto"
+								"comprobante"
 							]
 						},
 						"description": "PUT Producto"
@@ -1207,7 +1207,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/producto/22",
+					"name": "http://localhost:8080/comanda/comprobante/10",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -1221,7 +1221,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/comanda/producto/22",
+							"raw": "http://localhost:8080/comanda/comprobante/10",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1229,8 +1229,8 @@
 							"port": "8080",
 							"path": [
 								"comanda",
-								"producto",
-								"22"
+								"comprobante",
+								"10"
 							]
 						},
 						"description": "DELETE Producto"
