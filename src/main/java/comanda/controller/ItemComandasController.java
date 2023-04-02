@@ -45,10 +45,13 @@ public class ItemComandasController {
 		itemComanda.setTotal();
 		serviceItemComandas.guardar(itemComanda);
 		return itemComanda;
+		/*serviceItemComandas.guardar(itemComanda);
+		return itemComanda;*/
 	}
 
 	@PutMapping("/itemcomanda")
 	public ItemComanda modificar(@RequestBody ItemComanda itemComanda) {
+		System.out.println(itemComanda);
 		serviceItemComandas.guardar(itemComanda);
 		return itemComanda;
 	}

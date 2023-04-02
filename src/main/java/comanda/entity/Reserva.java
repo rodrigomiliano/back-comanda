@@ -7,7 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,8 +19,8 @@ public class Reserva {
 														// va a generar (en mysql).
 	@Column(name = "RESERV_ID")
 	private Integer id;
-	@OneToOne
-	@JoinColumn(name = "RESERV_CLIENTE") // "idUsuario")
+	@ManyToOne
+	@JoinColumn(name = "RESERV_CLIENTE") // "idCliente")
 	private Cliente cliente;
 	@Column(name = "RESERV_FECALT")
 	private Date fecha_alta;
@@ -28,10 +28,10 @@ public class Reserva {
 	private Date fecha_reserva;
 	@Column(name = "RESERV_COMENS")
 	private Integer comensal;
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "RESERV_MESA") // "idMesa")
 	private Mesa mesa;
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "RESERV_ESTADO") // "idEstado")
 	private Estado estado;
 	

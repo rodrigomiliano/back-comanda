@@ -1,11 +1,12 @@
 package comanda.entity;
 
-import java.util.Date;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,18 +16,20 @@ public class Comprobante {
 	@Id // para que se sepa que es primary key
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // para que la pk sea autoincremental y la estrategia de cómo se
 														// va a generar (en mysql).
-	//@Column(name = "PRODUC_ID")
+	@Column(name = "COMPROBANTE_ID")
 	private Integer id;
-	//@Column(name = "PRODUC_ID")
-	private Integer nro_comprobante;
-	
-	private Date fecha;
-	
-	//private MesaUso mesUso;
-	
-	private double total;
-	
-	//private ItemComprobante itemComprobante;
+	// @Column(name = "PRODUC_ID")
+	// private Integer nro_comprobante;
+
+	// private Date fecha;
+
+	@OneToOne
+	@JoinColumn(name = "COMPROBANTE_MESAUSO") // "idComprobanteMesaUso") private
+	MesaUso mesaUso;
+
+	// private double total;
+
+	// private ItemComprobante itemComprobante;
 
 	public Integer getId() {
 		return id;
@@ -36,47 +39,17 @@ public class Comprobante {
 		this.id = id;
 	}
 
-	public Integer getNro_comprobante() {
-		return nro_comprobante;
+	public MesaUso getMesaUso() {
+		return mesaUso;
 	}
 
-	public void setNro_comprobante(Integer nro_comprobante) {
-		this.nro_comprobante = nro_comprobante;
+	public void setMesaUso(MesaUso mesaUso) {
+		this.mesaUso = mesaUso;
 	}
 
-	public Date getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
-	}
-
-	/*public MesaUso getMesUso() {
-		return mesUso;
-	}
-
-	public void setMesUso(MesaUso mesUso) {
-		this.mesUso = mesUso;
-	}*/
-
-	public double getTotal() {
-		return total;
-	}
-
-	public void setTotal(double total) {
-		this.total = total;
-	}
-
-	/*@Override
+	@Override
 	public String toString() {
-		return "Comprobante [id=" + id + ", nro_comprobante=" + nro_comprobante + ", fecha=" + fecha + ", mesUso="
-				+ mesUso + ", total=" + total + "]";
-	}*/
-	
+		return "Comprobante [id=" + id + ", mesaUso=" + mesaUso + "]";
+	}
 
-	
-	
-	
-	
 }

@@ -1,18 +1,16 @@
 package comanda.entity;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Mesauso") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
+@Table(name = "Mesausos") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
 public class MesaUso {
 
 	@Id // para que se sepa que es primary key
@@ -25,18 +23,12 @@ public class MesaUso {
 
 	// private Date fin;
 
-	// private Mesa mesa;
+	@ManyToOne
+	@JoinColumn(name = "MESAUSO_MESA") // "idMesa")
+	private Mesa mesa;
 
-	// private Comanda comanda;
-
-	@OneToOne
-	@JoinColumn(name = "MESAUSO_ITEMCOM") // "idEstado")
-	private ItemComanda itemComanda;
-
-	@Column(name = "MESAUSO_TOTAL")
-	private Double Total;
-
-	// private Comprobante comprobante;
+	// @Column(name = "MESAUSO_TOTAL")
+	// private Double Total;
 
 	public Integer getId() {
 		return id;
@@ -46,25 +38,17 @@ public class MesaUso {
 		this.id = id;
 	}
 
-	public ItemComanda getItemComanda() {
-		return itemComanda;
+	public Mesa getMesa() {
+		return mesa;
 	}
 
-	public void setItemComanda(ItemComanda itemComanda) {
-		this.itemComanda = itemComanda;
-	}
-
-	public Double getTotal() {
-		return Total;
-	}
-
-	public void setTotal(Double total) {
-		Total = total;
+	public void setMesa(Mesa mesa) {
+		this.mesa = mesa;
 	}
 
 	@Override
 	public String toString() {
-		return "MesaUso [id=" + id + ", itemComanda=" + itemComanda + ", Total=" + Total + "]";
+		return "MesaUso [id=" + id + ", mesa=" + mesa + "]";
 	}
 
 }
