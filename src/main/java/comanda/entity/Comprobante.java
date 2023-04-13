@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import comanda.entity.ItemComanda;
 
 @Entity
 @Table(name = "Comprobantes") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
@@ -23,13 +24,15 @@ public class Comprobante {
 
 	// private Date fecha;
 
+	// private ItemComprobante itemComprobante;
+	
 	@OneToOne
 	@JoinColumn(name = "COMPROBANTE_MESAUSO") // "idComprobanteMesaUso") private
 	MesaUso mesaUso;
+	//ItemComanda itemComanda;
 
-	// private double total;
-
-	// private ItemComprobante itemComprobante;
+	@Column(name = "COMPROBANTE_TOTAL")
+	private Double total;
 
 	public Integer getId() {
 		return id;
@@ -47,9 +50,33 @@ public class Comprobante {
 		this.mesaUso = mesaUso;
 	}
 
+	public Double getTotal() {
+		return total;
+	}
+
+	/*public ItemComanda getItemComanda() {
+		return itemComanda;
+	}
+
+	public void setItemComanda(ItemComanda itemComanda) {
+		this.itemComanda = itemComanda;
+	}*/
+
+	/*public void setTotal(Double total) {
+		this.total += getItemComanda().getTotal();
+	}*/
+
+	/*public void setTotal() {
+		this.total = getProducto().getPrecio() * this.cantidad;
+	}*/
+	
 	@Override
 	public String toString() {
-		return "Comprobante [id=" + id + ", mesaUso=" + mesaUso + "]";
+		return "Comprobante [id=" + id + ", mesaUso=" + mesaUso + ", total=" + total + "]";
 	}
+
+	
+
+	
 
 }

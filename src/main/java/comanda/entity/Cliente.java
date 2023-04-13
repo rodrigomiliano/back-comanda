@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -34,7 +34,7 @@ public class Cliente {
 	private String contrasena;
 	// @Column(name = "USER_ROL")
 	// private Integer rol;
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "CLIENT_ROL") // "idRol")
 	private Rol rol;
 
