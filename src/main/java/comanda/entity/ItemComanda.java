@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "ItemComandas") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
 public class ItemComanda {
@@ -21,6 +23,7 @@ public class ItemComanda {
 
 	@ManyToOne
 	@JoinColumn(name = "ITEMCOM_COMANDA") // "idComanda")
+	@JsonBackReference
 	private Comanda comanda;
 
 	@ManyToOne
