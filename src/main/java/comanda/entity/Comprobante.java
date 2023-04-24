@@ -14,6 +14,10 @@ import comanda.entity.ItemComanda;
 @Table(name = "Comprobantes") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
 public class Comprobante {
 
+	// Sugerencia de Francisco para crear el comprobante:
+	//mesauso: cerrarmesa() -> recorrer lista de comandas, x c/comanda recorrer lista de productos, agrupar x codigo de producto la cantida de productos.
+	//Generar comprobante new() y asociar a ese comprobante la lista agrupada de los productos consumidos
+	
 	@Id // para que se sepa que es primary key
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // para que la pk sea autoincremental y la estrategia de cómo se
 														// va a generar (en mysql).

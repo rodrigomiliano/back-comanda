@@ -34,6 +34,7 @@ CREATE TABLE `PRODUCTOS` (
   `PRODUC_DESCRP` varchar(255) DEFAULT NULL,
   `PRODUC_PRECIO` double NOT NULL,
   `PRODUC_CATEGO` int NOT NULL,
+  `PRODUC_IMG` varchar(255) NOT NULL,
   -- `ITEMCOM_ID` int DEFAULT NULL,
   -- `PRODUC_ETIQUE` int NOT NULL,
   PRIMARY KEY (`PRODUC_ID`),
@@ -289,7 +290,8 @@ CREATE TABLE `ITEMCOMANDAS` (
 -- TURNOS: 
 CREATE TABLE `TURNOS` (
   `TURNO_ID` int NOT NULL AUTO_INCREMENT,
-  `TURNO_HORARIO` varchar(255) NOT NULL,   
+  `TURNO_HORARIO` varchar(255) NOT NULL,  
+  `TURNO_ESTADO` int NOT NULL,
   PRIMARY KEY (`TURNO_ID`)  
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -354,29 +356,29 @@ VALUES
 ;*/
 
 INSERT INTO `comandabd`.`PRODUCTOS`
-(`PRODUC_NOMBRE`,`PRODUC_DESCRP`,`PRODUC_PRECIO`,`PRODUC_CATEGO`/*,`PRODUC_ETIQUE`*/)
+(`PRODUC_NOMBRE`,`PRODUC_DESCRP`,`PRODUC_PRECIO`,`PRODUC_CATEGO`,`PRODUC_IMG`)
 VALUES
-('Provoleta','Provoleta grillada a la parrilla con finas hierbas.',950,1),
-('Mozzarelitas','Bastones de mozzarella con panko y salsa criolla.',1100,1),
-('Tabla de Quesos','Variedad de quesos.',850,1),
-('Entraña Provenzal','Entraña a la provenzal con papas fritas.',2600,2),
-('Vacío','Porción de vacío con guarnición.',2300,2),
-('Asado','Porción de asado con guarnición.',2300,2),
-('Mix de achuras','Molleja, riñón, chinchulín, chorizo y morcilla.',2750,2),
-('Tallarines Fileto','Tallarines con salsa fileto',1300,3),
-('Tagliatelle Bolognesa','Tagliatelle con salsa bolognesa.',1550,3),
-('Ñoquis Azafrán','Ñoquis con salsa crema de azafrán.',1450,3),
-('Tortilla de Papas','Clásica tortilla de papas con cebolla. Para compartir.',1900,4),
-('Empanada Casera','Empanda sabor a elección: carne, pollo, jamon y queso.',250,5),
-('Pizza Mozzarella Chica','Pizza Mozzarella 6 porciones.',1650,5),
-('Pizza Mozzarella Grande','Pizza Mozzarella 8 porciones, para compartir.',2450,5),
-('Aguas','Agua con o sin gas.',650,6),
-('Gaseosas','Gaseosa lína Coca - Cola.',650,6),
-('Jarra de Limonada','Limonada con menta y jengibre.',950,6),
-('Flan Casero','Flan casero con crema y dulce de leche.',1500,7),
-('Helado','Dos bochas de helado, gustos a elección.',1300,7),
-('Trumpeter','Malbec, Cabernet - Sauvignon.',2500,8),
-('Lugi Bosca','Malbec, Cabernet - Sauvignon.',300,8)
+('Provoleta','Provoleta grillada a la parrilla con finas hierbas.',950,1,'provo.png'),
+('Mozzarelitas','Bastones de mozzarella con panko y salsa criolla.',1100,1,'mozza.png'),
+('Tabla de Quesos','Variedad de quesos.',850,1,'queso.png'),
+('Entraña Provenzal','Entraña a la provenzal con papas fritas.',2600,2,'entrana.png'),
+('Vacío','Porción de vacío con guarnición.',2300,2,'vacio.png'),
+('Asado','Porción de asado con guarnición.',2300,2,'asado.png'),
+('Mix de achuras','Molleja, riñón, chinchulín, chorizo y morcilla.',2750,2,'achuras.png'),
+('Tallarines Fileto','Tallarines con salsa fileto',1300,3,'tallarines.png'),
+('Tagliatelle Bolognesa','Tagliatelle con salsa bolognesa.',1550,3,'taglia.png'),
+('Ñoquis Azafrán','Ñoquis con salsa crema de azafrán.',1450,3,'noquis.png'),
+('Tortilla de Papas','Clásica tortilla de papas con cebolla. Para compartir.',1900,4,'tortilla.png'),
+('Empanada Casera','Empanda sabor a elección: carne, pollo, jamon y queso.',250,5,'empanada.png'),
+('Pizza Mozzarella Chica','Pizza Mozzarella 6 porciones.',1650,5,'pizzamuzza.png'),
+('Pizza Mozzarella Grande','Pizza Mozzarella 8 porciones, para compartir.',2450,5,'pizzamuzza.png'),
+('Aguas','Agua con o sin gas.',650,6,'agua.png'),
+('Gaseosas','Gaseosa lína Coca - Cola.',650,6,'gaseosa.png'),
+('Jarra de Limonada','Limonada con menta y jengibre.',950,6,'limonada.png'),
+('Flan Casero','Flan casero con crema y dulce de leche.',1500,7,'flan.png'),
+('Helado','Dos bochas de helado, gustos a elección.',1300,7,'helado.png'),
+('Trumpeter','Malbec, Cabernet - Sauvignon.',2500,8,'trumpeter.png'),
+('Lugi Bosca','Malbec, Cabernet - Sauvignon.',300,8,'luigibosca.png')
 ;
 
 /*INSERT INTO `comandabd`.`PRECIOS`
@@ -537,12 +539,12 @@ VALUES
 ;
 
 INSERT INTO `comandabd`.`TURNOS`
-(`TURNO_HORARIO`)
+(`TURNO_HORARIO`,`TURNO_ESTADO`)
 VALUES 
-('12:00HS'),
-('14:00HS'),
-('20:00HS'),
-('22:00HS')
+('12:00HS',1),
+('14:00HS',4),
+('20:00HS',5),
+('22:00HS',1)
 ;
 
 
