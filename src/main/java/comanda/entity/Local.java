@@ -26,6 +26,8 @@ public class Local {
 	private Integer codigo_postal;
 	@Column(name = "LOCAL_TELEFN")
 	private Integer telefono;
+	@Column(name = "LOCAL_IMG")
+	private String imagen;
 
 	public Integer getId() {
 		return id;
@@ -75,10 +77,19 @@ public class Local {
 		this.telefono = telefono;
 	}
 
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
 	@Override
 	public String toString() {
 		return "Local [id=" + id + ", nombre=" + nombre + ", calle=" + calle + ", altura=" + altura + ", codigo_postal="
-				+ codigo_postal + ", telefono=" + telefono + "]";
+				+ codigo_postal + ", telefono=" + telefono + ", imagen=" + imagen + "]";
 	}
 
+	
 }

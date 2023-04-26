@@ -95,6 +95,7 @@ CREATE TABLE `LOCALES` (
   `LOCAL_ALTURA` int NOT NULL,
   `LOCAL_CODPOS` int NOT NULL,
   `LOCAL_TELEFN` int,
+  `LOCAL_IMG` varchar(255) NOT NULL,
   -- `LOCAL_HORARIO` 
   PRIMARY KEY (`LOCAL_ID`),
   UNIQUE KEY (`LOCAL_NOMBRE`)
@@ -182,7 +183,7 @@ CREATE TABLE `RESERVAS` (
   `RESERV_CLIENTE` int NOT NULL, 
   `RESERV_FECALT` date NOT NULL,
   `RESERV_FECRES` datetime NOT NULL,
-  `RESERV_COMENS` int NOT NULL,
+  -- `RESERV_COMENS` int NOT NULL,
   `RESERV_MESA` int NOT NULL,
   `RESERV_ESTADO` int NOT NULL,
   `RESERV_TURNO` int NOT NULL,
@@ -424,13 +425,13 @@ VALUES
 ;*/
 
 INSERT INTO `comandabd`.`LOCALES`
-(`LOCAL_NOMBRE`,`LOCAL_CALLE`,`LOCAL_ALTURA`,`LOCAL_CODPOS`,`LOCAL_TELEFN`)
+(`LOCAL_NOMBRE`,`LOCAL_CALLE`,`LOCAL_ALTURA`,`LOCAL_CODPOS`,`LOCAL_TELEFN`,`LOCAL_IMG`)
 VALUES 
-('Kentucky Palermo','Calle Palermo',1234,1111,'44444444'),
-('Kentucky Belgrano','Calle Belgrano',1234,1111,'44444444'),
-('Kentucky Recoleta','Calle Recoleta',1234,1111,'44444444'),
-('Kentucky Microcentro 1','Calle Microcentro 1',1234,1111,'44444444'),
-('Kentucky Microcentro 2','Calle Microcentro 2',1234,1111,'44444444')
+('Kentucky Palermo','Calle Palermo',1234,1111,'44444444','kentuckypal.png'),
+('Kentucky Belgrano','Calle Belgrano',1234,1111,'44444444','kentuckybel.png'),
+('Kentucky Recoleta','Calle Recoleta',1234,1111,'44444444','kentuckyrec.png'),
+('Kentucky Microcentro 1','Calle Microcentro 1',1234,1111,'44444444','kentuckymic1.png'),
+('Kentucky Microcentro 2','Calle Microcentro 2',1234,1111,'44444444','kentuckymic2.png')
 ;
 
 INSERT INTO `comandabd`.`ROLES`
@@ -488,12 +489,12 @@ VALUES
 ;
 
 INSERT INTO `comandabd`.`RESERVAS`
-(`RESERV_CLIENTE`,`RESERV_FECALT`,`RESERV_FECRES`,`RESERV_COMENS`,`RESERV_MESA`,`RESERV_ESTADO`,`RESERV_TURNO`)
+(`RESERV_CLIENTE`,`RESERV_FECALT`,`RESERV_FECRES`,/*`RESERV_COMENS`,*/`RESERV_MESA`,`RESERV_ESTADO`,`RESERV_TURNO`)
 VALUES 
-(3,'2023-02-05','2023-02-06 20:00:00',4,5,1,1),
-(3,'2023-02-05','2023-02-13 21:00:00',4,5,1,3),
-(2,'2023-02-05','2023-02-08 20:00:00',2,1,1,3),
-(1,'2023-02-05','2023-02-10 20:00:00',7,10,1,4)
+(3,'2023-02-05','2023-02-06 20:00:00',/*4,*/5,1,1),
+(3,'2023-02-05','2023-02-13 21:00:00',/*4,*/5,1,3),
+(2,'2023-02-05','2023-02-08 20:00:00',/*2,*/1,1,3),
+(1,'2023-02-05','2023-02-10 20:00:00',/*7,*/10,1,4)
 ;
 
 INSERT INTO `comandabd`.`MESAUSOS`

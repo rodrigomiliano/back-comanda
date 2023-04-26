@@ -37,7 +37,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"Chorizaurio\",\r\n    \"descripcion\": \"Chori clásico con chimichurri\",\r\n    \"precio\": 1999.0,\r\n    \"categoria\": {\r\n        \"id\": 1\r\n    }\r\n}",
+							"raw": "{\r\n    \"nombre\": \"Chorizaurio\",\r\n    \"descripcion\": \"Chori clásico con chimichurri\",\r\n    \"precio\": 1999.0,\r\n    \"categoria\": {\r\n        \"id\": 1\r\n    },\r\n    \"imagen\": \"chorisau.png\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -67,7 +67,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 22,\r\n    \"nombre\": \"Chorizaurio\",\r\n    \"descripcion\": \"Chori clásico con abundante chimichurri\",\r\n    \"precio\": 2000.0,\r\n    \"categoria\": {\r\n        \"id\": 1\r\n    }\r\n}",
+							"raw": "{\r\n    \"id\": 22,\r\n    \"nombre\": \"Chorizaurio\",\r\n    \"descripcion\": \"Chori clásico con abundante chimichurri\",\r\n    \"precio\": 2000.0,\r\n    \"categoria\": {\r\n        \"id\": 1\r\n    },\r\n    \"imagen\": \"chorisauuuuuuu.png\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1558,6 +1558,114 @@
 							]
 						},
 						"description": "DELETE ROL"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Local",
+			"item": [
+				{
+					"name": "http://localhost:8080/comanda/local",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comanda/local",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"local"
+							]
+						},
+						"description": "get mesas"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/comanda/local",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \r\n    \"nombre\": \"La Continental\",\r\n    \"calle\": \"Av Corrientes\",\r\n    \"altura\": 4020,\r\n    \"codigo_postal\": 1410,\r\n    \"telefono\": 49995200,\r\n    \"imagen\": \"continental.png\"\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/comanda/local",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"local"
+							]
+						},
+						"description": "post mesas"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/comanda/local",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 6,\r\n    \"nombre\": \"La Continental\",\r\n    \"calle\": \"Av Corrientes\",\r\n    \"altura\": 300,\r\n    \"codigo_postal\": 1410,\r\n    \"telefono\": 49995200,\r\n    \"imagen\": \"continentallll.png\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/comanda/local",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"local"
+							]
+						},
+						"description": "put mesas"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/comanda/local/6",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comanda/local/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"local",
+								"6"
+							]
+						},
+						"description": "delete mesa"
 					},
 					"response": []
 				}

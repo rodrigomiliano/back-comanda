@@ -26,8 +26,8 @@ public class Reserva {
 	private Date fecha_alta;
 	@Column(name = "RESERV_FECRES")
 	private Date fecha_reserva;
-	@Column(name = "RESERV_COMENS")
-	private Integer comensal;
+	//@Column(name = "RESERV_COMENS")
+	//private Integer comensal;
 	@ManyToOne
 	@JoinColumn(name = "RESERV_MESA") // "idMesa")
 	private Mesa mesa;
@@ -73,13 +73,13 @@ public class Reserva {
 		this.fecha_reserva = fecha_reserva;
 	}
 
-	public Integer getComensal() {
+	/*public Integer getComensal() {
 		return comensal;
 	}
 
 	public void setComensal(Integer comensal) {
 		this.comensal = comensal;
-	}
+	}*/
 
 	/*
 	 * public String getEstado() { return estado; }
@@ -96,7 +96,7 @@ public class Reserva {
 	 * public Mesa getMesa() { return mesa; }
 	 */
 	public String getMesa() {
-		return mesa.getSillas() + " sillas ";
+		return "Hasta " + mesa.getSillas() + " comensales ";
 	}
 
 	public void setMesa(Mesa mesa) {
@@ -114,8 +114,9 @@ public class Reserva {
 	@Override
 	public String toString() {
 		return "Reserva [id=" + id + ", cliente=" + cliente + ", fecha_alta=" + fecha_alta + ", fecha_reserva="
-				+ fecha_reserva + ", comensal=" + comensal + ", mesa=" + mesa + ", estado=" + estado + ", turno="
-				+ turno + "]";
+				+ fecha_reserva + ", mesa=" + mesa + ", estado=" + estado + ", turno=" + turno + "]";
 	}
+
+	
 
 }
