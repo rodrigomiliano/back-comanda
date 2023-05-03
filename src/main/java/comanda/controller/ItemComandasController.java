@@ -22,7 +22,7 @@ public class ItemComandasController {
 
 	@Autowired
 	private IItemComandasService serviceItemComandas;
-	
+
 	@Autowired
 	private IProductosService serviceProductos;
 
@@ -40,13 +40,19 @@ public class ItemComandasController {
 	public ItemComanda guardar(@RequestBody ItemComanda itemComanda) {
 		Integer productoId = itemComanda.getProducto().getId();
 		System.out.println("Envio el producto con el id: " + productoId);
-		Optional<Producto> productoObtenido =  serviceProductos.buscarProducto(productoId);
-		itemComanda.setProducto(productoObtenido.get());
-		itemComanda.setTotal();
-		serviceItemComandas.guardar(itemComanda);
+		Optional<Producto> productoObtenido = serviceProductos.buscarProducto(productoId);
+		if (productoObtenido.isPresent()) {
+			itemComanda.setProducto(productoObtenido.get());
+			itemComanda.setPrecio(productoObtenido.get().getPrecio());
+			itemComanda.setTotal();
+			serviceItemComandas.guardar(itemComanda);
+		} else {
+			System.out.println("error");
+		}
 		return itemComanda;
-		/*serviceItemComandas.guardar(itemComanda);
-		return itemComanda;*/
+		/*
+		 * serviceItemComandas.guardar(itemComanda); return itemComanda;
+		 */
 	}
 
 	@PutMapping("/itemcomanda")

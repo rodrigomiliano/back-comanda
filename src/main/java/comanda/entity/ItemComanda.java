@@ -1,5 +1,8 @@
 package comanda.entity;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,6 +32,9 @@ public class ItemComanda {
 	@ManyToOne
 	@JoinColumn(name = "ITEMCOM_PRODUC") // "idProducto")
 	private Producto producto;
+		
+	@Column(name =  "ITEMCOM_PRECIO")
+	private Double precio;
 
 	@Column(name = "ITEMCOM_CANTIDAD")
 	private Integer cantidad;
@@ -63,6 +69,15 @@ public class ItemComanda {
 	public void setProducto(Producto producto) {
 		this.producto = producto;
 	}
+	
+	public Double getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(Double precio) {
+		//this.precio = BigDecimal.valueOf(this.producto.getPrecio());
+		this.precio = this.producto.getPrecio();
+	}
 
 	public Integer getCantidad() {
 		return cantidad;
@@ -77,7 +92,17 @@ public class ItemComanda {
 	}
 
 	public void setTotal() {
-		this.total = getProducto().getPrecio() * this.cantidad;
+		//BigInteger cantidad = cantidad;
+		
+		/*int n = cantidad;
+		BigInteger bigInteger = BigInteger.valueOf(n);
+		this.total = getPrecio().multiply(BigDecimal.valueOf(n));
+		this.total = getPrecio() * this.cantidad;*/
+
+        //this.total = getProducto().getPrecio() * this.cantidad;
+        this.total = this.precio * this.cantidad;
+		
+		//monto1.multiply(monto2));
 	}
 
 	@Override
@@ -85,4 +110,6 @@ public class ItemComanda {
 		return "ItemComanda [id=" + id + ", comanda=" + comanda + ", producto=" + producto + ", total=" + total + "]";
 	}
 
+
+	
 }
