@@ -1,5 +1,10 @@
 package comanda.entity;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,7 +12,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import comanda.entity.ItemComanda;
 
 @Entity
@@ -26,7 +35,9 @@ public class Comprobante {
 	// @Column(name = "PRODUC_ID")
 	// private Integer nro_comprobante;
 
-	// private Date fecha;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "COMPROBANTE_FECHA")
+	private Date fecha;
 
 	// private ItemComprobante itemComprobante;
 	
@@ -38,6 +49,22 @@ public class Comprobante {
 	@Column(name = "COMPROBANTE_TOTAL")
 	private Double total;
 
+	
+	/*
+	public Comprobante() {		
+	}
+	
+	public Comprobante(LocalDateTime fecha) {
+		this.fecha = fecha;		
+	}*/
+
+	
+	@PrePersist // usar localdatetime o calendar
+	private void onCreate() {
+		fecha = Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
+	}
+	
+	
 	public Integer getId() {
 		return id;
 	}
@@ -46,6 +73,19 @@ public class Comprobante {
 		this.id = id;
 	}
 
+	
+	
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	
+	
+	
 	public MesaUso getMesaUso() {
 		return mesaUso;
 	}
