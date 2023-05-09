@@ -8,7 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "Reservas") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
@@ -22,8 +25,14 @@ public class Reserva {
 	@ManyToOne
 	@JoinColumn(name = "RESERV_CLIENTE") // "idCliente")
 	private Cliente cliente;
+	
+	//@Column(name = "RESERV_FECALT")
+	//private Date fecha_alta;
+	@Temporal(TemporalType.DATE)
 	@Column(name = "RESERV_FECALT")
 	private Date fecha_alta;
+	
+	
 	@Column(name = "RESERV_FECRES")
 	private Date fecha_reserva;
 	//@Column(name = "RESERV_COMENS")
@@ -38,6 +47,11 @@ public class Reserva {
 	@JoinColumn(name = "RESERV_TURNO") // "idTurno")
 	private Turno turno;
 
+	@PrePersist // usar localdatetime o calendar
+	private void onCreate() {
+		fecha_alta = new Date();
+	}
+	
 	public Integer getId() {
 		return id;
 	}

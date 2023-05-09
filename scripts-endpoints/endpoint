@@ -67,7 +67,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 22,\r\n    \"nombre\": \"Chorizaurio\",\r\n    \"descripcion\": \"Chori clásico con abundante chimichurri\",\r\n    \"precio\": 2000.0,\r\n    \"categoria\": {\r\n        \"id\": 1\r\n    },\r\n    \"imagen\": \"chorisauuuuuuu.png\"\r\n}",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"nombre\": \"Provoleta\",\r\n    \"descripcion\": \"Provoleta grillada a la parrilla con finas hierbas.\",\r\n    \"precio\": 1000.0,\r\n    \"categoria\": {\r\n        \"id\": 1\r\n    },\r\n    \"imagen\": \"provo.png\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -271,7 +271,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"comanda\":{\r\n        \"id\": 4\r\n    },\r\n    \"producto\": {\r\n        \"id\": 11\r\n    },\r\n    \"cantidad\": 1\r\n    \r\n}",
+							"raw": "{\r\n    \"comanda\":{\r\n        \"id\": 1\r\n    },\r\n    \"producto\": {\r\n        \"id\": 1\r\n    },\r\n    \"cantidad\": 2\r\n    \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -712,7 +712,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"cliente\": {\r\n        \"id\": 1\r\n    },\r\n    \"fecha_alta\": \"2023-02-02T03:00:00.000+00:00\",\r\n    \"fecha_reserva\": \"2023-02-24T03:00:00.000+00:00\",\r\n    \"comensal\": 8,\r\n    \"mesa\": {\r\n        \"id\": 1\r\n    },\r\n    \"estado\": {\r\n        \"id\": 1\r\n    }\r\n}\r\n",
+							"raw": "{\r\n    \"cliente\": {\r\n        \"id\": 2\r\n    },\r\n    \"fecha_reserva\": \"2023-02-24T03:00:00.000+00:00\",\r\n    \"mesa\": {\r\n        \"id\": 1\r\n    },\r\n    \"estado\": {\r\n        \"id\": 1\r\n    },\r\n    \"turno\": {\r\n        \"id\": 1\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1153,7 +1153,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"mesaUso\": {\r\n        \"id\": 4\r\n    }\r\n}",
+							"raw": "{    \r\n    \"mesaUso\": {\r\n        \"id\": 2 \r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

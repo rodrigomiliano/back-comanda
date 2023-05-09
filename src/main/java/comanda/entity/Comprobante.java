@@ -2,9 +2,7 @@ package comanda.entity;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Calendar;
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +15,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import comanda.entity.ItemComanda;
 
 @Entity
 @Table(name = "Comprobantes") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
