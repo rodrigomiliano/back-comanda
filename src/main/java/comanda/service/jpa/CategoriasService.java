@@ -15,6 +15,10 @@ public class CategoriasService implements ICategoriasService {
 	private CategoriasRepository repoCategorias;
 
 	public List<Categoria> buscarTodas() {
+		List<Categoria> categorias = repoCategorias.findAll();
+		categorias.forEach(t -> {
+			System.out.println(t);
+		});
 		return repoCategorias.findAll();
 	}
 
@@ -25,7 +29,7 @@ public class CategoriasService implements ICategoriasService {
 	public void eliminar(int idCategoria) {
 		repoCategorias.deleteById(idCategoria);
 	}
-	
+
 	public Optional<Categoria> buscarCategoria(int idCategoria) {
 		return repoCategorias.findById(idCategoria);
 	}

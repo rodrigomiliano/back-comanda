@@ -1,7 +1,6 @@
 package comanda.entity;
 
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -36,11 +34,20 @@ public class MesaUso {
 
 	// @Column(name = "MESAUSO_TOTAL")
 	// private Double Total;
-	
-	
-	@OneToMany(mappedBy="mesaUso", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = true)
+
+	@OneToMany(mappedBy = "mesaUso", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = true)
 	@JsonManagedReference
 	private List<Comanda> comandas;
+
+	public MesaUso() {
+		super();
+	}
+
+	public MesaUso(Integer id, Mesa mesa, List<Comanda> comandas) {
+		this.id = id;
+		this.mesa = mesa;
+		this.comandas = comandas;
+	}
 
 	public Integer getId() {
 		return id;

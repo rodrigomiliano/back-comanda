@@ -10,5 +10,5 @@ public interface IMesaUsosService {
 	void guardar(MesaUso mesaUso);
 	void eliminar(int idMesaUso);
 	Optional<MesaUso> buscarMesaUso(int idMesaUso);
-	//void cerrarMesa(MesaUso mesaUso); crea comprobante, recorre comanda y productos, para grabar comprobante e itemcomprobante
+	void cerrarMesa(MesaUso mesaUso); //crea comprobante, recorre comanda y productos, para grabar comprobante e itemcomprobante
 }

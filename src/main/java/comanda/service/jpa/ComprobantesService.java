@@ -15,6 +15,10 @@ public class ComprobantesService implements IComprobantesService {
 	private ComprobantesRepository repoComprobantes;
 
 	public List<Comprobante> buscarTodos() {
+		List<Comprobante> comprobantes = repoComprobantes.findAll();
+		comprobantes.forEach(t -> {
+			System.out.println(t);
+		});
 		return repoComprobantes.findAll();
 	}
 
@@ -25,7 +29,7 @@ public class ComprobantesService implements IComprobantesService {
 	public void eliminar(int idComprobante) {
 		repoComprobantes.deleteById(idComprobante);
 	}
-	
+
 	public Optional<Comprobante> buscarComprobante(int idComprobante) {
 		return repoComprobantes.findById(idComprobante);
 	}

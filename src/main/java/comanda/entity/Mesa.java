@@ -32,6 +32,20 @@ public class Mesa {
 	@JoinColumn(name = "MESA_LOCAL") // "idLocal")
 	private Local local;
 
+	public Mesa() {
+		super();		
+	}
+
+	public Mesa(Integer id, Integer sillas, String observacion, Estado estado, Usuario usuario, Local local) {
+		super();
+		this.id = id;
+		this.sillas = sillas;
+		this.observacion = observacion;
+		this.estado = estado;
+		this.usuario = usuario;
+		this.local = local;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -85,7 +99,5 @@ public class Mesa {
 		return "Mesa [id=" + id + ", sillas=" + sillas + ", observacion=" + observacion + ", estado=" + estado
 				+ ", usuario=" + usuario + ", local=" + local + "]";
 	}
-
-	
 
 }

@@ -30,6 +30,12 @@ public class MesaUsosController {
 	public Optional<MesaUso> buscarMesaUso(@PathVariable("id") int idMesaUso) {
 		return serviceMesaUsos.buscarMesaUso(idMesaUso);
 	}
+	
+	@PostMapping("/mesauso/cerrarmesa")
+	public MesaUso buscarMesaUso(@RequestBody MesaUso mesauso) {
+		serviceMesaUsos.cerrarMesa(mesauso);
+		return mesauso;
+	}
 
 	@PostMapping("/mesauso")
 	public MesaUso guardar(@RequestBody MesaUso mesauso) {

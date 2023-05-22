@@ -15,6 +15,10 @@ public class ProductosService implements IProductosService {
 	private ProductosRepository repoProductos;
 
 	public List<Producto> buscarTodos() {
+		List<Producto> productos = repoProductos.findAll();
+		productos.forEach(t -> {
+			System.out.println(t);
+		});
 		return repoProductos.findAll();
 	}
 
@@ -25,7 +29,7 @@ public class ProductosService implements IProductosService {
 	public void eliminar(int idProducto) {
 		repoProductos.deleteById(idProducto);
 	}
-	
+
 	public Optional<Producto> buscarProducto(int idProducto) {
 		return repoProductos.findById(idProducto);
 	}
