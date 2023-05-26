@@ -33,16 +33,16 @@ public class Comanda {
 	//private Reserva reserva;
 	@ManyToOne
 	@JoinColumn(name = "COMAND_ESTADO") // "idEstado")
-	private Estado estado;	
+	private Estado estado;
 	@ManyToOne
 	@JoinColumn(name = "COMAND_MESAUSO") // "idMesaUso")
 	@JsonBackReference
 	private MesaUso mesaUso;
-	
+
 	@OneToMany(mappedBy="comanda", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = true)
 	@JsonManagedReference
 	private List<ItemComanda> itemComandas;
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -63,7 +63,7 @@ public class Comanda {
 	}
 	@Override
 	public String toString() {
-		return "Comanda [id=" + id + ", estado=" + estado + ", mesaUso=" + mesaUso + "]";
+		return "Comanda [id=" + id + ", estado=" + estado + ", mesaUso=" + ((mesaUso != null) ? mesaUso.getId() : null) + "]";
 	}
-	
+
 }
