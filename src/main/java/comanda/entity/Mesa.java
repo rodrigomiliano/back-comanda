@@ -36,8 +36,7 @@ public class Mesa {
 		super();		
 	}
 
-	public Mesa(Integer id, Integer sillas, String observacion, Estado estado, Usuario usuario, Local local) {
-		super();
+	public Mesa(Integer id, Integer sillas, String observacion, Estado estado, Usuario usuario, Local local) {		
 		this.id = id;
 		this.sillas = sillas;
 		this.observacion = observacion;
