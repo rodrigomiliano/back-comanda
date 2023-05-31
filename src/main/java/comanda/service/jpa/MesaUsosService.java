@@ -5,8 +5,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import comanda.entity.Comprobante;
+import comanda.entity.ItemComprobante;
 import comanda.entity.MesaUso;
 import comanda.repository.ComprobantesRepository;
+import comanda.repository.ItemComprobantesRepository;
 import comanda.repository.MesaUsosRepository;
 import comanda.service.IMesaUsosService;
 
@@ -19,6 +21,9 @@ public class MesaUsosService implements IMesaUsosService {
 	
 	@Autowired
 	private ComprobantesRepository repoComprobantes;
+	
+	@Autowired
+	private ItemComprobantesRepository repoItemComprobantes;
 	
 	public List<MesaUso> buscarTodas() {
 		List<MesaUso> mesaUsos = repoMesaUsos.findAll();
@@ -60,7 +65,7 @@ public class MesaUsosService implements IMesaUsosService {
 		System.out.println(mesaUso.toString());*/
 
 		
-			Comprobante comp = new Comprobante(mesaUso);			
+			Comprobante comp = new Comprobante(null, mesaUso, null);			
 			System.out.println("Cerrando la mesa");
 			//System.out.println("Cerrando mesa: " + mesaUso.getMesa());
 			//System.out.println("Cerrando mesa: " + comp.getMesaUso().getMesa());		
@@ -70,7 +75,8 @@ public class MesaUsosService implements IMesaUsosService {
 			//System.out.println("ver1 " + buscarMesaUso(comp.getId()));
 			//System.out.println("ver2 " + buscarTodas() );
 			//System.out.println(buscarMesaUso(comp.getId()));
-							
+			crearListaItems(comp);		
+			
 		
 			/*private void guardar() {
 				Categoria cat = new Categoria();
@@ -101,5 +107,11 @@ public class MesaUsosService implements IMesaUsosService {
 			}
 			return;		
 		}*/
+	}
+	@Override
+	public void crearListaItems(Comprobante comprobante) {
+		ItemComprobante itemcomp = new ItemComprobante();
+		repoItemComprobantes.save(itemcomp);
+		System.out.println("Creando " + itemcomp);	
 	}
 }

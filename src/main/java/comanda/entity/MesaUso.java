@@ -65,6 +65,14 @@ public class MesaUso {
 		this.mesa = mesa;
 	}
 
+	public List<Comanda> getComandas() {
+		return comandas;
+	}
+
+	public void setComandas(List<Comanda> comandas) {
+		this.comandas = comandas;
+	}
+
 	@Override
 	public String toString() {
 		return "MesaUso [id=" + id + ", mesa=" + mesa + "]";

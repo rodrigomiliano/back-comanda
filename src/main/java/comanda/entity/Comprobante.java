@@ -56,11 +56,11 @@ public class Comprobante {
 	}*/
 
 	
-	public Comprobante( /*Date fecha,*/ MesaUso mesaUso/*, Double total*/) {
+	public Comprobante( Date fecha, MesaUso mesaUso, Double total) {
 		super();
-		/*this.fecha = fecha;*/
+		this.fecha = fecha;
 		this.mesaUso = mesaUso;
-		/*this.total = total;*/
+		this.total = total;
 	}
 
 
@@ -119,9 +119,13 @@ public class Comprobante {
 		this.total = getProducto().getPrecio() * this.cantidad;
 	}*/
 	
+	/*public void setTotal() {
+		
+	}*/
+	
 	@Override
 	public String toString() {
-		return "Comprobante [id=" + id + ", mesaUso=" + mesaUso + ", total=" + total + "]";
+		return "Comprobante [id=" + id + ", fecha=" + fecha + ", mesaUso=" + mesaUso + ", total=" + total + "]";
 	}
 
 	
