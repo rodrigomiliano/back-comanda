@@ -57,6 +57,12 @@ public class MesaUsosController {
 		return serviceMesaUsos.buscarMesaUso(idMesaUso);
 	}
 
+	@PostMapping("/mesauso/cerrarmesa")
+	public MesaUso buscarMesaUso(@RequestBody MesaUso mesauso) {
+		serviceMesaUsos.cerrarMesa(mesauso);
+		return mesauso;
+	}
+
 	@PostMapping("/mesauso")
 	public MesaUso guardar(@RequestBody MesaUso mesauso) {
 		serviceMesaUsos.guardar(mesauso);

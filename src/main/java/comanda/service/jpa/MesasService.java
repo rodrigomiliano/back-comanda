@@ -15,6 +15,10 @@ public class MesasService implements IMesasService {
 	private MesasRepository repoMesas;
 
 	public List<Mesa> buscarTodas() {
+		List<Mesa> mesas = repoMesas.findAll();
+		mesas.forEach(t -> {
+			System.out.println(t);
+		});
 		return repoMesas.findAll();
 	}
 
@@ -25,7 +29,7 @@ public class MesasService implements IMesasService {
 	public void eliminar(int idMesa) {
 		repoMesas.deleteById(idMesa);
 	}
-	
+
 	public Optional<Mesa> buscarMesa(int idMesa) {
 		return repoMesas.findById(idMesa);
 	}

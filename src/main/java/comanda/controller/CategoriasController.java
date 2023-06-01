@@ -23,12 +23,11 @@ public class CategoriasController {
 
 	@GetMapping("/categoria")
 	public List<Categoria> buscarTodas() {
-		return serviceCategorias.buscarTodas();
-		// buscar como agregar el order by id
+		return serviceCategorias.buscarTodas();		
 	}
-
+		
 	@GetMapping("/categoria/{id}")
-	public Optional<Categoria> buscarCategoria(@PathVariable("id") int idCategoria) {
+	public Optional<Categoria> buscarCategoria(@PathVariable("id") int idCategoria){
 		return serviceCategorias.buscarCategoria(idCategoria);
 	}
 

@@ -53,14 +53,12 @@ public class ItemComandasController {
 	
 	@PostMapping("/itemcomanda")
 	public ItemComanda guardar(@RequestBody ItemComanda itemComanda) {
-		
+		serviceItemComandas.guardar(itemComanda);
 		return itemComanda;
 		/*
 		 * serviceItemComandas.guardar(itemComanda); return itemComanda;
 		 */
 	}
-	
-	
 
 	@PutMapping("/itemcomanda")
 	public ItemComanda modificar(@RequestBody ItemComanda itemComanda) {

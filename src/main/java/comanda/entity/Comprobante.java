@@ -25,8 +25,7 @@ public class Comprobante {
 	//Generar comprobante new() y asociar a ese comprobante la lista agrupada de los productos consumidos
 	
 	@Id // para que se sepa que es primary key
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // para que la pk sea autoincremental y la estrategia de cómo se
-														// va a generar (en mysql).
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // para que la pk sea autoincremental y la estrategia de cómo se va a generar (en mysql).
 	@Column(name = "COMPROBANTE_ID")
 	private Integer id;
 	// @Column(name = "PRODUC_ID")
@@ -47,15 +46,24 @@ public class Comprobante {
 	private Double total;
 
 	
-	/*
-	public Comprobante() {		
-	}
 	
+	public Comprobante() {		
+		super();
+	}
+	/*
 	public Comprobante(LocalDateTime fecha) {
 		this.fecha = fecha;		
 	}*/
 
 	
+	public Comprobante( Date fecha, MesaUso mesaUso, Double total) {
+		super();
+		this.fecha = fecha;
+		this.mesaUso = mesaUso;
+		this.total = total;
+	}
+
+
 	@PrePersist // usar localdatetime o calendar
 	private void onCreate() {
 		fecha = Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant());
@@ -111,9 +119,13 @@ public class Comprobante {
 		this.total = getProducto().getPrecio() * this.cantidad;
 	}*/
 	
+	/*public void setTotal() {
+		
+	}*/
+	
 	@Override
 	public String toString() {
-		return "Comprobante [id=" + id + ", mesaUso=" + mesaUso + ", total=" + total + "]";
+		return "Comprobante [id=" + id + ", fecha=" + fecha + ", mesaUso=" + mesaUso + ", total=" + total + "]";
 	}
 
 	

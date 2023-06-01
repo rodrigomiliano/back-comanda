@@ -50,17 +50,19 @@ public class ItemComanda {
 	 * public Comanda getComanda() { return comanda; }
 	 */
 
-	public Integer getComanda() {
-		return comanda.getId();
+	public Comanda getComanda() {
+		return comanda;
 	}
 
 	public void setComanda(Comanda comanda) {
 		this.comanda = comanda;
 	}
 
+
 	public Producto getProducto() {
 		return producto;
 	}
+
 
 	public void setProducto(Producto producto) {
 		this.producto = producto;

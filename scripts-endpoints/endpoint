@@ -412,6 +412,37 @@
 					"response": []
 				},
 				{
+					"name": "http://localhost:8080/comanda/mesauso Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/comanda/mesauso/cerrarmesa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"mesauso",
+								"cerrarmesa"
+							]
+						},
+						"description": "post mesas"
+					},
+					"response": []
+				},
+				{
 					"name": "http://localhost:8080/comanda/mesauso",
 					"request": {
 						"method": "PUT",
@@ -958,7 +989,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 5,\r\n    \"nombre\": \"Pizzas / Empanadas\"\r\n}",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"nombre\": \"Pizzas / Empanadassssssss\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
