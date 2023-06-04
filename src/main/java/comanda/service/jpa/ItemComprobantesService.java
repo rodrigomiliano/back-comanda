@@ -13,7 +13,7 @@ import comanda.service.IItemComprobantesService;
 
 @Service
 public class ItemComprobantesService implements IItemComprobantesService{
-
+	// Empezar a actualizar como el ejemplo de categorias
 	@Autowired
 	private ItemComprobantesRepository repoItemComprobantes;
 
