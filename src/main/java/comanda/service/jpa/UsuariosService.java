@@ -11,6 +11,7 @@ import comanda.service.IUsuariosService;
 @Service
 public class UsuariosService implements IUsuariosService {
 
+	// Empezar a actualizar como el ejemplo de categorias
 	@Autowired
 	private UsuariosRepository repoUsuarios;
 
