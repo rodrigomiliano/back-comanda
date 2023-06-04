@@ -27,6 +27,8 @@ public class Producto {
 	@ManyToOne
 	@JoinColumn(name = "PRODUC_CATEGO") // "idCategoria")
 	private Categoria categoria;
+	@Column(name = "PRODUC_IMG")
+	private String imagen;
 
 	public Integer getId() {
 		return id;
@@ -72,10 +74,18 @@ public class Producto {
 		this.categoria = categoria;
 	}
 
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
 	@Override
 	public String toString() {
 		return "Producto [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", precio=" + precio
-				+ ", categoria=" + categoria + "]";
+				+ ", categoria=" + categoria + ", imagen=" + imagen + "]";
 	}
 
 	public ItemComanda get(int i) {

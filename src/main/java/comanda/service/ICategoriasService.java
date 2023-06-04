@@ -7,6 +7,7 @@ import comanda.entity.Categoria;
 public interface ICategoriasService {
 
 	List<Categoria> buscarTodas();
+	//Categoria buscarCategoria(int idCategoria);
 	void guardar(Categoria categoria);
 	void eliminar(int idCategoria);
 	Optional<Categoria> buscarCategoria(int idCategoria);

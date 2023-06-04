@@ -18,7 +18,17 @@ public class Categoria {
 	private Integer id;
 	@Column(name = "CATEGO_NOMBRE")
 	private String nombre;
-	
+
+	public Categoria() {
+		super();
+	}
+
+	public Categoria(Integer id, String nombre) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+	}
+
 	public Integer getId() {
 		return id;
 	}

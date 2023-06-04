@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import comanda.entity.ItemComanda;
-import comanda.entity.Producto;
 import comanda.service.IItemComandasService;
-import comanda.service.IProductosService;
+
 
 @RestController
 @RequestMapping("/comanda")
@@ -22,9 +21,6 @@ public class ItemComandasController {
 
 	@Autowired
 	private IItemComandasService serviceItemComandas;
-	
-	@Autowired
-	private IProductosService serviceProductos;
 
 	@GetMapping("/itemcomanda")
 	public List<ItemComanda> buscarTodos() {
@@ -36,17 +32,32 @@ public class ItemComandasController {
 		return serviceItemComandas.buscarItemComanda(idItemComanda);
 	}
 
-	@PostMapping("/itemcomanda")
+	/*@PostMapping("/itemcomanda")
 	public ItemComanda guardar(@RequestBody ItemComanda itemComanda) {
 		Integer productoId = itemComanda.getProducto().getId();
 		System.out.println("Envio el producto con el id: " + productoId);
-		Optional<Producto> productoObtenido =  serviceProductos.buscarProducto(productoId);
-		itemComanda.setProducto(productoObtenido.get());
-		itemComanda.setTotal();
+		Optional<Producto> productoObtenido = serviceProductos.buscarProducto(productoId);
+		if (productoObtenido.isPresent()) {
+			itemComanda.setProducto(productoObtenido.get());
+			itemComanda.setPrecio(productoObtenido.get().getPrecio());
+			itemComanda.setTotal();
+			serviceItemComandas.guardar(itemComanda);
+		} else {
+			System.out.println("error");
+		}
+		return itemComanda;
+		
+		  serviceItemComandas.guardar(itemComanda); return itemComanda;
+		 
+	}*/
+	
+	@PostMapping("/itemcomanda")
+	public ItemComanda guardar(@RequestBody ItemComanda itemComanda) {
 		serviceItemComandas.guardar(itemComanda);
 		return itemComanda;
-		/*serviceItemComandas.guardar(itemComanda);
-		return itemComanda;*/
+		/*
+		 * serviceItemComandas.guardar(itemComanda); return itemComanda;
+		 */
 	}
 
 	@PutMapping("/itemcomanda")

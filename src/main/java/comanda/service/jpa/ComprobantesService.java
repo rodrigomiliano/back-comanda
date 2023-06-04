@@ -15,18 +15,38 @@ public class ComprobantesService implements IComprobantesService {
 	private ComprobantesRepository repoComprobantes;
 
 	public List<Comprobante> buscarTodos() {
-		return repoComprobantes.findAll();
+		System.out.println("------------------------------------------------------------");
+		List<Comprobante> comprobantes = repoComprobantes.findAll(); // spring
+		System.out.println("Listado de Comprobantes: ");
+		comprobantes.forEach(t -> {
+			System.out.println(t);
+		});
+		return repoComprobantes.findAll(); // postman
 	}
-
+		
 	public void guardar(Comprobante comprobante) {
+		System.out.println("------------------------------------------------------------");
 		repoComprobantes.save(comprobante);
+		System.out.println("Guardando " + comprobante);
 	}
-
+		
 	public void eliminar(int idComprobante) {
+		System.out.println("Eliminando registro: " + buscarComprobante(idComprobante));
 		repoComprobantes.deleteById(idComprobante);
 	}
-	
+		
 	public Optional<Comprobante> buscarComprobante(int idComprobante) {
-		return repoComprobantes.findById(idComprobante);
-	}
+		System.out.println("------------------------------------------------------------");
+		Optional<Comprobante> optional = repoComprobantes.findById(idComprobante);
+		if (optional.isPresent()) {
+			Comprobante u = optional.get();
+			System.out.println("Elegiste " + u);
+			return repoComprobantes.findById(idComprobante);
+		} else {
+			System.out.println("------------------------------------------------------------");
+			System.out.println("No existe el Comprobante n° " + idComprobante);
+		}
+		return null;
+	}	
+	
 }

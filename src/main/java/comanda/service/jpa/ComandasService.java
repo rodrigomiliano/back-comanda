@@ -15,18 +15,38 @@ public class ComandasService implements IComandasService{
 	private ComandasRepository repoComandas;
 
 	public List<Comanda> buscarTodas() {
-		return repoComandas.findAll();
-	}
+		System.out.println("------------------------------------------------------------");
+		List<Comanda> comandas = repoComandas.findAll(); // spring
+		System.out.println("Listado de Comandas: ");
+		comandas.forEach(t -> {
+			System.out.println(t);
+		});
+		return repoComandas.findAll(); // postman
+	}		
 
 	public void guardar(Comanda comanda) {
+		System.out.println("------------------------------------------------------------");
 		repoComandas.save(comanda);
+		System.out.println("Guardando " + comanda);
 	}
-
+		
 	public void eliminar(int idComanda) {
+		System.out.println("Eliminando registro: " + buscarComanda(idComanda));
 		repoComandas.deleteById(idComanda);
-	}
-	
+	}	
+		
 	public Optional<Comanda> buscarComanda(int idComanda) {
-		return repoComandas.findById(idComanda);
+		System.out.println("------------------------------------------------------------");
+		Optional<Comanda> optional = repoComandas.findById(idComanda);
+		if (optional.isPresent()) {
+			Comanda u = optional.get();
+			System.out.println("Elegiste " + u);
+			return repoComandas.findById(idComanda);
+		} else {
+			System.out.println("------------------------------------------------------------");
+			System.out.println("No existe la Comanda n° " + idComanda);
+		}
+		return null;
 	}
+		
 }

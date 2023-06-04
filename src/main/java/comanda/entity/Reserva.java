@@ -8,7 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "Reservas") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
@@ -22,20 +25,33 @@ public class Reserva {
 	@ManyToOne
 	@JoinColumn(name = "RESERV_CLIENTE") // "idCliente")
 	private Cliente cliente;
+	
+	//@Column(name = "RESERV_FECALT")
+	//private Date fecha_alta;
+	@Temporal(TemporalType.DATE)
 	@Column(name = "RESERV_FECALT")
 	private Date fecha_alta;
+	
+	
 	@Column(name = "RESERV_FECRES")
 	private Date fecha_reserva;
-	@Column(name = "RESERV_COMENS")
-	private Integer comensal;
+	//@Column(name = "RESERV_COMENS")
+	//private Integer comensal;
 	@ManyToOne
 	@JoinColumn(name = "RESERV_MESA") // "idMesa")
 	private Mesa mesa;
 	@ManyToOne
 	@JoinColumn(name = "RESERV_ESTADO") // "idEstado")
 	private Estado estado;
-	
+	@ManyToOne
+	@JoinColumn(name = "RESERV_TURNO") // "idTurno")
+	private Turno turno;
 
+	@PrePersist // usar localdatetime o calendar
+	private void onCreate() {
+		fecha_alta = new Date();
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -44,9 +60,9 @@ public class Reserva {
 		this.id = id;
 	}
 
-	/*public Cliente getCliente() {
-		return cliente;
-	}*/
+	/*
+	 * public Cliente getCliente() { return cliente; }
+	 */
 	public String getCliente() {
 		return cliente.getApellido() + " " + cliente.getNombre();
 	}
@@ -71,40 +87,50 @@ public class Reserva {
 		this.fecha_reserva = fecha_reserva;
 	}
 
-	public Integer getComensal() {
+	/*public Integer getComensal() {
 		return comensal;
 	}
 
 	public void setComensal(Integer comensal) {
 		this.comensal = comensal;
-	}
-
-	/*public String getEstado() {
-		return estado;
 	}*/
+
+	/*
+	 * public String getEstado() { return estado; }
+	 */
 	public String getEstado() {
 		return estado.getNombre();
 	}
-	
+
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
 
-	/*public Mesa getMesa() {
-		return mesa;
-	}*/
+	/*
+	 * public Mesa getMesa() { return mesa; }
+	 */
 	public String getMesa() {
-		return mesa.getSillas() + " sillas ";
+		return "Hasta " + mesa.getSillas() + " comensales ";
 	}
 
 	public void setMesa(Mesa mesa) {
 		this.mesa = mesa;
 	}
 
+	public Turno getTurno() {
+		return turno;
+	}
+
+	public void setTurno(Turno turno) {
+		this.turno = turno;
+	}
+
 	@Override
 	public String toString() {
 		return "Reserva [id=" + id + ", cliente=" + cliente + ", fecha_alta=" + fecha_alta + ", fecha_reserva="
-				+ fecha_reserva + ", comensal=" + comensal + ", estado=" + estado + ", mesa=" + mesa + "]";
+				+ fecha_reserva + ", mesa=" + mesa + ", estado=" + estado + ", turno=" + turno + "]";
 	}
+
+	
 
 }

@@ -34,6 +34,7 @@ CREATE TABLE `PRODUCTOS` (
   `PRODUC_DESCRP` varchar(255) DEFAULT NULL,
   `PRODUC_PRECIO` double NOT NULL,
   `PRODUC_CATEGO` int NOT NULL,
+  `PRODUC_IMG` varchar(255) NOT NULL,
   -- `ITEMCOM_ID` int DEFAULT NULL,
   -- `PRODUC_ETIQUE` int NOT NULL,
   PRIMARY KEY (`PRODUC_ID`),
@@ -94,6 +95,7 @@ CREATE TABLE `LOCALES` (
   `LOCAL_ALTURA` int NOT NULL,
   `LOCAL_CODPOS` int NOT NULL,
   `LOCAL_TELEFN` int,
+  `LOCAL_IMG` varchar(255) NOT NULL,
   -- `LOCAL_HORARIO` 
   PRIMARY KEY (`LOCAL_ID`),
   UNIQUE KEY (`LOCAL_NOMBRE`)
@@ -175,20 +177,34 @@ CREATE TABLE `MESAS` (
   CONSTRAINT `FK_MESA_LOCAL` FOREIGN KEY (`MESA_LOCAL`) REFERENCES `LOCALES` (`LOCAL_ID`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
--- RESEVAS: OK, se cambia usuario por cliente para no confundir, ver lo de estado.
+-- TURNOS: 
+CREATE TABLE `TURNOS` (
+  `TURNO_ID` int NOT NULL AUTO_INCREMENT,
+  `TURNO_HORARIO` varchar(255) NOT NULL,  
+  `TURNO_ESTADO` int NOT NULL,
+  PRIMARY KEY (`TURNO_ID`)  
+) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+
+-- RESEVAS: OK, ver lo de estado.
 CREATE TABLE `RESERVAS` (
   `RESERV_ID` int NOT NULL AUTO_INCREMENT,
   `RESERV_CLIENTE` int NOT NULL, 
-  `RESERV_FECALT` date NOT NULL,
+  `RESERV_FECALT` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+  -- `RESERV_FECALT` date DEFAULT NULL,
+  -- `RESERV_FECALT` date NOT NULL,
+  -- `COMPROBANTE_FECHA` datetime DEFAULT NULL,
   `RESERV_FECRES` datetime NOT NULL,
-  `RESERV_COMENS` int NOT NULL,
+  -- `RESERV_COMENS` int NOT NULL,
   `RESERV_MESA` int NOT NULL,
   `RESERV_ESTADO` int NOT NULL,
+  `RESERV_TURNO` int NOT NULL,
   PRIMARY KEY (`RESERV_ID`),
   KEY `FK_RESERV_MESA` (`RESERV_MESA`),
   KEY `FK_RESERV_ESTADO` (`RESERV_ESTADO`),
+  KEY `FK_RESERV_TURNO` (`RESERV_TURNO`),
   CONSTRAINT `FK_RESERV_MESA` FOREIGN KEY (`RESERV_MESA`) REFERENCES `MESAS` (`MESA_ID`),
-  CONSTRAINT `FK_RESERV_ESTADO` FOREIGN KEY (`RESERV_ESTADO`) REFERENCES `ESTADOS` (`ESTADO_ID`)
+  CONSTRAINT `FK_RESERV_ESTADO` FOREIGN KEY (`RESERV_ESTADO`) REFERENCES `ESTADOS` (`ESTADO_ID`),
+  CONSTRAINT `FK_RESERV_TURNO` FOREIGN KEY (`RESERV_TURNO`) REFERENCES `TURNOS` (`TURNO_ID`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 -- MESAUSOS:
@@ -208,9 +224,13 @@ CREATE TABLE `MESAUSOS` (
   -- CONSTRAINT `FK_MESAUSO_COMANDA` FOREIGN KEY (`MESAUSO_COMANDA`) REFERENCES `COMANDAS` (`COMAND_ID`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
+ALTER TABLE `COMPROBANTES` ADD `COMPROBANTE_FECHA` datetime DEFAULT NULL AFTER `COMPROBANTE_ID`;
+
 -- COMPROBANTES:
 CREATE TABLE `COMPROBANTES` (
   `COMPROBANTE_ID` int NOT NULL AUTO_INCREMENT,
+  `COMPROBANTE_FECHA` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+  -- `COMPROBANTE_FECHA` datetime DEFAULT NULL,
   `COMPROBANTE_MESAUSO` int NOT NULL,
   `COMPROBANTE_TOTAL` double,
   PRIMARY KEY (`COMPROBANTE_ID`),  
@@ -221,7 +241,7 @@ CREATE TABLE `COMPROBANTES` (
 
 CREATE TABLE `ITEMS_COMPROBANTE` (
 	`ITMCOM_ID` int NOT NULL AUTO_INCREMENT,
-	`COMPRO_ID` int NOT NULL,
+	`COMPRO_ID` INT,
 	`ITMCOM_PRODUC` INT,
 	`ITMCOM_CANTID` INT,
 	PRIMARY KEY (`ITMCOM_ID`), 
@@ -231,12 +251,13 @@ CREATE TABLE `ITEMS_COMPROBANTE` (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 -- COMANDAS: saco MENU y RESERVA, cambio mesa x mesauso
+-- delete from `COMANDAS` where `COMAND_ID`>5
 CREATE TABLE `COMANDAS` (
   `COMAND_ID` int NOT NULL AUTO_INCREMENT,
   -- `COMAND_RESERV` int NOT NULL,
   -- `COMAND_MESA` int NOT NULL,
   -- `COMAND_MENU` int NOT NULL,
-  `COMAND_ESTADO` int NOT NULL,
+  `COMAND_ESTADO` int,
   `COMAND_MESAUSO` int NOT NULL,
   PRIMARY KEY (`COMAND_ID`),
   -- KEY `FK_COMAND_RESERV` (`COMAND_RESERV`),
@@ -272,6 +293,7 @@ CREATE TABLE `ITEMCOMANDAS` (
   `ITEMCOM_ID` int NOT NULL AUTO_INCREMENT,
   `ITEMCOM_COMANDA` int NOT NULL,
   `ITEMCOM_PRODUC` int NOT NULL,
+  `ITEMCOM_PRECIO` double DEFAULT NULL,
   `ITEMCOM_CANTIDAD` int NOT NULL,
   `ITEMCOM_TOTAL` double DEFAULT NULL,  
   PRIMARY KEY (`ITEMCOM_ID`),
@@ -288,6 +310,7 @@ CREATE TABLE `ITEMCOMANDAS` (
 /*
 DROP TABLE ITEMCOMANDAS;
 DROP TABLE COMANDAS;
+DROP TABLE ITEMS_COMPROBANTE;
 DROP TABLE PRODUCTOS;
 DROP TABLE CATEGORIAS;
 DROP TABLE RESERVAS;
@@ -299,6 +322,7 @@ DROP TABLE USUARIOS;
 DROP TABLE CLIENTES;
 DROP TABLE ESTADOS;
 DROP TABLE ROLES;
+DROP TABLE TURNOS;
 */
 
 /********** PARA BORRAR LAS TABLAS (DATOS) **********/
@@ -315,6 +339,8 @@ TRUNCATE TABLE COMANDAS;
 TRUNCATE TABLE ITEMCOMANDAS;
 TRUNCATE TABLE MESAUSOS;
 TRUNCATE TABLE COMPROBANTES;
+TRUNCATE TABLE ITEMS_COMPROBANTE;
+TRUNCATE TABLE TURNOS;
 
 /********** INSERTAR REGISTROS **********/
 INSERT INTO `comandabd`.`CATEGORIAS`
@@ -342,29 +368,29 @@ VALUES
 ;*/
 
 INSERT INTO `comandabd`.`PRODUCTOS`
-(`PRODUC_NOMBRE`,`PRODUC_DESCRP`,`PRODUC_PRECIO`,`PRODUC_CATEGO`/*,`PRODUC_ETIQUE`*/)
+(`PRODUC_NOMBRE`,`PRODUC_DESCRP`,`PRODUC_PRECIO`,`PRODUC_CATEGO`,`PRODUC_IMG`)
 VALUES
-('Provoleta','Provoleta grillada a la parrilla con finas hierbas.',950,1),
-('Mozzarelitas','Bastones de mozzarella con panko y salsa criolla.',1100,1),
-('Tabla de Quesos','Variedad de quesos.',850,1),
-('Entraña Provenzal','Entraña a la provenzal con papas fritas.',2600,2),
-('Vacío','Porción de vacío con guarnición.',2300,2),
-('Asado','Porción de asado con guarnición.',2300,2),
-('Mix de achuras','Molleja, riñón, chinchulín, chorizo y morcilla.',2750,2),
-('Tallarines Fileto','Tallarines con salsa fileto',1300,3),
-('Tagliatelle Bolognesa','Tagliatelle con salsa bolognesa.',1550,3),
-('Ñoquis Azafrán','Ñoquis con salsa crema de azafrán.',1450,3),
-('Tortilla de Papas','Clásica tortilla de papas con cebolla. Para compartir.',1900,4),
-('Empanada Casera','Empanda sabor a elección: carne, pollo, jamon y queso.',250,5),
-('Pizza Mozzarella Chica','Pizza Mozzarella 6 porciones.',1650,5),
-('Pizza Mozzarella Grande','Pizza Mozzarella 8 porciones, para compartir.',2450,5),
-('Aguas','Agua con o sin gas.',650,6),
-('Gaseosas','Gaseosa lína Coca - Cola.',650,6),
-('Jarra de Limonada','Limonada con menta y jengibre.',950,6),
-('Flan Casero','Flan casero con crema y dulce de leche.',1500,7),
-('Helado','Dos bochas de helado, gustos a elección.',1300,7),
-('Trumpeter','Malbec, Cabernet - Sauvignon.',2500,8),
-('Lugi Bosca','Malbec, Cabernet - Sauvignon.',300,8)
+('Provoleta','Provoleta grillada a la parrilla con finas hierbas.',950,1,'provo.png'),
+('Mozzarelitas','Bastones de mozzarella con panko y salsa criolla.',1100,1,'mozza.png'),
+('Tabla de Quesos','Variedad de quesos.',850,1,'queso.png'),
+('Entraña Provenzal','Entraña a la provenzal con papas fritas.',2600,2,'entrana.png'),
+('Vacío','Porción de vacío con guarnición.',2300,2,'vacio.png'),
+('Asado','Porción de asado con guarnición.',2300,2,'asado.png'),
+('Mix de achuras','Molleja, riñón, chinchulín, chorizo y morcilla.',2750,2,'achuras.png'),
+('Tallarines Fileto','Tallarines con salsa fileto',1300,3,'tallarines.png'),
+('Tagliatelle Bolognesa','Tagliatelle con salsa bolognesa.',1550,3,'taglia.png'),
+('Ñoquis Azafrán','Ñoquis con salsa crema de azafrán.',1450,3,'noquis.png'),
+('Tortilla de Papas','Clásica tortilla de papas con cebolla. Para compartir.',1900,4,'tortilla.png'),
+('Empanada Casera','Empanda sabor a elección: carne, pollo, jamon y queso.',250,5,'empanada.png'),
+('Pizza Mozzarella Chica','Pizza Mozzarella 6 porciones.',1650,5,'pizzamuzza.png'),
+('Pizza Mozzarella Grande','Pizza Mozzarella 8 porciones, para compartir.',2450,5,'pizzamuzza.png'),
+('Aguas','Agua con o sin gas.',650,6,'agua.png'),
+('Gaseosas','Gaseosa lína Coca - Cola.',650,6,'gaseosa.png'),
+('Jarra de Limonada','Limonada con menta y jengibre.',950,6,'limonada.png'),
+('Flan Casero','Flan casero con crema y dulce de leche.',1500,7,'flan.png'),
+('Helado','Dos bochas de helado, gustos a elección.',1300,7,'helado.png'),
+('Trumpeter','Malbec, Cabernet - Sauvignon.',2500,8,'trumpeter.png'),
+('Lugi Bosca','Malbec, Cabernet - Sauvignon.',300,8,'luigibosca.png')
 ;
 
 /*INSERT INTO `comandabd`.`PRECIOS`
@@ -410,13 +436,13 @@ VALUES
 ;*/
 
 INSERT INTO `comandabd`.`LOCALES`
-(`LOCAL_NOMBRE`,`LOCAL_CALLE`,`LOCAL_ALTURA`,`LOCAL_CODPOS`,`LOCAL_TELEFN`)
+(`LOCAL_NOMBRE`,`LOCAL_CALLE`,`LOCAL_ALTURA`,`LOCAL_CODPOS`,`LOCAL_TELEFN`,`LOCAL_IMG`)
 VALUES 
-('Kentucky Palermo','Calle Palermo',1234,1111,'44444444'),
-('Kentucky Belgrano','Calle Belgrano',1234,1111,'44444444'),
-('Kentucky Recoleta','Calle Recoleta',1234,1111,'44444444'),
-('Kentucky Microcentro 1','Calle Microcentro 1',1234,1111,'44444444'),
-('Kentucky Microcentro 2','Calle Microcentro 2',1234,1111,'44444444')
+('Kentucky Palermo','Calle Palermo',1234,1111,'44444444','kentuckypal.png'),
+('Kentucky Belgrano','Calle Belgrano',1234,1111,'44444444','kentuckybel.png'),
+('Kentucky Recoleta','Calle Recoleta',1234,1111,'44444444','kentuckyrec.png'),
+('Kentucky Microcentro 1','Calle Microcentro 1',1234,1111,'44444444','kentuckymic1.png'),
+('Kentucky Microcentro 2','Calle Microcentro 2',1234,1111,'44444444','kentuckymic2.png')
 ;
 
 INSERT INTO `comandabd`.`ROLES`
@@ -473,13 +499,22 @@ VALUES
 ('CANCELADO','Cancelado')
 ;
 
-INSERT INTO `comandabd`.`RESERVAS`
-(`RESERV_CLIENTE`,`RESERV_FECALT`,`RESERV_FECRES`,`RESERV_COMENS`,`RESERV_MESA`,`RESERV_ESTADO`)
+INSERT INTO `comandabd`.`TURNOS`
+(`TURNO_HORARIO`,`TURNO_ESTADO`)
 VALUES 
-(3,'2023-02-05','2023-02-06 20:00:00',4,5,1),
-(3,'2023-02-05','2023-02-13 21:00:00',4,5,1),
-(2,'2023-02-05','2023-02-08 20:00:00',2,1,1),
-(1,'2023-02-05','2023-02-10 20:00:00',7,10,1)
+('12:00HS',1),
+('14:00HS',4),
+('20:00HS',5),
+('22:00HS',1)
+;
+
+INSERT INTO `comandabd`.`RESERVAS`
+(`RESERV_CLIENTE`,/*`RESERV_FECALT`,*/`RESERV_FECRES`,/*`RESERV_COMENS`,*/`RESERV_MESA`,`RESERV_ESTADO`,`RESERV_TURNO`)
+VALUES 
+(3,/*'2023-02-05',*/'2023-02-06 20:00:00',/*4,*/5,1,1),
+(3,/*'2023-02-05',*/'2023-02-13 21:00:00',/*4,*/5,1,3),
+(2,/*'2023-02-05',*/'2023-02-08 20:00:00',/*2,*/1,1,3),
+(1,/*'2023-02-05',*/'2023-02-10 20:00:00',/*7,*/10,1,4)
 ;
 
 INSERT INTO `comandabd`.`MESAUSOS`
@@ -503,7 +538,9 @@ INSERT INTO `comandabd`.`COMANDAS`
 VALUES 
 (7,1),
 (4,1),
-(5,1)
+(5,1),
+(1,2),
+(1,2)
 ;
 
 /*INSERT INTO `comandabd`.`COMITEMS`
@@ -523,6 +560,9 @@ VALUES
 (2,5,1),
 (3,8,2)
 ;
+
+
+
 
 /******************** PARA ANALIZAR GENERACIÓN DE COMPROBANTES ********************/
 SET @MESAUSO = 2;
@@ -585,6 +625,8 @@ SELECT * FROM COMANDAS;
 SELECT * FROM ITEMCOMANDAS;
 SELECT * FROM MESAUSOS;
 SELECT * FROM COMPROBANTES;
+SELECT * FROM ITEMS_COMPROBANTE;
+SELECT * FROM TURNOS;
 
 -- LISTADO DE PRECIOS POR CATEGORÍA Y VIGENCIA:
 SELECT CATEGO_DESCRP CATEGORIA, PRODUC_ID ID, PRODUC_DESCRP PRODUCTO, PRELIS_PRECIO PRECIO, ETIQUE_DESCRP ETIQUETA
@@ -630,12 +672,13 @@ ALTER TABLE USUARIOS AUTO_INCREMENT = 0;
 ALTER TABLE CLIENTES AUTO_INCREMENT = 0;
 ALTER TABLE ROLES AUTO_INCREMENT = 0;
 ALTER TABLE MESAS AUTO_INCREMENT = 0;
-ALTER TABLE RESERVAS AUTO_INCREMENT = 0;
+ALTER TABLE RESERVAS AUTO_INCREMENT = 4;
 ALTER TABLE ESTADOS AUTO_INCREMENT = 0;
-ALTER TABLE COMANDAS AUTO_INCREMENT = 0;
+ALTER TABLE COMANDAS AUTO_INCREMENT = 5;
 ALTER TABLE ITEMCOMANDAS AUTO_INCREMENT = 0;
 ALTER TABLE MESAUSOS AUTO_INCREMENT = 0;
 ALTER TABLE COMPROBANTES AUTO_INCREMENT = 0;
+ALTER TABLE TURNOS AUTO_INCREMENT = 0;
 
 
 /* SIN USO
