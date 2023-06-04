@@ -67,7 +67,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 1,\r\n    \"nombre\": \"Provoleta\",\r\n    \"descripcion\": \"Provoleta grillada a la parrilla con finas hierbas.\",\r\n    \"precio\": 1000.0,\r\n    \"categoria\": {\r\n        \"id\": 1\r\n    },\r\n    \"imagen\": \"provo.png\"\r\n}",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"nombre\": \"Provoleta\",\r\n    \"descripcion\": \"Provoleta grillada a la parrilla con finas hierbas.\",\r\n    \"precio\": 1000.00,\r\n    \"categoria\": {\r\n        \"id\": 1\r\n    },\r\n    \"imagen\": \"provo.png\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -412,21 +412,12 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/mesauso Copy",
+					"name": "http://localhost:8080/comanda/mesauso/{id}/crearcomanda",
 					"request": {
 						"method": "POST",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "http://localhost:8080/comanda/mesauso/cerrarmesa",
+							"raw": "http://localhost:8080/comanda/mesauso/1/crearcomanda",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -435,6 +426,30 @@
 							"path": [
 								"comanda",
 								"mesauso",
+								"1",
+								"crearcomanda"
+							]
+						},
+						"description": "post mesas"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/comanda/mesauso/{id}/cerrarmesa",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comanda/mesauso/3/cerrarmesa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"mesauso",
+								"3",
 								"cerrarmesa"
 							]
 						},

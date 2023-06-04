@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import comanda.entity.MesaUso;
 import comanda.service.IMesaUsosService;
 
@@ -30,9 +31,10 @@ public class MesaUsosController {
 	public Optional<MesaUso> buscarMesaUso(@PathVariable("id") int idMesaUso) {
 		return serviceMesaUsos.buscarMesaUso(idMesaUso);
 	}
-	
-	@PostMapping("/mesauso/cerrarmesa")
-	public MesaUso buscarMesaUso(@RequestBody MesaUso mesauso) {
+
+	// --------------CERRAR MESA--------------
+	@PostMapping("/mesauso/{id}/cerrarmesa")
+	public MesaUso buscarMesaUso(@PathVariable("id") @RequestBody MesaUso mesauso) {
 		serviceMesaUsos.cerrarMesa(mesauso);
 		return mesauso;
 	}
@@ -40,6 +42,13 @@ public class MesaUsosController {
 	@PostMapping("/mesauso")
 	public MesaUso guardar(@RequestBody MesaUso mesauso) {
 		serviceMesaUsos.guardar(mesauso);
+		return mesauso;
+	}
+
+	// --------------CREAR COMANDA--------------
+	@PostMapping("/mesauso/{id}/crearcomanda")
+	public MesaUso buscarMesaUso2(@PathVariable("id") @RequestBody MesaUso mesauso) {
+		serviceMesaUsos.crearComanda(mesauso);
 		return mesauso;
 	}
 

@@ -29,7 +29,6 @@ public class CategoriasService implements ICategoriasService {
 		System.out.println("------------------------------------------------------------");
 		repoCategorias.save(categoria);
 		System.out.println("Guardando " + categoria);
-
 	}
 
 	public void eliminar(int idCategoria) {

@@ -21,6 +21,17 @@ public class Estado {
 	@Column(name = "ESTADO_DESCRP")
 	private String descripcion;
 
+	public Estado() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Estado(String nombre, String descripcion) {
+		super();		
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+	}
+
 	public Integer getId() {
 		return id;
 	}
