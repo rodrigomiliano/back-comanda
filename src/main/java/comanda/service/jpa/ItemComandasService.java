@@ -20,13 +20,13 @@ public class ItemComandasService implements IItemComandasService{
 	private IProductosService serviceProductos;
 	
 
-	public List<ItemComanda> buscarTodos() {
+	public List<ItemComanda> buscarTodos() {// NO USAR FOR EACH, ARMA BUCLE RECURSIVO INFINITO ENTRE ITEMCOMANDA Y COMANDA
 		System.out.println("------------------------------------------------------------");
-		List<ItemComanda> itemComandas = repoItemComandas.findAll(); // spring
+		/*List<ItemComanda> itemComandas = repoItemComandas.findAll();
 		System.out.println("Listado de ItemComandas: ");
-		itemComandas.forEach(t -> {
+		itemComandas.forEach(t -> { 
 			System.out.println(t);
-		});
+		});*/
 		return repoItemComandas.findAll(); // postman
 	}
 	
@@ -43,7 +43,7 @@ public class ItemComandasService implements IItemComandasService{
 		if (productoObtenido.isPresent()) {
 			itemComanda.setProducto(productoObtenido.get());
 			itemComanda.setPrecio(productoObtenido.get().getPrecio());
-			itemComanda.setTotal();
+			itemComanda.setTotal(itemComanda.getPrecio()*itemComanda.getCantidad());
 			repoItemComandas.save(itemComanda);
 			System.out.println("Guardando " + itemComanda);
 		} else {
@@ -52,12 +52,13 @@ public class ItemComandasService implements IItemComandasService{
 		return;		
 	}	
 	
-	public void eliminar(int idItemComanda) {
-		System.out.println("Eliminando registro: " + buscarItemComanda(idItemComanda));
+	public void eliminar(int idItemComanda) {// NO USAR buscaritemcomanda, ARMA BUCLE RECURSIVO INFINITO ENTRE ITEMCOMANDA Y COMANDA
+		//System.out.println("Eliminando registro: " + buscarItemComanda(idItemComanda));
 		repoItemComandas.deleteById(idItemComanda);
+		System.out.println("Registro eliminado");
 	}
 			
-	public Optional<ItemComanda> buscarItemComanda(int idItemComanda) {
+	public Optional<ItemComanda> buscarItemComanda(int idItemComanda) {// FUNCIONA PARA POST Y PUT, NO PARA GET POR ID
 		System.out.println("------------------------------------------------------------");
 		Optional<ItemComanda> optional = repoItemComandas.findById(idItemComanda);
 		if (optional.isPresent()) {

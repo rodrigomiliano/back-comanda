@@ -30,6 +30,19 @@ public class Producto {
 	@Column(name = "PRODUC_IMG")
 	private String imagen;
 
+	public Producto() {
+		super();		
+	}
+
+	public Producto(String nombre, String descripcion, Double precio, Categoria categoria, String imagen) {
+		super();		
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.precio = precio;
+		this.categoria = categoria;
+		this.imagen = imagen;
+	}
+
 	public Integer getId() {
 		return id;
 	}

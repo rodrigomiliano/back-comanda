@@ -47,11 +47,11 @@ public class Comanda {
 		super();		
 	}
 
-	public Comanda(Estado estado, MesaUso mesaUso/*, List<ItemComanda> itemComandas*/) {
+	public Comanda(Estado estado, MesaUso mesaUso, List<ItemComanda> itemComandas) {
 		super();		
 		this.estado = estado;
 		this.mesaUso = mesaUso;
-		//this.itemComandas = itemComandas;
+		this.itemComandas = itemComandas;
 	}
 
 	public Integer getId() {
@@ -77,10 +77,21 @@ public class Comanda {
 	public void setMesaUso(MesaUso mesaUso) {
 		this.mesaUso = mesaUso;
 	}
+	
+	
+
+	public List<ItemComanda> getItemComandas() {
+		return itemComandas;
+	}
+
+	public void setItemComandas(List<ItemComanda> itemComandas) {
+		this.itemComandas = itemComandas;
+	}
 
 	@Override
 	public String toString() {
-		return "Comanda [id=" + id + ", estado=" + estado + ", mesaUso=" + mesaUso + "]";
-	}
+		return "Comanda [id=" + id + ", estado=" + estado + ", mesaUso=" + mesaUso + ", itemComandas=" + itemComandas
+				+ "]";
+	}	
 
 }

@@ -1,5 +1,6 @@
 package comanda.service.jpa;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import comanda.entity.Comanda;
 import comanda.entity.Comprobante;
 import comanda.entity.Estado;
+import comanda.entity.ItemComanda;
 import comanda.entity.ItemComprobante;
 import comanda.entity.MesaUso;
 import comanda.repository.ComandasRepository;
@@ -103,18 +105,19 @@ public class MesaUsosService implements IMesaUsosService {
 	}
 
 	public void crearListaItems(Comprobante comprobante) {
-		ItemComprobante itemcomp = new ItemComprobante();
+		ItemComprobante itemcomp = new ItemComprobante(comprobante, null);
 		repoItemComprobantes.save(itemcomp);
-		System.out.println("Creando " + itemcomp);
+		System.out.println("Creando " + itemcomp);		
 	}
 
 	public void crearComanda(MesaUso mesaUso) { 
 		System.out.println("------------------------------------------------------------");		
-		Estado esta = new Estado();
-		esta.setId(5); // es el estado "en preparacion"		
-		Comanda coma = new Comanda(esta, mesaUso);
+		Estado esta = new Estado(); // Crea una comanda con estado vacío, para luego setearlo a "en preparación"
+		esta.setId(5); // Es el estado "en preparacion"		
+		List<ItemComanda> itemComandas = new ArrayList<>(); // creo nueva lista de itemcomandas, nose si funciona asi
+		//itemComanda.setId(coma);
+		Comanda coma = new Comanda(esta, mesaUso, itemComandas);
 		repoComandas.save(coma);
 		System.out.println("Creando " + coma);
-	}
-
+	}	
 }
