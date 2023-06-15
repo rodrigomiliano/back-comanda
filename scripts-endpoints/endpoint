@@ -67,7 +67,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 1,\r\n    \"nombre\": \"Provoleta\",\r\n    \"descripcion\": \"Provoleta grillada a la parrilla con finas hierbas.\",\r\n    \"precio\": 1000.0,\r\n    \"categoria\": {\r\n        \"id\": 1\r\n    },\r\n    \"imagen\": \"provo.png\"\r\n}",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"nombre\": \"Provoleta\",\r\n    \"descripcion\": \"Provoleta grillada a la parrilla con finas hierbas.\",\r\n    \"precio\": 1000.00,\r\n    \"categoria\": {\r\n        \"id\": 1\r\n    },\r\n    \"imagen\": \"provo.png\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -301,7 +301,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 17,\r\n    \"comanda\":{\r\n        \"id\": 7\r\n    },\r\n    \"producto\": {\r\n        \"id\": 11\r\n    },\r\n    \"cantidad\": 2,\r\n    \"total\": 999.50\r\n}",
+							"raw": "{\r\n    \"id\": 24,\r\n    \"comanda\": {\r\n        \"id\": 1\r\n    },\r\n    \"producto\": {\r\n        \"id\": 1\r\n    },\r\n    \"cantidad\": 5\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -412,21 +412,12 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/mesauso Copy",
+					"name": "http://localhost:8080/comanda/mesauso/{id}/crearcomanda",
 					"request": {
 						"method": "POST",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "http://localhost:8080/comanda/mesauso/cerrarmesa",
+							"raw": "http://localhost:8080/comanda/mesauso/1/crearcomanda",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -435,7 +426,97 @@
 							"path": [
 								"comanda",
 								"mesauso",
+								"1",
+								"crearcomanda"
+							]
+						},
+						"description": "post mesas"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/comanda/mesauso/{id}/comanda/{id}/itemcomanda",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"producto\": {\r\n        \"id\": 1\r\n    },\r\n    \"cantidad\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/comanda/mesauso/1/comanda/17/itemcomanda",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"mesauso",
+								"1",
+								"comanda",
+								"17",
+								"itemcomanda"
+							]
+						},
+						"description": "post mesas"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/comanda/mesauso/{id}/cerrarmesa",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comanda/mesauso/1/cerrarmesa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"mesauso",
+								"1",
 								"cerrarmesa"
+							]
+						},
+						"description": "post mesas"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/comanda/mesauso/{id}/crearcomanda",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"producto\": {\r\n        \"id\": 1\r\n    },\r\n    \"cantidad\": 2\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/comanda/comanda/1/crearitemcomanda",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"comanda",
+								"1",
+								"crearitemcomanda"
 							]
 						},
 						"description": "post mesas"

@@ -1,4 +1,5 @@
 package comanda.entity;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,8 +29,8 @@ public class ItemComanda {
 	@ManyToOne
 	@JoinColumn(name = "ITEMCOM_PRODUC") // "idProducto")
 	private Producto producto;
-		
-	@Column(name =  "ITEMCOM_PRECIO")
+
+	@Column(name = "ITEMCOM_PRECIO")
 	private Double precio;
 
 	@Column(name = "ITEMCOM_CANTIDAD")
@@ -37,6 +38,30 @@ public class ItemComanda {
 
 	@Column(name = "ITEMCOM_TOTAL")
 	private Double total;
+
+	public ItemComanda() {
+		super();		
+	}
+		
+	public ItemComanda(/*Integer id,*/ Comanda comanda, Producto producto, Double precio, Integer cantidad, Double total) {
+		super();
+		//this.id = id;
+		this.comanda = comanda;
+		this.producto = producto;
+		this.precio = precio;
+		this.cantidad = cantidad;
+		this.total = total;
+	}
+
+	/*public ItemComanda(Comanda comanda, Producto producto, Integer cantidad) {				
+		this.comanda = comanda;
+		this.producto = producto;
+		this.precio = producto.getPrecio();
+		this.cantidad = cantidad;
+		this.total = this.precio * this.cantidad;
+	}*/
+
+	
 
 	public Integer getId() {
 		return id;
@@ -46,10 +71,6 @@ public class ItemComanda {
 		this.id = id;
 	}
 
-	/*
-	 * public Comanda getComanda() { return comanda; }
-	 */
-
 	public Comanda getComanda() {
 		return comanda;
 	}
@@ -58,23 +79,20 @@ public class ItemComanda {
 		this.comanda = comanda;
 	}
 
-
 	public Producto getProducto() {
 		return producto;
 	}
 
-
 	public void setProducto(Producto producto) {
 		this.producto = producto;
 	}
-	
+
 	public Double getPrecio() {
 		return precio;
 	}
 
 	public void setPrecio(Double precio) {
-		//this.precio = BigDecimal.valueOf(this.producto.getPrecio());
-		this.precio = this.producto.getPrecio();
+		this.precio = precio;
 	}
 
 	public Integer getCantidad() {
@@ -89,18 +107,8 @@ public class ItemComanda {
 		return total;
 	}
 
-	public void setTotal() {
-		//BigInteger cantidad = cantidad;
-		
-		/*int n = cantidad;
-		BigInteger bigInteger = BigInteger.valueOf(n);
-		this.total = getPrecio().multiply(BigDecimal.valueOf(n));
-		this.total = getPrecio() * this.cantidad;*/
-
-        //this.total = getProducto().getPrecio() * this.cantidad;
-        this.total = this.precio * this.cantidad;
-		
-		//monto1.multiply(monto2));
+	public void setTotal(Double total) {
+		this.total = total;
 	}
 
 	@Override
@@ -108,6 +116,4 @@ public class ItemComanda {
 		return "ItemComanda [id=" + id + ", comanda=" + comanda + ", producto=" + producto + ", total=" + total + "]";
 	}
 
-
-	
 }

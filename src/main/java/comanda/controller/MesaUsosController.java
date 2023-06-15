@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import comanda.entity.Comanda;
+import comanda.entity.ItemComanda;
+import comanda.controller.dto.request.ItemComandaInsertRequest;
 import comanda.controller.dto.response.MesaUsoDTO;
 import comanda.entity.MesaUso;
 import comanda.service.IMesaUsosService;
@@ -57,8 +60,9 @@ public class MesaUsosController {
 		return serviceMesaUsos.buscarMesaUso(idMesaUso);
 	}
 
-	@PostMapping("/mesauso/cerrarmesa")
-	public MesaUso buscarMesaUso(@RequestBody MesaUso mesauso) {
+	// --------------CERRAR MESA--------------
+	@PostMapping("/mesauso/{id}/cerrarmesa")
+	public MesaUso buscarMesaUso(@PathVariable("id") @RequestBody MesaUso mesauso) {
 		serviceMesaUsos.cerrarMesa(mesauso);
 		return mesauso;
 	}
@@ -68,6 +72,28 @@ public class MesaUsosController {
 		serviceMesaUsos.guardar(mesauso);
 		return mesauso;
 	}
+
+	// --------------CREAR COMANDA--------------
+	@PostMapping("/mesauso/{id}/crearcomanda")
+	public MesaUso buscarMesaUso2(@PathVariable("id") @RequestBody MesaUso mesauso) {
+		serviceMesaUsos.crearComanda(mesauso);
+		return mesauso;
+	}
+
+	// --------------CREAR ITEMCOMANDA--------------
+		@PostMapping("/mesauso/{mesaUsoId}/comanda/{comandaId}/itemcomanda")
+		public MesaUso buscarMesaUso3(@PathVariable Integer mesaUsoId, @PathVariable Integer comandaId, @RequestBody ItemComandaInsertRequest itemComanda) {
+			MesaUso mesaUso = null;
+			ItemComanda itemComandaNuevo = null;
+
+			serviceMesaUsos.crearItemComanda(mesaUsoId, comandaId, itemComandaNuevo);
+			return mesaUso;
+		}
+	/*@PostMapping("/mesauso/comanda/{id}/itemcomanda")
+	public MesaUso buscarMesaUso3(@PathVariable("id") @RequestBody MesaUso mesauso, Comanda comanda) {
+		serviceMesaUsos.crearItemComanda(mesauso, comanda);
+		return mesauso;
+	}*/
 
 	@PutMapping("/mesauso")
 	public MesaUso modificar(@RequestBody MesaUso mesauso) {

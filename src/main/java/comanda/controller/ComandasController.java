@@ -36,6 +36,13 @@ public class ComandasController {
 		serviceComandas.guardar(comanda);
 		return comanda;
 	}
+	
+	// --------------CREAR ITEMCOMANDA--------------
+		@PostMapping("/comanda/{id}/crearitemcomanda")
+		public Comanda buscarComanda(@PathVariable("id") @RequestBody Comanda comanda) {
+			serviceComandas.crearItemComanda(comanda);
+			return comanda;
+		}
 
 	@PutMapping("/comanda")
 	public Comanda modificar(@RequestBody Comanda comanda) {

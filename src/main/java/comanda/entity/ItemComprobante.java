@@ -20,13 +20,13 @@ public class ItemComprobante {
 	@Column(name = "ITMCOM_ID")
 	private Integer id;
 
-	//@OneToOne
-	//@JoinColumn(name = "COMPRO_ID") // "idComprobante")
-	//private Comprobante comprobante;
+	@OneToOne
+	@JoinColumn(name = "COMPRO_ID") // "idComprobante")
+	private Comprobante comprobante;
 
-	//@OneToMany
-	//@JoinColumn(name = "ITMCOM_PRODUC") // "idProducto")
-	//private Producto producto;
+	// @OneToMany
+	// @JoinColumn(name = "ITMCOM_PRODUC") // "idProducto")
+	// private Producto producto;
 
 	// private double precio;
 
@@ -36,8 +36,14 @@ public class ItemComprobante {
 	public ItemComprobante() {
 		super();
 	}
-
 	
+	public ItemComprobante(Comprobante comprobante, Integer cantidad) {
+		super();		
+		this.comprobante = comprobante;
+		this.cantidad = cantidad;
+	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -47,21 +53,18 @@ public class ItemComprobante {
 		this.id = id;
 	}
 
-	/*public Comprobante getComprobante() {
-		return comprobante;
-	}
+	/*
+	 * public Comprobante getComprobante() { return comprobante; }
+	 * 
+	 * public void setComprobante(Comprobante comprobante) { this.comprobante =
+	 * comprobante; }
+	 */
 
-	public void setComprobante(Comprobante comprobante) {
-		this.comprobante = comprobante;
-	}*/
-
-	/*public Producto getProducto() {
-		return producto;
-	}
-
-	public void setProducto(Producto producto) {
-		this.producto = producto;
-	}*/
+	/*
+	 * public Producto getProducto() { return producto; }
+	 * 
+	 * public void setProducto(Producto producto) { this.producto = producto; }
+	 */
 
 	public Integer getCantidad() {
 		return cantidad;
@@ -73,8 +76,8 @@ public class ItemComprobante {
 
 	@Override
 	public String toString() {
-		return "ItemComprobante [id=" + id + /*", comprobante=" + comprobante +*/ /*", producto=" + producto + */", cantidad="
-				+ cantidad + "]";
+		return "ItemComprobante [id=" + id
+				+ /* ", comprobante=" + comprobante + */ /* ", producto=" + producto + */", cantidad=" + cantidad + "]";
 	}
 
 }
