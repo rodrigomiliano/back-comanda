@@ -14,6 +14,7 @@ import comanda.entity.ItemComprobante;
 import comanda.entity.MesaUso;
 import comanda.repository.ComandasRepository;
 import comanda.repository.ComprobantesRepository;
+import comanda.repository.ItemComandasRepository;
 import comanda.repository.ItemComprobantesRepository;
 import comanda.repository.MesaUsosRepository;
 import comanda.service.IMesaUsosService;
@@ -32,6 +33,9 @@ public class MesaUsosService implements IMesaUsosService {
 
 	@Autowired
 	private ComandasRepository repoComandas;
+	
+	@Autowired
+	private ItemComandasRepository repoItemComandas;
 	
 	public List<MesaUso> buscarTodas() {
 		System.out.println("------------------------------------------------------------");
@@ -119,5 +123,16 @@ public class MesaUsosService implements IMesaUsosService {
 		Comanda coma = new Comanda(esta, mesaUso, itemComandas);
 		repoComandas.save(coma);
 		System.out.println("Creando " + coma);
+	}
+
+	@Override
+	public void crearItemComanda(MesaUso mesauso, Comanda comanda) {
+		System.out.println("------------------------------------------------------------");				
+		ItemComanda itemComanda = new ItemComanda(comanda, null, null, null, null); // creo nueva lista de itemcomandas, nose si funciona asi
+		
+		
+		repoItemComandas.save(itemComanda);
+		System.out.println("Creando " + itemComanda);
+		
 	}	
 }

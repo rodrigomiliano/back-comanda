@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import comanda.controller.request.ItemComandaInsertRequest;
+import comanda.entity.Comanda;
 import comanda.entity.MesaUso;
 import comanda.service.IMesaUsosService;
 
@@ -51,6 +53,18 @@ public class MesaUsosController {
 		serviceMesaUsos.crearComanda(mesauso);
 		return mesauso;
 	}
+	
+	// --------------CREAR ITEMCOMANDA--------------
+		@PostMapping("/mesauso/{mesaUsoId}/comanda/{comandaId}/itemcomanda")
+		public MesaUso buscarMesaUso3(@PathVariable Integer mesaUsoId, @PathVariable Integer comandaId, @RequestBody ItemComandaInsertRequest itemComanda) {
+			serviceMesaUsos.crearItemComanda(mesaUsoId, comandaId, mesauso);
+			return mesauso;
+		}
+	/*@PostMapping("/mesauso/comanda/{id}/itemcomanda")
+	public MesaUso buscarMesaUso3(@PathVariable("id") @RequestBody MesaUso mesauso, Comanda comanda) {
+		serviceMesaUsos.crearItemComanda(mesauso, comanda);
+		return mesauso;
+	}*/
 
 	@PutMapping("/mesauso")
 	public MesaUso modificar(@RequestBody MesaUso mesauso) {

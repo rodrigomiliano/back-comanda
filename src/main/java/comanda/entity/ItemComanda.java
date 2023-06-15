@@ -43,9 +43,9 @@ public class ItemComanda {
 		super();		
 	}
 		
-	public ItemComanda(Integer id, Comanda comanda, Producto producto, Double precio, Integer cantidad, Double total) {
+	public ItemComanda(/*Integer id,*/ Comanda comanda, Producto producto, Double precio, Integer cantidad, Double total) {
 		super();
-		this.id = id;
+		//this.id = id;
 		this.comanda = comanda;
 		this.producto = producto;
 		this.precio = precio;
