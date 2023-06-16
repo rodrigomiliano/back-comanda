@@ -2,6 +2,7 @@ package comanda.service.jpa;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import comanda.entity.Estado;
 import comanda.entity.ItemComanda;
 import comanda.entity.ItemComprobante;
 import comanda.entity.MesaUso;
+import comanda.entity.Producto;
 import comanda.repository.ComandasRepository;
 import comanda.repository.ComprobantesRepository;
 import comanda.repository.ItemComandasRepository;
@@ -37,6 +39,9 @@ public class MesaUsosService implements IMesaUsosService {
 	@Autowired
 	private ItemComandasRepository repoItemComandas;
 
+	@Autowired
+	private ProductosService productoService;
+
 	public List<MesaUso> buscarTodas() {
 		System.out.println("------------------------------------------------------------");
 		List<MesaUso> mesaUsos = repoMesaUsos.findAll(); // spring
@@ -53,23 +58,23 @@ public class MesaUsosService implements IMesaUsosService {
 		System.out.println("Guardando " + mesaUso);
 	}
 
-	public void eliminar(int idMesaUso) {
+	public void eliminar(int idMesaUso) throws Exception {
 		System.out.println("Eliminando registro: " + buscarMesaUso(idMesaUso));
 		repoMesaUsos.deleteById(idMesaUso);
 	}
 
-	public Optional<MesaUso> buscarMesaUso(int idMesaUso) {
+	public MesaUso buscarMesaUso(int idMesaUso) throws Exception {
 		System.out.println("------------------------------------------------------------");
 		Optional<MesaUso> optional = repoMesaUsos.findById(idMesaUso);
 		if (optional.isPresent()) {
 			MesaUso u = optional.get();
 			System.out.println("Elegiste " + u);
-			return repoMesaUsos.findById(idMesaUso);
+			return u;
 		} else {
 			System.out.println("------------------------------------------------------------");
 			System.out.println("No existe el MesaUso n° " + idMesaUso);
+			throw new Exception("No existe el MesaUso n° " + idMesaUso);
 		}
-		return null;
 	}
 
 	public void cerrarMesa(MesaUso mesaUso) {// crea comprobante, recorre comanda y productos, para grabar comprobante e
@@ -126,14 +131,40 @@ public class MesaUsosService implements IMesaUsosService {
 	}
 
 	@Override
-	public void crearItemComanda(Integer mesaUsoId, Integer comandaId, ItemComanda itemComanda) {
+	public MesaUso crearItemComanda(Integer mesaUsoId, Integer comandaId, ItemComanda itemComanda) throws Exception {
+
+		MesaUso mesaUso = this.buscarMesaUso(mesaUsoId);
+
+		Comanda comanda = buscarComanda(mesaUso.getComandas(), comandaId);
+		if (Objects.nonNull(comanda)) {
+
+			// Completar ItemComanda
+			Producto producto = productoService.buscarProducto(itemComanda.getProducto().getId());
+			itemComanda.setProducto(producto);
+			itemComanda.setPrecio(producto.getPrecio());
+			Double total = itemComanda.getPrecio() * itemComanda.getCantidad();
+			itemComanda.setTotal(total);
+			itemComanda.setComanda(comanda);
+			repoItemComandas.save(itemComanda);
+			System.out.println("Creando " + itemComanda);
+
+		}
+
 		System.out.println("------------------------------------------------------------");
-		//ItemComanda itemComanda = new ItemComanda(comanda, null, null, null, null); // creo nueva lista de itemcomandas, nose si funciona asi
 
+		return mesaUso;
 
-		repoItemComandas.save(itemComanda);
-		System.out.println("Creando " + itemComanda);
+	}
 
+	private Comanda buscarComanda(List<Comanda> comandas, Integer comandaId) {
+		Comanda resultado = null;
+		for(Comanda comanda : comandas) {
+			if (comanda.getId() == comandaId) {
+				resultado = comanda;
+				break;
+			}
+		}
+		return resultado;
 	}
 
 }

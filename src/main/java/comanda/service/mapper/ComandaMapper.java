@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-import comanda.controller.dto.response.ComandaDTO;
+import comanda.controller.dto.response.ComandaResponse;
 import comanda.entity.Comanda;
 
 
@@ -18,11 +18,11 @@ public interface ComandaMapper {
 	ComandaMapper INSTANCE = Mappers.getMapper( ComandaMapper.class );
 
 	@Mapping (target = "mesaUsoId", source = "comanda.mesaUso.id")
-	ComandaDTO mapToComandaDTO(Comanda comanda);
+	ComandaResponse mapToComandaDTO(Comanda comanda);
 
-	List<ComandaDTO> mapToListComandaDTO(Collection<Comanda> comandas);
+	List<ComandaResponse> mapToListComandaDTO(Collection<Comanda> comandas);
 
-	Comanda mapToComanda(ComandaDTO comandaDTO);
+	Comanda mapToComanda(ComandaResponse comandaDTO);
 
-	List<Comanda> mapToListComanda(Collection<ComandaDTO> comandasDTO);
+	List<Comanda> mapToListComanda(Collection<ComandaResponse> comandasDTO);
 }

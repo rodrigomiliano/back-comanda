@@ -6,7 +6,7 @@ import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-import comanda.controller.dto.response.MesaDTO;
+import comanda.controller.dto.response.MesaResponse;
 import comanda.entity.Mesa;
 
 
@@ -16,11 +16,11 @@ public interface MesaMapper {
 
 	MesaMapper INSTANCE = Mappers.getMapper( MesaMapper.class );
 
-	MesaDTO mapToMesaDTO(Mesa mesa);
+	MesaResponse mapToMesaDTO(Mesa mesa);
 
-	List<MesaDTO> mapToListMesaDTO(Collection<Mesa> mesas);
+	List<MesaResponse> mapToListMesaDTO(Collection<Mesa> mesas);
 
-	Mesa mapToMesa(MesaDTO mesaDTO);
+	Mesa mapToMesa(MesaResponse mesaDTO);
 
-	List<Mesa> mapToListMesa(Collection<MesaDTO> mesasDTO);
+	List<Mesa> mapToListMesa(Collection<MesaResponse> mesasDTO);
 }

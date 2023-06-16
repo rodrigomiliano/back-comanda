@@ -10,8 +10,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
-import comanda.controller.dto.response.ComandaDTO;
-import comanda.controller.dto.response.MesaUsoDTO;
+import comanda.controller.dto.response.ComandaResponse;
+import comanda.controller.dto.response.MesaUsoResponse;
 import comanda.entity.MesaUso;
 
 
@@ -22,13 +22,13 @@ public interface MesaUsoMapper{
 
 
 	@Mapping(target = "mesa", source = "mesa")
-	MesaUsoDTO mapToMesaUsoDTO(MesaUso mesaUso);
+	MesaUsoResponse mapToMesaUsoDTO(MesaUso mesaUso);
 
-	List<MesaUsoDTO> mapToListMesaUsoDTO(Collection<MesaUso> mesasUso);
+	List<MesaUsoResponse> mapToListMesaUsoDTO(Collection<MesaUso> mesasUso);
 
 
-	MesaUso mapToMesaUso(MesaUsoDTO mesaUsoDTO);
+	MesaUso mapToMesaUso(MesaUsoResponse mesaUsoDTO);
 
-	List<MesaUso> mapToListMesaUso(Collection<MesaUsoDTO> MesaUsosDTO);
+	List<MesaUso> mapToListMesaUso(Collection<MesaUsoResponse> MesaUsosDTO);
 
 }

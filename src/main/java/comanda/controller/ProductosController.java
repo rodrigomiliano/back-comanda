@@ -20,35 +20,47 @@ public class ProductosController {
 
 	@Autowired
 	private IProductosService serviceProductos;
-	
+
 	@GetMapping("/producto")
 	public List<Producto> buscarTodos(){
 		return serviceProductos.buscarTodos();
 	}
-	
+
 	@GetMapping("/producto/{id}")
-	public Optional<Producto> buscarProducto(@PathVariable("id") int idProducto) {
-		return serviceProductos.buscarProducto(idProducto);
+	public Producto buscarProducto(@PathVariable("id") int idProducto) {
+		Producto producto = null;
+		try {
+			producto =  serviceProductos.buscarProducto(idProducto);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return producto;
 	}
-	
-	@PostMapping("/producto") 
+
+	@PostMapping("/producto")
 	public Producto guardar(@RequestBody Producto producto) {
 		serviceProductos.guardar(producto);
 		// se podria hacer un find del producto enviado antes de mostrar, esto para no ver el nombre null
 		return producto;
 		//return Optional<Producto> buscarProducto(0);
 	}
-	
+
 	@PutMapping("/producto")
 	public Producto modificar(@RequestBody Producto producto) {
 		serviceProductos.guardar(producto);
 		// se podria pasar el id por url (como en delete)
 		return producto;
-	} 		
-		
+	}
+
 	@DeleteMapping("/producto/{id}")
 	public String eliminar(@PathVariable("id") int idProducto) {
-		serviceProductos.eliminar(idProducto);
+		try {
+			serviceProductos.eliminar(idProducto);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "Registro Eliminado";
 	}
 }

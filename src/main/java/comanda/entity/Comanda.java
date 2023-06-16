@@ -88,6 +88,11 @@ public class Comanda {
 		this.itemComandas = itemComandas;
 	}
 
+	public void addItemComanda(ItemComanda itemComanda) {
+		this.itemComandas.add(itemComanda);
+	}
+
+
 	@Override
 	public String toString() {
 		return "Comanda [id=" + id + ", estado=" + estado + ", mesaUso=" + mesaUso + ", itemComandas=" + itemComandas

@@ -1,7 +1,5 @@
 package comanda.controller.dto.response;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,9 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 
-public class MesaDTO {
+public class ComandaResponse {
 
 	private Integer id;
 
+	private Integer mesaUsoId;
 
 }

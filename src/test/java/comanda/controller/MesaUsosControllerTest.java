@@ -12,9 +12,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import comanda.controller.dto.response.ComandaDTO;
-import comanda.controller.dto.response.MesaDTO;
-import comanda.controller.dto.response.MesaUsoDTO;
+import comanda.controller.dto.response.ComandaResponse;
+import comanda.controller.dto.response.MesaResponse;
+import comanda.controller.dto.response.MesaUsoResponse;
 import comanda.entity.Comanda;
 import comanda.entity.Estado;
 import comanda.entity.Mesa;
@@ -76,23 +76,23 @@ class MesaUsosControllerTest {
 		System.out.println("------");
 
 
-		ComandaDTO comandaDTO = comandaMapper.mapToComandaDTO(comanda);
+		ComandaResponse comandaDTO = comandaMapper.mapToComandaDTO(comanda);
 		System.out.println("------");
 		System.out.println(">>> comandaDTO: " + comandaDTO);
 		System.out.println("------");
 
 
-		MesaDTO mesaDTO = mesaMapper.mapToMesaDTO(mesa);
+		MesaResponse mesaDTO = mesaMapper.mapToMesaDTO(mesa);
 		System.out.println("------");
 		System.out.println(">>> mesaDTO: " + mesaDTO);
 		System.out.println("------");
 
-		MesaUsoDTO mesaUsoDTO = mesaUsoMapper.mapToMesaUsoDTO(mesaUso);
+		MesaUsoResponse mesaUsoDTO = mesaUsoMapper.mapToMesaUsoDTO(mesaUso);
 		System.out.println("------");
 		System.out.println(">>> mesaUsoDTO: " + mesaUsoDTO);
 		System.out.println("------");
 
-		List<ComandaDTO> comandasDTO = comandaMapper.mapToListComandaDTO(mesaUso.getComandas());
+		List<ComandaResponse> comandasDTO = comandaMapper.mapToListComandaDTO(mesaUso.getComandas());
 		System.out.println("------");
 		System.out.println(">>> comandasDTO: " + comandasDTO);
 		System.out.println("------");

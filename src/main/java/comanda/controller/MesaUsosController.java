@@ -16,9 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import comanda.entity.Comanda;
 import comanda.entity.ItemComanda;
 import comanda.controller.dto.request.ItemComandaInsertRequest;
-import comanda.controller.dto.response.MesaUsoDTO;
+import comanda.controller.dto.response.MesaUsoResponse;
 import comanda.entity.MesaUso;
 import comanda.service.IMesaUsosService;
+import comanda.service.mapper.ItemComandaMapper;
 //import comanda.service.mapper.MesaUsoMapper;
 import comanda.service.mapper.MesaUsoMapper;
 
@@ -31,14 +32,17 @@ public class MesaUsosController {
 
 	private final MesaUsoMapper mesaUsoMapper = MesaUsoMapper.INSTANCE;
 
+	@Autowired
+	private ItemComandaMapper itemComandaMapper;
+
 	@GetMapping("/mesauso")
 	public List<MesaUso> buscarTodas() {
 		return serviceMesaUsos.buscarTodas();
 	}
 
 	@GetMapping("/mesauso/all")
-	public List<MesaUsoDTO> buscarTodasAll() {
-		List<MesaUsoDTO> mesasUsoDTO = new ArrayList<MesaUsoDTO>();
+	public List<MesaUsoResponse> buscarTodasAll() {
+		List<MesaUsoResponse> mesasUsoDTO = new ArrayList<MesaUsoResponse>();
 		List<MesaUso> mesasUso = serviceMesaUsos.buscarTodas();
 
 //		List<MesaUsoDTO> resultado = new ArrayList<MesaUsoDTO>();
@@ -56,8 +60,15 @@ public class MesaUsosController {
 
 
 	@GetMapping("/mesauso/{id}")
-	public Optional<MesaUso> buscarMesaUso(@PathVariable("id") int idMesaUso) {
-		return serviceMesaUsos.buscarMesaUso(idMesaUso);
+	public MesaUso buscarMesaUso(@PathVariable("id") int idMesaUso) {
+		MesaUso mesaUso = null;
+		try {
+			mesaUso = serviceMesaUsos.buscarMesaUso(idMesaUso);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return mesaUso;
 	}
 
 	// --------------CERRAR MESA--------------
@@ -82,11 +93,16 @@ public class MesaUsosController {
 
 	// --------------CREAR ITEMCOMANDA--------------
 		@PostMapping("/mesauso/{mesaUsoId}/comanda/{comandaId}/itemcomanda")
-		public MesaUso buscarMesaUso3(@PathVariable Integer mesaUsoId, @PathVariable Integer comandaId, @RequestBody ItemComandaInsertRequest itemComanda) {
+		public MesaUso buscarMesaUso3(@PathVariable Integer mesaUsoId, @PathVariable Integer comandaId, @RequestBody ItemComandaInsertRequest itemComandaInsertRequest) {
 			MesaUso mesaUso = null;
-			ItemComanda itemComandaNuevo = null;
+			ItemComanda itemComanda = itemComandaMapper.mapToItemComanda(itemComandaInsertRequest);
 
-			serviceMesaUsos.crearItemComanda(mesaUsoId, comandaId, itemComandaNuevo);
+			try {
+				mesaUso = serviceMesaUsos.crearItemComanda(mesaUsoId, comandaId, itemComanda);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return mesaUso;
 		}
 	/*@PostMapping("/mesauso/comanda/{id}/itemcomanda")
@@ -103,7 +119,12 @@ public class MesaUsosController {
 
 	@DeleteMapping("/mesauso/{id}")
 	public String eliminar(@PathVariable("id") int idMesa) {
-		serviceMesaUsos.eliminar(idMesa);
+		try {
+			serviceMesaUsos.eliminar(idMesa);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "Registro Eliminado";
 	}
 }

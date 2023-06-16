@@ -8,6 +8,6 @@ public interface IProductosService {
 
 	List<Producto> buscarTodos();
 	void guardar(Producto producto);
-	void eliminar(int idProducto);
-	Optional<Producto> buscarProducto(int idProducto);
+	void eliminar(int idProducto) throws Exception;
+	Producto buscarProducto(int idProducto) throws Exception;
 }

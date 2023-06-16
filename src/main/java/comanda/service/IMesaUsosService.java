@@ -12,10 +12,10 @@ public interface IMesaUsosService {
 
 	List<MesaUso> buscarTodas();
 	void guardar(MesaUso mesaUso);
-	void eliminar(int idMesaUso);
-	Optional<MesaUso> buscarMesaUso(int idMesaUso);
+	void eliminar(int idMesaUso) throws Exception;
+	MesaUso buscarMesaUso(int idMesaUso) throws Exception;
 	void cerrarMesa(MesaUso mesaUso); //crea comprobante, recorre comanda y productos, para grabar comprobante e itemcomprobante
 	void crearListaItems(Comprobante comprobante);
 	void crearComanda(MesaUso mesauso);
-	void crearItemComanda(Integer mesaUsoId, Integer comandaId, ItemComanda itemComanda);
+	MesaUso crearItemComanda(Integer mesaUsoId, Integer comandaId, ItemComanda itemComanda) throws Exception;
 }
