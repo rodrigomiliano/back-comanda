@@ -14,9 +14,27 @@
 	<name>back-comanda</name>
 	<description>Prueba back</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>1.8</java.version>
+		<org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
+		<lombok.version>1.18.26</lombok.version>
+		<lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
+		<org.mapstruct.extensions.spring.version>1.0.1</org.mapstruct.extensions.spring.version>
+		<m2e.apt.activation>jdt_apt</m2e.apt.activation>
 	</properties>
+
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-hateoas</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -27,24 +45,102 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <version>${lombok.version}</version>
+		    <scope>provided</scope>
+			<optional>true</optional>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct -->
+		<dependency>
+		    <groupId>org.mapstruct</groupId>
+		    <artifactId>mapstruct</artifactId>
+		    <version>${org.mapstruct.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
 			<plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-compiler-plugin</artifactId>
+	            <version>3.8.1</version>
+	            <configuration>
+	                <source>1.8</source>
+	                <target>1.8</target>
+	                <annotationProcessorPaths>
+	                    <path>
+	                        <groupId>org.mapstruct</groupId>
+	                        <artifactId>mapstruct-processor</artifactId>
+	                        <version>${org.mapstruct.version}</version>
+	                    </path>
+			            <path>
+			                <groupId>org.projectlombok</groupId>
+			                <artifactId>lombok</artifactId>
+				        <version>${lombok.version}</version>
+			            </path>
+			            <path>
+			                <groupId>org.projectlombok</groupId>
+			                <artifactId>lombok-mapstruct-binding</artifactId>
+				        <version>${lombok.mapstruct.binding.version}</version>
+			            </path>
+	                </annotationProcessorPaths>
+			        <!-- due to problem in maven-compiler-plugin, for verbose mode add showWarnings -->
+			        <showWarnings>true</showWarnings>
+			        <compilerArgs>
+			            <arg>
+			                -Amapstruct.suppressGeneratorTimestamp=true
+			            </arg>
+			            <arg>
+			                -Amapstruct.suppressGeneratorVersionInfoComment=true
+			            </arg>
+			            <arg>
+			                -Amapstruct.verbose=true
+			            </arg>
+			        </compilerArgs>
+	            </configuration>
+	        </plugin>
+
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

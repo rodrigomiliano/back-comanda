@@ -14,6 +14,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+//@NoArgsConstructor
+//@AllArgsConstructor
+@Builder
+
+
 @Entity
 @Table(name = "Mesausos") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
 public class MesaUso {

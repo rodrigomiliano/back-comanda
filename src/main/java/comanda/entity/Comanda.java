@@ -44,11 +44,11 @@ public class Comanda {
 	private List<ItemComanda> itemComandas;
 
 	public Comanda() {
-		super();		
+		super();
 	}
 
 	public Comanda(Estado estado, MesaUso mesaUso, List<ItemComanda> itemComandas) {
-		super();		
+		super();
 		this.estado = estado;
 		this.mesaUso = mesaUso;
 		this.itemComandas = itemComandas;
@@ -77,8 +77,8 @@ public class Comanda {
 	public void setMesaUso(MesaUso mesaUso) {
 		this.mesaUso = mesaUso;
 	}
-	
-	
+
+
 
 	public List<ItemComanda> getItemComandas() {
 		return itemComandas;
@@ -88,10 +88,15 @@ public class Comanda {
 		this.itemComandas = itemComandas;
 	}
 
+	public void addItemComanda(ItemComanda itemComanda) {
+		this.itemComandas.add(itemComanda);
+	}
+
+
 	@Override
 	public String toString() {
 		return "Comanda [id=" + id + ", estado=" + estado + ", mesaUso=" + mesaUso + ", itemComandas=" + itemComandas
 				+ "]";
-	}	
+	}
 
 }
