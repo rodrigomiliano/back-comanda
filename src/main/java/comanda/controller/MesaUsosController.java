@@ -3,7 +3,12 @@ package comanda.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +23,7 @@ import comanda.entity.ItemComanda;
 import comanda.controller.dto.request.ItemComandaInsertRequest;
 import comanda.controller.dto.response.MesaUsoResponse;
 import comanda.entity.MesaUso;
+import comanda.service.ComandaServiceException;
 import comanda.service.IMesaUsosService;
 import comanda.service.mapper.ItemComandaMapper;
 //import comanda.service.mapper.MesaUsoMapper;
@@ -26,6 +32,9 @@ import comanda.service.mapper.MesaUsoMapper;
 @RestController
 @RequestMapping("/comanda")
 public class MesaUsosController {
+
+	private final Logger LOGGER = LoggerFactory.getLogger(MesaUsosController.class);
+
 
 	@Autowired
 	private IMesaUsosService serviceMesaUsos;
@@ -92,19 +101,31 @@ public class MesaUsosController {
 	}
 
 	// --------------CREAR ITEMCOMANDA--------------
-		@PostMapping("/mesauso/{mesaUsoId}/comanda/{comandaId}/itemcomanda")
-		public MesaUso buscarMesaUso3(@PathVariable Integer mesaUsoId, @PathVariable Integer comandaId, @RequestBody ItemComandaInsertRequest itemComandaInsertRequest) {
-			MesaUso mesaUso = null;
-			ItemComanda itemComanda = itemComandaMapper.mapToItemComanda(itemComandaInsertRequest);
+	@PostMapping("/mesauso/{mesaUsoId}/comanda/{comandaId}/itemcomanda")
+	public ResponseEntity<Object> buscarMesaUso3(@PathVariable Integer mesaUsoId, @PathVariable Integer comandaId, @RequestBody ItemComandaInsertRequest itemComandaInsertRequest) {
+		LOGGER.debug("mesaUsoId: " + mesaUsoId);
+		LOGGER.debug("comandaId: " + comandaId);
 
-			try {
-				mesaUso = serviceMesaUsos.crearItemComanda(mesaUsoId, comandaId, itemComanda);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return mesaUso;
-		}
+
+		MesaUso mesaUso = null;
+		ItemComanda itemComanda = itemComandaMapper.mapToItemComanda(itemComandaInsertRequest);
+
+		try {
+			mesaUso = serviceMesaUsos.crearItemComanda(mesaUsoId, comandaId, itemComanda);
+		} catch (ComandaServiceException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			LOGGER.error(e.getMessage());
+			return new ResponseEntity<>(e.getCodigo(), HttpStatus.NOT_FOUND);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			LOGGER.error(e.getMessage());
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}		return new ResponseEntity<>(mesaUso, HttpStatus.OK);
+
+	}
+
 	/*@PostMapping("/mesauso/comanda/{id}/itemcomanda")
 	public MesaUso buscarMesaUso3(@PathVariable("id") @RequestBody MesaUso mesauso, Comanda comanda) {
 		serviceMesaUsos.crearItemComanda(mesauso, comanda);

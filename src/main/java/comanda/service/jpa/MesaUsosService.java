@@ -20,6 +20,7 @@ import comanda.repository.ItemComandasRepository;
 import comanda.repository.ItemComprobantesRepository;
 import comanda.repository.MesaUsosRepository;
 import comanda.service.IMesaUsosService;
+import comanda.service.ComandaServiceException;
 
 @Service
 public class MesaUsosService implements IMesaUsosService {
@@ -63,7 +64,7 @@ public class MesaUsosService implements IMesaUsosService {
 		repoMesaUsos.deleteById(idMesaUso);
 	}
 
-	public MesaUso buscarMesaUso(int idMesaUso) throws Exception {
+	public MesaUso buscarMesaUso(int idMesaUso) throws ComandaServiceException {
 		System.out.println("------------------------------------------------------------");
 		Optional<MesaUso> optional = repoMesaUsos.findById(idMesaUso);
 		if (optional.isPresent()) {
@@ -73,7 +74,7 @@ public class MesaUsosService implements IMesaUsosService {
 		} else {
 			System.out.println("------------------------------------------------------------");
 			System.out.println("No existe el MesaUso n° " + idMesaUso);
-			throw new Exception("No existe el MesaUso n° " + idMesaUso);
+			throw new ComandaServiceException("MUS002", "No existe el MesaUso n° " + idMesaUso);
 		}
 	}
 
@@ -131,7 +132,7 @@ public class MesaUsosService implements IMesaUsosService {
 	}
 
 	@Override
-	public MesaUso crearItemComanda(Integer mesaUsoId, Integer comandaId, ItemComanda itemComanda) throws Exception {
+	public MesaUso crearItemComanda(Integer mesaUsoId, Integer comandaId, ItemComanda itemComanda) throws ComandaServiceException {
 
 		MesaUso mesaUso = this.buscarMesaUso(mesaUsoId);
 
@@ -148,6 +149,8 @@ public class MesaUsosService implements IMesaUsosService {
 			repoItemComandas.save(itemComanda);
 			System.out.println("Creando " + itemComanda);
 
+		} else {
+			throw new ComandaServiceException("MUS001", "Error: En la mesa uso: " + mesaUsoId + " no se encuentra la comanda para el id: " + comandaId);
 		}
 
 		System.out.println("------------------------------------------------------------");

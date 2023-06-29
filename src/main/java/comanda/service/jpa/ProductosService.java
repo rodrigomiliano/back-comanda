@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import comanda.entity.Producto;
 import comanda.repository.ProductosRepository;
+import comanda.service.ComandaServiceException;
 import comanda.service.IProductosService;
 
 @Service
@@ -35,7 +36,7 @@ public class ProductosService implements IProductosService {
 		repoProductos.deleteById(idProducto);
 	}
 
-	public Producto buscarProducto(int idProducto) throws Exception {
+	public Producto buscarProducto(int idProducto) throws ComandaServiceException {
 		System.out.println("------------------------------------------------------------");
 		Optional<Producto> optional = repoProductos.findById(idProducto);
 		if (optional.isPresent()) {
@@ -45,7 +46,7 @@ public class ProductosService implements IProductosService {
 		} else {
 			System.out.println("------------------------------------------------------------");
 			System.out.println("No existe el Producto n° " + idProducto);
-			throw new Exception("No existe el Producto n° " + idProducto);
+			throw new ComandaServiceException("PS001", "No existe el Producto n° " + idProducto);
 		}
 	}
 }
