@@ -95,7 +95,7 @@ public class Comanda {
 
 	@Override
 	public String toString() {
-		return "Comanda [id=" + id + ", estado=" + estado + ", mesaUso=" + mesaUso + ", itemComandas=" + itemComandas
+		return "Comanda [id=" + id + ", estado=" + estado + ", mesaUso=" + mesaUso + ", itemComandas=" + itemComandas.size()
 				+ "]";
 	}
 
