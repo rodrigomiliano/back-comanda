@@ -2,6 +2,7 @@ package comanda.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,10 +26,10 @@ public class Mesa {
 	@ManyToOne
 	@JoinColumn(name = "MESA_ESTADO") // "idEstado")
 	private Estado estado;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "MESA_USUARIO") // "idUsuario")
 	private Usuario usuario;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "MESA_LOCAL") // "idLocal")
 	private Local local;
 
@@ -95,8 +96,7 @@ public class Mesa {
 
 	@Override
 	public String toString() {
-		return "Mesa [id=" + id + ", sillas=" + sillas + ", observacion=" + observacion + ", estado=" + estado
-				+ ", usuario=" + usuario + ", local=" + local + "]";
+		return "Mesa [id=" + id + ", sillas=" + sillas + ", observacion=" + observacion + ", estado=" + estado + "]";
 	}
 
 }
