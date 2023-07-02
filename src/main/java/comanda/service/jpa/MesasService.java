@@ -31,6 +31,9 @@ public class MesasService implements IMesasService {
 	}
 
 	public Optional<Mesa> buscarMesa(int idMesa) {
-		return repoMesas.findById(idMesa);
+		Optional<Mesa> mesa = repoMesas.findById(idMesa);
+		System.out.println(mesa);
+		return mesa;
+		
 	}
 }
