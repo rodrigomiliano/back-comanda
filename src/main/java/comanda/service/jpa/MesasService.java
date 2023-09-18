@@ -15,25 +15,30 @@ public class MesasService implements IMesasService {
 	private MesasRepository repoMesas;
 
 	public List<Mesa> buscarTodas() {
-		List<Mesa> mesas = repoMesas.findAll();
+		System.out.println("------------------------------------------------------------");
+		List<Mesa> mesas = repoMesas.findAll(); // Spring
+		System.out.println("Listado de Mesas: ");
 		mesas.forEach(t -> {
 			System.out.println(t);
 		});
-		return repoMesas.findAll();
+		return repoMesas.findAll(); // Postman
 	}
 
 	public void guardar(Mesa mesa) {
+		System.out.println("------------------------------------------------------------");
 		repoMesas.save(mesa);
+		System.out.println("Guardando " + mesa);
 	}
 
 	public void eliminar(int idMesa) {
+		System.out.println("Eliminando registro: " + buscarMesa(idMesa));
 		repoMesas.deleteById(idMesa);
 	}
 
 	public Optional<Mesa> buscarMesa(int idMesa) {
+		System.out.println("------------------------------------------------------------");
 		Optional<Mesa> mesa = repoMesas.findById(idMesa);
 		System.out.println(mesa);
-		return mesa;
-		
+		return mesa;		
 	}
 }

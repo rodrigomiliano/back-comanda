@@ -37,7 +37,7 @@ public class CategoriasController {
 		return categoria;
 	}
 
-	@PutMapping("/categoria")
+	@PutMapping("/categoria/{id}")
 	public Categoria modificar(@RequestBody Categoria categoria) {
 		serviceCategorias.guardar(categoria);
 		return categoria;

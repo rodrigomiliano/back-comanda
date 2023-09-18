@@ -7,6 +7,146 @@
 	},
 	"item": [
 		{
+			"name": "Categoria",
+			"item": [
+				{
+					"name": "http://localhost:8080/comanda/categoria",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comanda/categoria",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"categoria"
+							]
+						},
+						"description": "GET ALL"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/comanda/categoria/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comanda/categoria/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"categoria",
+								"5"
+							]
+						},
+						"description": "GET ALL"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/comanda/categoria",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Vegano\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/comanda/categoria",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"categoria"
+							]
+						},
+						"description": "POST"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/comanda/categoria/{id}",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{    \r\n    \"id\": 5,\r\n    \"nombre\": \"Pizzas y Empanadasssssssssssssss\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/comanda/categoria/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"categoria",
+								"5"
+							]
+						},
+						"description": "PUT categoria"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/comanda/categoria/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 9,\r\n    \"nombre\": \"Vegano\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/comanda/categoria/9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"categoria",
+								"9"
+							]
+						},
+						"description": "DELETE categoria"
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Producto",
 			"item": [
 				{
@@ -24,6 +164,28 @@
 							"path": [
 								"comanda",
 								"producto"
+							]
+						},
+						"description": "GET ALL Producto"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/comanda/producto/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comanda/producto/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"producto",
+								"1"
 							]
 						},
 						"description": "GET ALL Producto"
@@ -61,13 +223,13 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/producto",
+					"name": "http://localhost:8080/comanda/producto/{id}",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 1,\r\n    \"nombre\": \"Provoleta\",\r\n    \"descripcion\": \"Provoleta grillada a la parrilla con finas hierbas.\",\r\n    \"precio\": 1000.00,\r\n    \"categoria\": {\r\n        \"id\": 1\r\n    },\r\n    \"imagen\": \"provo.png\"\r\n}",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"nombre\": \"Provoleta\",\r\n    \"descripcion\": \"Provoleta grillada a la parrilla con finas hierbas.\",\r\n    \"precio\": 1005.00,\r\n    \"categoria\": {\r\n        \"id\": 1\r\n    },\r\n    \"imagen\": \"provo.png\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -91,7 +253,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/producto/22",
+					"name": "http://localhost:8080/comanda/producto/{id}",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -148,6 +310,28 @@
 					"response": []
 				},
 				{
+					"name": "http://localhost:8080/comanda/comanda/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comanda/comanda/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"comanda",
+								"1"
+							]
+						},
+						"description": "GET ALL"
+					},
+					"response": []
+				},
+				{
 					"name": "http://localhost:8080/comanda/comanda",
 					"request": {
 						"method": "POST",
@@ -178,13 +362,13 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/comanda",
+					"name": "http://localhost:8080/comanda/comanda/{id}",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 10,\r\n     \"estado\": {\r\n        \"id\": 2\r\n    },\r\n    \"mesaUso\": {\r\n        \"id\": 3\r\n    }\r\n}",
+							"raw": "{\r\n    \"id\": 6,\r\n     \"estado\": {\r\n        \"id\": 2\r\n    },\r\n    \"mesaUso\": {\r\n        \"id\": 3\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -208,7 +392,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/comanda/2",
+					"name": "http://localhost:8080/comanda/comanda/{id}",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -222,7 +406,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/comanda/comanda/10",
+							"raw": "http://localhost:8080/comanda/comanda/6",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -231,7 +415,7 @@
 							"path": [
 								"comanda",
 								"comanda",
-								"10"
+								"6"
 							]
 						},
 						"description": "DELETE categoria"
@@ -258,6 +442,28 @@
 							"path": [
 								"comanda",
 								"itemcomanda"
+							]
+						},
+						"description": "GET ALL"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/comanda/itemcomanda/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comanda/itemcomanda/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"itemcomanda",
+								"1"
 							]
 						},
 						"description": "GET ALL"
@@ -295,13 +501,13 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/itemcomanda",
+					"name": "http://localhost:8080/comanda/itemcomanda/{id}",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 24,\r\n    \"comanda\": {\r\n        \"id\": 1\r\n    },\r\n    \"producto\": {\r\n        \"id\": 1\r\n    },\r\n    \"cantidad\": 5\r\n}",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"comanda\": {\r\n        \"id\": 1\r\n    },\r\n    \"producto\": {\r\n        \"id\": 1\r\n    },\r\n    \"cantidad\": 5\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -309,7 +515,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/comanda/itemcomanda",
+							"raw": "http://localhost:8080/comanda/itemcomanda/5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -317,7 +523,8 @@
 							"port": "8080",
 							"path": [
 								"comanda",
-								"itemcomanda"
+								"itemcomanda",
+								"5"
 							]
 						},
 						"description": "PUT categoria"
@@ -325,7 +532,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/itemcomanda/17",
+					"name": "http://localhost:8080/comanda/itemcomanda/{id}",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -339,7 +546,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/comanda/itemcomanda/17",
+							"raw": "http://localhost:8080/comanda/itemcomanda/5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -348,7 +555,7 @@
 							"path": [
 								"comanda",
 								"itemcomanda",
-								"17"
+								"5"
 							]
 						},
 						"description": "DELETE categoria"
@@ -375,6 +582,28 @@
 							"path": [
 								"comanda",
 								"mesauso"
+							]
+						},
+						"description": "get mesas"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/comanda/mesauso/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comanda/mesauso/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"mesauso",
+								"1"
 							]
 						},
 						"description": "get mesas"
@@ -435,13 +664,13 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/mesauso/{id}/comanda/{id}/itemcomanda",
+					"name": "http://localhost:8080/comanda//mesauso/{mesaUsoId}/comanda/{comandaId}/itemcomanda",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{   \r\n    \"producto\": {\r\n        \"id\": 1\r\n    },\r\n    \"cantidad\": 2\r\n}",
+							"raw": "{\r\n    \"productoId\": 10,\r\n    \"cantidad\": 10\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -492,38 +721,6 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/mesauso/{id}/crearcomanda",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{   \r\n    \"producto\": {\r\n        \"id\": 1\r\n    },\r\n    \"cantidad\": 2\r\n    \r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/comanda/comanda/1/crearitemcomanda",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"comanda",
-								"comanda",
-								"1",
-								"crearitemcomanda"
-							]
-						},
-						"description": "post mesas"
-					},
-					"response": []
-				},
-				{
 					"name": "http://localhost:8080/comanda/mesauso",
 					"request": {
 						"method": "PUT",
@@ -554,7 +751,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/mesauso/4",
+					"name": "http://localhost:8080/comanda/mesauso/{id}",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -602,6 +799,28 @@
 					"response": []
 				},
 				{
+					"name": "http://localhost:8080/comanda/mesa/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comanda/mesa/14",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"mesa",
+								"14"
+							]
+						},
+						"description": "get mesas"
+					},
+					"response": []
+				},
+				{
 					"name": "http://localhost:8080/comanda/mesa",
 					"request": {
 						"method": "POST",
@@ -632,13 +851,13 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/mesa",
+					"name": "http://localhost:8080/comanda/mesa/{id}",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 12,\r\n    \"sillas\": 2,\r\n    \"observacion\": \"cerca aire acondicionadooooooooooooo\",\r\n    \"estado\": {\r\n        \"id\": 1\r\n    },\r\n    \"usuario\": {\r\n        \"id\": 1\r\n    },\r\n    \"local\": {\r\n        \"id\": 1\r\n    }\r\n}",
+							"raw": "{\r\n    \"id\": 11,\r\n    \"sillas\": 6,\r\n    \"observacion\": \"cerca aire acondicionadooooooooooooo\",\r\n    \"estado\": {\r\n        \"id\": 1\r\n    },\r\n    \"usuario\": {\r\n        \"id\": 1\r\n    },\r\n    \"local\": {\r\n        \"id\": 1\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -662,12 +881,12 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/mesa/12",
+					"name": "http://localhost:8080/comanda/mesa/{id}",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/comanda/mesa/12",
+							"raw": "http://localhost:8080/comanda/mesa/11",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -676,7 +895,7 @@
 							"path": [
 								"comanda",
 								"mesa",
-								"12"
+								"11"
 							]
 						},
 						"description": "delete mesa"
@@ -703,6 +922,28 @@
 							"path": [
 								"comanda",
 								"estado"
+							]
+						},
+						"description": "get rol"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/comanda/estado/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comanda/estado/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"estado",
+								"1"
 							]
 						},
 						"description": "get rol"
@@ -740,13 +981,13 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/estado",
+					"name": "http://localhost:8080/comanda/estado/{id}",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 12,\r\n    \"nombre\": \"PRUEBAAAAAAAAAAAAAAAAAA\",\r\n    \"descripcion\": \"probando.................\"\r\n}",
+							"raw": "{\r\n    \"id\": 11,\r\n    \"nombre\": \"PRUEBAAAAAAAAAAAAAAAAAA\",\r\n    \"descripcion\": \"probando.................\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -770,12 +1011,12 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/estado/12",
+					"name": "http://localhost:8080/comanda/estado/{id}",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8080/comanda/estado/12",
+							"raw": "http://localhost:8080/comanda/estado/11",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -784,7 +1025,7 @@
 							"path": [
 								"comanda",
 								"estado",
-								"12"
+								"11"
 							]
 						},
 						"description": "DELETE ROL"
@@ -811,6 +1052,28 @@
 							"path": [
 								"comanda",
 								"reserva"
+							]
+						},
+						"description": "get mesas"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/comanda/reserva/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comanda/reserva/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"reserva",
+								"5"
 							]
 						},
 						"description": "get mesas"
@@ -848,13 +1111,13 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/reserva",
+					"name": "http://localhost:8080/comanda/reserva/{id}",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 5,\r\n    \"cliente\": {\r\n        \"id\": 1\r\n    },\r\n    \"fecha_alta\": \"2023-02-02T03:00:00.000+00:00\",\r\n    \"fecha_reserva\": \"2023-02-24T03:00:00.000+00:00\",\r\n    \"comensal\": 3,\r\n    \"mesa\": {\r\n        \"id\": 2\r\n    },\r\n    \"estado\": {\r\n        \"id\": 1\r\n    }\r\n}\r\n",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"cliente\": {\r\n        \"id\": 2\r\n    },\r\n    \"fecha_alta\": \"2023-02-02T03:00:00.000+00:00\",\r\n    \"fecha_reserva\": \"2023-02-24T03:00:00.000+00:00\",\r\n    \"comensal\": 3,\r\n    \"mesa\": {\r\n        \"id\": 2\r\n    },\r\n    \"estado\": {\r\n        \"id\": 1\r\n    }\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -878,7 +1141,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/reserva/5",
+					"name": "http://localhost:8080/comanda/reserva/{id}",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -926,6 +1189,28 @@
 					"response": []
 				},
 				{
+					"name": "http://localhost:8080/comanda/rol/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comanda/rol/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"rol",
+								"1"
+							]
+						},
+						"description": "get rol"
+					},
+					"response": []
+				},
+				{
 					"name": "http://localhost:8080/comanda/rol",
 					"request": {
 						"method": "POST",
@@ -956,7 +1241,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/rol",
+					"name": "http://localhost:8080/comanda/rol/{id}",
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -986,7 +1271,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/rol/4",
+					"name": "http://localhost:8080/comanda/rol/{id}",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -1010,123 +1295,6 @@
 			]
 		},
 		{
-			"name": "Categoria",
-			"item": [
-				{
-					"name": "http://localhost:8080/comanda/categoria",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:8080/comanda/categoria",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"comanda",
-								"categoria"
-							]
-						},
-						"description": "GET ALL"
-					},
-					"response": []
-				},
-				{
-					"name": "http://localhost:8080/comanda/categoria",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"Vegano\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/comanda/categoria",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"comanda",
-								"categoria"
-							]
-						},
-						"description": "POST"
-					},
-					"response": []
-				},
-				{
-					"name": "http://localhost:8080/comanda/categoria",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\": 5,\r\n    \"nombre\": \"Pizzas / Empanadassssssss\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/comanda/categoria",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"comanda",
-								"categoria"
-							]
-						},
-						"description": "PUT categoria"
-					},
-					"response": []
-				},
-				{
-					"name": "http://localhost:8080/comanda/categoria/9",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\": 9,\r\n    \"nombre\": \"Vegano\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:8080/comanda/categoria/9",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"comanda",
-								"categoria",
-								"9"
-							]
-						},
-						"description": "DELETE categoria"
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "Usuario",
 			"item": [
 				{
@@ -1144,6 +1312,28 @@
 							"path": [
 								"comanda",
 								"usuario"
+							]
+						},
+						"description": "get usuario"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/comanda/usuario{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comanda/usuario/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"usuario",
+								"1"
 							]
 						},
 						"description": "get usuario"
@@ -1211,7 +1401,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/usuario/4",
+					"name": "http://localhost:8080/comanda/usuario/{id}",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -1295,7 +1485,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 10,\r\n    \"mesaUso\": {\r\n        \"id\": 5\r\n    }\r\n}",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"mesaUso\": {\r\n        \"id\": 5\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1319,7 +1509,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/comprobante/10",
+					"name": "http://localhost:8080/comanda/comprobante/{id}",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -1333,7 +1523,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/comanda/comprobante/10",
+							"raw": "http://localhost:8080/comanda/comprobante/4",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1342,7 +1532,7 @@
 							"path": [
 								"comanda",
 								"comprobante",
-								"10"
+								"4"
 							]
 						},
 						"description": "DELETE Producto"
@@ -1369,6 +1559,28 @@
 							"path": [
 								"comanda",
 								"cliente"
+							]
+						},
+						"description": "get usuario"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/comanda/cliente/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comanda/cliente/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"cliente",
+								"1"
 							]
 						},
 						"description": "get usuario"
@@ -1436,7 +1648,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/cliente/4",
+					"name": "http://localhost:8080/comanda/cliente/{id}",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -1592,6 +1804,28 @@
 					"response": []
 				},
 				{
+					"name": "http://localhost:8080/comanda/turno/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comanda/turno/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"turno",
+								"1"
+							]
+						},
+						"description": "get rol"
+					},
+					"response": []
+				},
+				{
 					"name": "http://localhost:8080/comanda/turno",
 					"request": {
 						"method": "POST",
@@ -1652,7 +1886,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/turno/5",
+					"name": "http://localhost:8080/comanda/turno/{id}",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -1693,6 +1927,28 @@
 							"path": [
 								"comanda",
 								"local"
+							]
+						},
+						"description": "get mesas"
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/comanda/local/{id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/comanda/local/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comanda",
+								"local",
+								"1"
 							]
 						},
 						"description": "get mesas"
@@ -1760,7 +2016,7 @@
 					"response": []
 				},
 				{
-					"name": "http://localhost:8080/comanda/local/6",
+					"name": "http://localhost:8080/comanda/local/{id}",
 					"request": {
 						"method": "DELETE",
 						"header": [],
