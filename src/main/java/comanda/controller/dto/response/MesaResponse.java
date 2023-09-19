@@ -13,6 +13,12 @@ import lombok.NoArgsConstructor;
 public class MesaResponse {
 
 	private Integer id;
+<<<<<<< HEAD
 	private Integer sillas;
+=======
+	
+	private Integer sillas;
+
+>>>>>>> rodri
 
 }
