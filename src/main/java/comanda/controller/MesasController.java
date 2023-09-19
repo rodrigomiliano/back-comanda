@@ -37,6 +37,7 @@ public class MesasController {
 		if(mesa.isPresent()){			
 			Mesa mesita = mesa.get();
 			mesaResponse.setId(mesita.getId());
+			mesaResponse.setSillas(mesita.getSillas());
 			return new ResponseEntity<MesaResponse>(mesaResponse, HttpStatus.OK);			
 		}
 		return new ResponseEntity<MesaResponse>(mesaResponse, HttpStatus.NOT_FOUND);		
