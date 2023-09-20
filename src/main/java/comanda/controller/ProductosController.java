@@ -55,7 +55,7 @@ public class ProductosController {
 		//return Optional<Producto> buscarProducto(0);
 	}
 
-	@PutMapping("/producto}")
+	@PutMapping("/producto")
 	public Producto modificar(@RequestBody Producto producto) {
 		serviceProductos.guardar(producto);
 		// se podria pasar el id por url (como en delete)
