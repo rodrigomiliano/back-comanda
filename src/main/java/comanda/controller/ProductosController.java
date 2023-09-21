@@ -31,7 +31,7 @@ public class ProductosController {
 	private IProductosService serviceProductos;
 
 	@GetMapping("/producto")
-	public List<Producto> buscarTodos(){
+	public List<Producto> buscarTodos() {
 		return serviceProductos.buscarTodos();
 	}
 
@@ -39,7 +39,7 @@ public class ProductosController {
 	public Producto buscarProducto(@PathVariable("id") int idProducto) {
 		Producto producto = null;
 		try {
-			producto =  serviceProductos.buscarProducto(idProducto);
+			producto = serviceProductos.buscarProducto(idProducto);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -50,9 +50,10 @@ public class ProductosController {
 	@PostMapping("/producto")
 	public Producto guardar(@RequestBody Producto producto) {
 		serviceProductos.guardar(producto);
-		// se podria hacer un find del producto enviado antes de mostrar, esto para no ver el nombre null
+		// se podria hacer un find del producto enviado antes de mostrar, esto para no
+		// ver el nombre null
 		return producto;
-		//return Optional<Producto> buscarProducto(0);
+		// return Optional<Producto> buscarProducto(0);
 	}
 
 	@PutMapping("/producto")
@@ -65,23 +66,24 @@ public class ProductosController {
 	@PutMapping("/producto/{id}")
 	public Producto modificar(@PathVariable("id") int idProducto, @RequestBody ProductoUpdateDto producto) {
 
-
 		LOGGER.info("idProducto: " + idProducto);
 		LOGGER.info("Producto: " + producto.toString());
 		Producto prod = null;
 		try {
-			prod  = serviceProductos.buscarProducto(idProducto);
+			prod = serviceProductos.buscarProducto(idProducto);
 		} catch (ComandaServiceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		// Reemplazo el valor del objeto actualmente en la DB con el valor que se pasa por el Body
+		// Reemplazo el valor del objeto actualmente en la DB con el valor que se pasa
+		// por el Body
 		prod.setPrecio(producto.getPrecio());
 		LOGGER.info("Categoria actual: " + prod.getCategoria());
 		LOGGER.info("Categoria nueva: " + producto.getCategoriaId());
-		//Categoria nuevaCategoria = categoriaService.buscarPorId(producto.getCategoriaId());
-		//prod.setCategoria(nuevaCategoria );
+		// Categoria nuevaCategoria =
+		// categoriaService.buscarPorId(producto.getCategoriaId());
+		// prod.setCategoria(nuevaCategoria );
 
 		prod.setNombre(producto.getNombre());
 
@@ -92,7 +94,6 @@ public class ProductosController {
 
 		return prod;
 	}
-
 
 	@DeleteMapping("/producto/{id}")
 	public String eliminar(@PathVariable("id") int idProducto) {
