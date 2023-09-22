@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import comanda.entity.Categoria;
 import comanda.repository.CategoriasRepository;
+import comanda.service.ComandaServiceException;
 import comanda.service.ICategoriasService;
 
 @Service
@@ -31,7 +32,7 @@ public class CategoriasService implements ICategoriasService {
 		System.out.println("Guardando " + categoria);
 	}
 
-	public void eliminar(int idCategoria) {
+	public void eliminar(int idCategoria) throws Exception{
 		System.out.println("Eliminando registro: " + buscarCategoria(idCategoria));
 		repoCategorias.deleteById(idCategoria);
 	}
@@ -41,18 +42,17 @@ public class CategoriasService implements ICategoriasService {
 	 * repoCategorias.findById(idCategoria); }
 	 */
 
-	public Optional<Categoria> buscarCategoria(int idCategoria) {
+	public Categoria buscarCategoria(int idCategoria) throws ComandaServiceException {
 		System.out.println("------------------------------------------------------------");
 		Optional<Categoria> optional = repoCategorias.findById(idCategoria);
 		if (optional.isPresent()) {
 			Categoria u = optional.get();
 			System.out.println("Elegiste " + u);
-			return repoCategorias.findById(idCategoria);
+			return u;
 		} else {
 			System.out.println("------------------------------------------------------------");
 			System.out.println("No existe la Categoria n° " + idCategoria);
-		}
-		return null;
+			throw new ComandaServiceException("PS002", "No existe la Categoria n° " + idCategoria);
+		}		
 	}
-
 }

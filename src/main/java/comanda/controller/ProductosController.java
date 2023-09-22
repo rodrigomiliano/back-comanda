@@ -78,14 +78,16 @@ public class ProductosController {
 
 		// Reemplazo el valor del objeto actualmente en la DB con el valor que se pasa
 		// por el Body
+		prod.setNombre(producto.getNombre());
+		prod.setDescripcion(producto.getDescripcion());
 		prod.setPrecio(producto.getPrecio());
+		// ACA FALTA HACER CATEGORIA
+		prod.setImagen(producto.getImagen());
 		LOGGER.info("Categoria actual: " + prod.getCategoria());
 		LOGGER.info("Categoria nueva: " + producto.getCategoriaId());
 		// Categoria nuevaCategoria =
 		// categoriaService.buscarPorId(producto.getCategoriaId());
 		// prod.setCategoria(nuevaCategoria );
-
-		prod.setNombre(producto.getNombre());
 
 		LOGGER.info("prod: " + prod.toString());
 
