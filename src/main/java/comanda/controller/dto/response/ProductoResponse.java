@@ -19,11 +19,11 @@ public class ProductoResponse {
 
 	private String nombre;
 
-	/*private String descripcion;
+	private String descripcion;
 
 	private Double precio;
 
-	private CategoriaResponse categoria;
+	//private CategoriaResponse categoria;
 
-	private String imagen;*/
+	private String imagen;
 }

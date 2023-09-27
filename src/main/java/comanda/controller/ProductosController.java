@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import comanda.controller.dto.request.ProductoUpdateDto;
+import comanda.controller.dto.response.ProductoResponse;
 import comanda.entity.Categoria;
 import comanda.entity.Producto;
 import comanda.service.ComandaServiceException;
 import comanda.service.IProductosService;
+import comanda.service.mapper.ProductoMapper;
 
 @RestController
 @RequestMapping("/comanda")
@@ -30,13 +32,16 @@ public class ProductosController {
 	@Autowired
 	private IProductosService serviceProductos;
 
+	private final ProductoMapper productoMapper = ProductoMapper.INSTANCE;
+
+
 	@GetMapping("/producto")
 	public List<Producto> buscarTodos() {
 		return serviceProductos.buscarTodos();
 	}
 
 	@GetMapping("/producto/{id}")
-	public Producto buscarProducto(@PathVariable("id") int idProducto) {
+	public ProductoResponse buscarProducto(@PathVariable("id") int idProducto) {
 		Producto producto = null;
 		try {
 			producto = serviceProductos.buscarProducto(idProducto);
@@ -44,7 +49,11 @@ public class ProductosController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return producto;
+		LOGGER.info(">>>>>> Producto: " + producto);
+		ProductoResponse productoResponse = productoMapper.mapToProductoDTO(producto);
+		LOGGER.info(">>>>>> productoResponse: " + productoResponse);
+
+		return productoResponse;
 	}
 
 	@PostMapping("/producto")
