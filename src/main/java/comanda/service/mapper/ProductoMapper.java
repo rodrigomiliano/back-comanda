@@ -15,8 +15,9 @@ public interface ProductoMapper {
 
 	ProductoMapper INSTANCE = Mappers.getMapper( ProductoMapper.class );
 
+	//@Mapping(target = "categoria.nombre", source = "categoria.nombre", ignore = true)
 	ProductoResponse mapToProductoDTO(Producto producto);
 
-	Producto matToProducto(ProductoResponse productoDTO);
+	Producto mapToProducto(ProductoResponse productoDTO);
 
 }

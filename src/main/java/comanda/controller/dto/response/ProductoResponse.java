@@ -1,5 +1,6 @@
 package comanda.controller.dto.response;
 
+import comanda.entity.Categoria;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +24,7 @@ public class ProductoResponse {
 
 	private Double precio;
 
-	//private CategoriaResponse categoria;
+	private Categoria categoria;
 
 	private String imagen;
 }

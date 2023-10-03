@@ -93,7 +93,7 @@ public class ProductosController {
 		// ACA FALTA HACER CATEGORIA
 		prod.setImagen(producto.getImagen());
 		LOGGER.info("Categoria actual: " + prod.getCategoria());
-		LOGGER.info("Categoria nueva: " + producto.getCategoriaId());
+		//LOGGER.info("Categoria nueva: " + producto.getCategoriaId());
 		// Categoria nuevaCategoria =
 		// categoriaService.buscarPorId(producto.getCategoriaId());
 		// prod.setCategoria(nuevaCategoria );

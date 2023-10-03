@@ -74,7 +74,7 @@
 		    <groupId>org.mapstruct</groupId>
 		    <artifactId>mapstruct</artifactId>
 		    <version>${org.mapstruct.version}</version>
-		    <optional>false</optional>
+		    <optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
