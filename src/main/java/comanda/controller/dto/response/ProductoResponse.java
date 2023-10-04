@@ -24,7 +24,7 @@ public class ProductoResponse {
 
 	private Double precio;
 
-	private Categoria categoria;
+	private CategoriaResponse categoria;
 
 	private String imagen;
 }

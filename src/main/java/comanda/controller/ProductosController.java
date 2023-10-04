@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import comanda.controller.dto.request.ProductoUpdateDto;
 import comanda.controller.dto.response.ProductoResponse;
-import comanda.entity.Categoria;
 import comanda.entity.Producto;
 import comanda.service.ComandaServiceException;
 import comanda.service.IProductosService;
@@ -36,8 +35,10 @@ public class ProductosController {
 
 
 	@GetMapping("/producto")
-	public List<Producto> buscarTodos() {
-		return serviceProductos.buscarTodos();
+	public List<ProductoResponse> buscarTodos() {
+		List<Producto> productos = serviceProductos.buscarTodos();
+		List<ProductoResponse> response = productoMapper.mapToProductoResponseList(productos);
+		return response;
 	}
 
 	@GetMapping("/producto/{id}")
@@ -50,9 +51,14 @@ public class ProductosController {
 			e.printStackTrace();
 		}
 		LOGGER.info(">>>>>> Producto: " + producto);
+		LOGGER.info(">>>>>> Producto Categoria: " + producto.getCategoria());
+		//CategoriaResponse categoriaResponse = categoriaMapper.mapToCategoriaResponse(producto.getCategoria());
+		//LOGGER.info(">>>>>> categoriaResponse: " + categoriaResponse);
+
 		ProductoResponse productoResponse = productoMapper.mapToProductoDTO(producto);
 		LOGGER.info(">>>>>> productoResponse: " + productoResponse);
-
+		//productoResponse.setCategoria(categoriaResponse);
+		//LOGGER.info(">>>>>> productoResponse: " + productoResponse);
 		return productoResponse;
 	}
 
