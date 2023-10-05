@@ -2,7 +2,6 @@ package comanda.service.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-import org.springframework.stereotype.Component;
 
 import comanda.controller.dto.response.CategoriaResponse;
 import comanda.entity.Categoria;

@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import comanda.controller.dto.request.ProductoUpdateDto;
 import comanda.controller.dto.response.ProductoResponse;
+import comanda.entity.Categoria;
 import comanda.entity.Producto;
 import comanda.service.ComandaServiceException;
+import comanda.service.ICategoriasService;
 import comanda.service.IProductosService;
 import comanda.service.mapper.ProductoMapper;
 
@@ -30,6 +32,9 @@ public class ProductosController {
 
 	@Autowired
 	private IProductosService serviceProductos;
+	
+	@Autowired
+	private ICategoriasService serviceCategorias;
 
 	private final ProductoMapper productoMapper = ProductoMapper.INSTANCE;
 
@@ -73,16 +78,19 @@ public class ProductosController {
 
 	@PutMapping("/producto")
 	public Producto modificar(@RequestBody Producto producto) {
-		serviceProductos.guardar(producto);
-		// se podria pasar el id por url (como en delete)
+		serviceProductos.guardar(producto);		
 		return producto;
 	}
 
 	@PutMapping("/producto/{id}")
-	public Producto modificar(@PathVariable("id") int idProducto, @RequestBody ProductoUpdateDto producto) {
+	public Producto modificar(@PathVariable("id") int idProducto, @RequestBody ProductoUpdateDto productoDto) throws ComandaServiceException {
 
 		LOGGER.info("idProducto: " + idProducto);
-		LOGGER.info("Producto: " + producto.toString());
+		LOGGER.info("Producto: " + productoDto.toString());
+		
+		// Verificar si categoriaId no es null antes de usarlo
+	    if (productoDto.getCategoriaId() != null) {
+		// Buscar el producto existente
 		Producto prod = null;
 		try {
 			prod = serviceProductos.buscarProducto(idProducto);
@@ -93,11 +101,21 @@ public class ProductosController {
 
 		// Reemplazo el valor del objeto actualmente en la DB con el valor que se pasa
 		// por el Body
-		prod.setNombre(producto.getNombre());
-		prod.setDescripcion(producto.getDescripcion());
-		prod.setPrecio(producto.getPrecio());
-		// ACA FALTA HACER CATEGORIA
-		prod.setImagen(producto.getImagen());
+		prod.setNombre(productoDto.getNombre());
+		prod.setDescripcion(productoDto.getDescripcion());
+		prod.setPrecio(productoDto.getPrecio());
+		prod.setImagen(productoDto.getImagen());
+		
+		// Buscar la categoría por ID usando serviceCategorias
+        Categoria categoria = serviceCategorias.buscarCategoria(productoDto.getCategoriaId());
+    
+        if (categoria != null) {
+            prod.setCategoria(categoria);
+        } else {
+            // Manejar el caso en el que la categoría no se encuentra
+            // Puedes lanzar una excepción o manejarlo de otra manera según tus necesidades
+        }
+		
 		LOGGER.info("Categoria actual: " + prod.getCategoria());
 		//LOGGER.info("Categoria nueva: " + producto.getCategoriaId());
 		// Categoria nuevaCategoria =
@@ -110,6 +128,11 @@ public class ProductosController {
 		LOGGER.info("Producto guardado: " + prod.toString());
 
 		return prod;
+	    } else {
+	        // Manejar el caso en el que categoriaId es null
+	        // Puedes lanzar una excepción o manejarlo de otra manera según tus necesidades
+	        return null;
+	    }
 	}
 
 	@DeleteMapping("/producto/{id}")
