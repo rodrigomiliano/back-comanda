@@ -1,8 +1,6 @@
 package comanda.controller;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,28 +14,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import comanda.controller.dto.request.CategoriaUpdateDto;
-import comanda.controller.dto.request.ProductoUpdateDto;
+import comanda.controller.dto.response.CategoriaResponse;
 import comanda.entity.Categoria;
-import comanda.entity.Producto;
 import comanda.service.ComandaServiceException;
 import comanda.service.ICategoriasService;
+import comanda.service.mapper.CategoriaMapper;
 
 @RestController
 @RequestMapping("/comanda")
 public class CategoriasController {
 
 	private final Logger LOGGER = LoggerFactory.getLogger(ProductosController.class);
-	
+
 	@Autowired
 	private ICategoriasService serviceCategorias;
 
+	private final CategoriaMapper categoriaMapper = CategoriaMapper.INSTANCE;
+
 	@GetMapping("/categoria")
-	public List<Categoria> buscarTodas() {
-		return serviceCategorias.buscarTodas();		
+	public List<CategoriaResponse> buscarTodas() {
+		List<Categoria> categorias = serviceCategorias.buscarTodas();
+		List<CategoriaResponse> response = categoriaMapper.mapToCategoriaResponseList(categorias);
+		return response;
 	}
-		
+
 	@GetMapping("/categoria/{id}")
-	public Categoria buscarCategoria(@PathVariable("id") int idCategoria){
+	public CategoriaResponse buscarCategoria(@PathVariable("id") int idCategoria) {
 		Categoria categoria = null;
 		try {
 			categoria = serviceCategorias.buscarCategoria(idCategoria);
@@ -45,7 +47,10 @@ public class CategoriasController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return categoria;
+		LOGGER.info(">>>>>> Categoria: " + categoria);
+		CategoriaResponse categoriaResponse = categoriaMapper.mapToCategoriaDto(categoria);
+		LOGGER.info(">>>>>> categoriaResponse: " + categoriaResponse);
+		return categoriaResponse;
 	}
 
 	@PostMapping("/categoria")
@@ -59,12 +64,15 @@ public class CategoriasController {
 		serviceCategorias.guardar(categoria);
 		return categoria;
 	}
-	
+
 	@PutMapping("/categoria/{id}")
-	public Categoria modificar(@PathVariable("id") int idCategoria, @RequestBody CategoriaUpdateDto categoria) {
+	public Categoria modificar(@PathVariable("id") int idCategoria, @RequestBody CategoriaUpdateDto categoriaDto)
+			throws ComandaServiceException {
 
 		LOGGER.info("idCategoria: " + idCategoria);
-		LOGGER.info("Categoria: " + categoria.toString());
+		LOGGER.info("Categoria: " + categoriaDto.toString());
+		
+		// Buscar la categoria existente
 		Categoria cat = null;
 		try {
 			cat = serviceCategorias.buscarCategoria(idCategoria);
@@ -75,7 +83,7 @@ public class CategoriasController {
 
 		// Reemplazo el valor del objeto actualmente en la DB con el valor que se pasa
 		// por el Body
-		cat.setNombre(categoria.getNombre());		
+		cat.setNombre(categoriaDto.getNombre());
 
 		LOGGER.info("cat: " + cat.toString());
 

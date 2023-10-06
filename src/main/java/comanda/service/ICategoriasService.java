@@ -1,7 +1,6 @@
 package comanda.service;
 
 import java.util.List;
-import java.util.Optional;
 import comanda.entity.Categoria;
 
 public interface ICategoriasService {
