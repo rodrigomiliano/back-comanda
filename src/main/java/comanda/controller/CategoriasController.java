@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import comanda.controller.dto.request.CategoriaInsertDto;
 import comanda.controller.dto.request.CategoriaUpdateDto;
 import comanda.controller.dto.response.CategoriaResponse;
 import comanda.entity.Categoria;
@@ -54,43 +55,46 @@ public class CategoriasController {
 	}
 
 	@PostMapping("/categoria")
-	public Categoria guardar(@RequestBody Categoria categoria) {
-		serviceCategorias.guardar(categoria);
-		return categoria;
+	public CategoriaResponse guardar(@RequestBody CategoriaInsertDto categoriaDto) throws ComandaServiceException {
+
+		// Creamos categoria a insertar
+		Categoria categoria = null;
+		categoria = categoriaMapper.mapToCategoria(categoriaDto);
+		LOGGER.info(">>>>>> Categoria luego del mapper : " + categoria);
+
+		categoria = serviceCategorias.guardar(categoria);
+
+		CategoriaResponse categoriaResponse = categoriaMapper.mapToCategoriaDto(categoria);
+		LOGGER.info(">>>>>> categoriaResponse: " + categoriaResponse);
+
+		return categoriaResponse;		
 	}
 
-	@PutMapping("/categoria")
-	public Categoria modificar(@RequestBody Categoria categoria) {
+	/*@PutMapping("/categoria")
+	public Categoria modificar(@RequestBody Categoria categoria) throws ComandaServiceException {
 		serviceCategorias.guardar(categoria);
 		return categoria;
-	}
+	}*/
 
 	@PutMapping("/categoria/{id}")
-	public Categoria modificar(@PathVariable("id") int idCategoria, @RequestBody CategoriaUpdateDto categoriaDto)
+	public CategoriaResponse modificar(@PathVariable("id") int idCategoria, @RequestBody CategoriaUpdateDto categoriaDto)
 			throws ComandaServiceException {
+
+		Categoria categoria = null;
+		categoria = categoriaMapper.mapToCategoria(categoriaDto);
+		categoria.setId(idCategoria);
+		LOGGER.info(">>>>>> Categoria luego del mapper : " + categoria);
 
 		LOGGER.info("idCategoria: " + idCategoria);
 		LOGGER.info("Categoria: " + categoriaDto.toString());
-		
-		// Buscar la categoria existente
-		Categoria cat = null;
-		try {
-			cat = serviceCategorias.buscarCategoria(idCategoria);
-		} catch (ComandaServiceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
-		// Reemplazo el valor del objeto actualmente en la DB con el valor que se pasa
-		// por el Body
-		cat.setNombre(categoriaDto.getNombre());
+		categoria = serviceCategorias.modificar(categoria);
+		LOGGER.info("Categoria guardada: " + categoria.toString());
 
-		LOGGER.info("cat: " + cat.toString());
+		CategoriaResponse categoriaResponse = categoriaMapper.mapToCategoriaDto(categoria);
+		LOGGER.info(">>>>>> categoriaResponse: " + categoriaResponse);
 
-		serviceCategorias.guardar(cat);
-		LOGGER.info("Categoria guardada: " + cat.toString());
-
-		return cat;
+		return categoriaResponse;
 	}
 
 	@DeleteMapping("/categoria/{id}")

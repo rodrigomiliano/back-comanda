@@ -1,4 +1,4 @@
-package comanda.controller.dto.response;
+package comanda.controller.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,10 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 
-public class CategoriaResponse {
-
-	private Integer id;
-
+public class CategoriaInsertDto {
 	private String nombre;
-
 }

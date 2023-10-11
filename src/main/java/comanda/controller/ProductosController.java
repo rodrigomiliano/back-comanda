@@ -32,8 +32,6 @@ public class ProductosController {
 	@Autowired
 	private IProductosService serviceProductos;
 
-
-
 	private final ProductoMapper productoMapper = ProductoMapper.INSTANCE;
 
 	@GetMapping("/producto")
@@ -81,26 +79,23 @@ public class ProductosController {
 		return productoResponse;
 	}
 
-	@PutMapping("/producto")
+	/*@PutMapping("/producto")
 	public Producto modificar(@RequestBody Producto producto) throws ComandaServiceException {
 		serviceProductos.guardar(producto, null);
 		return producto;
-	}
+	}*/
 
 	@PutMapping("/producto/{id}")
 	public ProductoResponse modificar(@PathVariable("id") int idProducto, @RequestBody ProductoUpdateDto productoDto)
 			throws ComandaServiceException {
-
 
 		Producto producto = null;
 		producto = productoMapper.mapToProducto(productoDto);
 		producto.setId(idProducto);
 		LOGGER.info(">>>>>> Producto luego del mapper : " + producto);
 
-
 		LOGGER.info("idProducto: " + idProducto);
 		LOGGER.info("Producto: " + productoDto.toString());
-
 
 		producto = serviceProductos.modificar(producto, productoDto.getCategoriaId());
 		LOGGER.info("Producto guardado: " + producto.toString());
