@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import comanda.entity.Estado;
 import comanda.repository.EstadosRepository;
+import comanda.service.ComandaServiceException;
 import comanda.service.IEstadosService;
 
 @Service
@@ -30,22 +31,22 @@ public class EstadosService implements IEstadosService {
 		System.out.println("Guardando " + estado);
 	}
 
-	public void eliminar(int idEstado) {
+	public void eliminar(int idEstado) throws Exception {
 		System.out.println("Eliminando registro: " + buscarEstado(idEstado));
 		repoEstados.deleteById(idEstado);
 	}
-	
-	public Optional<Estado> buscarEstado(int idEstado) {
+
+	public Estado buscarEstado(int idEstado) throws ComandaServiceException {
 		System.out.println("------------------------------------------------------------");
 		Optional<Estado> optional = repoEstados.findById(idEstado);
 		if (optional.isPresent()) {
 			Estado u = optional.get();
 			System.out.println("Elegiste " + u);
-			return repoEstados.findById(idEstado);
+			return u;
 		} else {
 			System.out.println("------------------------------------------------------------");
 			System.out.println("No existe el Estado n° " + idEstado);
+			throw new ComandaServiceException("PS003", "No existe el Estado n° " + idEstado);
 		}
-		return null;
 	}
 }
