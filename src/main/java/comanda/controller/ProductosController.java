@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import comanda.controller.dto.request.ProductoInsertDto;
 import comanda.controller.dto.request.ProductoUpdateDto;
 import comanda.controller.dto.response.ProductoResponse;
 import comanda.entity.Categoria;
@@ -31,8 +32,7 @@ public class ProductosController {
 	@Autowired
 	private IProductosService serviceProductos;
 
-	@Autowired
-	private ICategoriasService serviceCategorias;
+
 
 	private final ProductoMapper productoMapper = ProductoMapper.INSTANCE;
 
@@ -66,69 +66,50 @@ public class ProductosController {
 	}
 
 	@PostMapping("/producto")
-	public Producto guardar(@RequestBody Producto producto) {
-		serviceProductos.guardar(producto);		
-		return producto;		
+	public ProductoResponse guardar(@RequestBody ProductoInsertDto productoDto) throws ComandaServiceException {
+
+		// Creamos el producto a insertar
+		Producto producto = null;
+		producto = productoMapper.mapToProducto(productoDto);
+		LOGGER.info(">>>>>> Producto luego del mapper : " + producto);
+
+		producto = serviceProductos.guardar(producto, productoDto.getCategoriaId());
+
+		ProductoResponse productoResponse = productoMapper.mapToProductoDto(producto);
+		LOGGER.info(">>>>>> productoResponse: " + productoResponse);
+
+		return productoResponse;
 	}
 
 	@PutMapping("/producto")
-	public Producto modificar(@RequestBody Producto producto) {
-		serviceProductos.guardar(producto);
+	public Producto modificar(@RequestBody Producto producto) throws ComandaServiceException {
+		serviceProductos.guardar(producto, null);
 		return producto;
 	}
 
 	@PutMapping("/producto/{id}")
-	public Producto modificar(@PathVariable("id") int idProducto, @RequestBody ProductoUpdateDto productoDto)
+	public ProductoResponse modificar(@PathVariable("id") int idProducto, @RequestBody ProductoUpdateDto productoDto)
 			throws ComandaServiceException {
+
+
+		Producto producto = null;
+		producto = productoMapper.mapToProducto(productoDto);
+		producto.setId(idProducto);
+		LOGGER.info(">>>>>> Producto luego del mapper : " + producto);
+
 
 		LOGGER.info("idProducto: " + idProducto);
 		LOGGER.info("Producto: " + productoDto.toString());
 
-		// Verificar si categoriaId no es null antes de usarlo
-		if (productoDto.getCategoriaId() != null) {
-			// Buscar el producto existente
-			Producto prod = null;
-			try {
-				prod = serviceProductos.buscarProducto(idProducto);
-			} catch (ComandaServiceException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 
-			// Reemplazo el valor del objeto actualmente en la DB con el valor que se pasa
-			// por el Body
-			prod.setNombre(productoDto.getNombre());
-			prod.setDescripcion(productoDto.getDescripcion());
-			prod.setPrecio(productoDto.getPrecio());
-			prod.setImagen(productoDto.getImagen());
+		producto = serviceProductos.modificar(producto, productoDto.getCategoriaId());
+		LOGGER.info("Producto guardado: " + producto.toString());
 
-			// Buscar la categoría por ID usando serviceCategorias
-			Categoria categoria = serviceCategorias.buscarCategoria(productoDto.getCategoriaId());
+		ProductoResponse productoResponse = productoMapper.mapToProductoDto(producto);
+		LOGGER.info(">>>>>> productoResponse: " + productoResponse);
 
-			if (categoria != null) {
-				prod.setCategoria(categoria);
-			} else {
-				// Manejar el caso en el que la categoría no se encuentra
-				// Puedes lanzar una excepción o manejarlo de otra manera según tus necesidades
-			}
+		return productoResponse;
 
-			LOGGER.info("Categoria actual: " + prod.getCategoria());
-			// LOGGER.info("Categoria nueva: " + producto.getCategoriaId());
-			// Categoria nuevaCategoria =
-			// categoriaService.buscarPorId(producto.getCategoriaId());
-			// prod.setCategoria(nuevaCategoria );
-
-			LOGGER.info("prod: " + prod.toString());
-
-			serviceProductos.guardar(prod);
-			LOGGER.info("Producto guardado: " + prod.toString());
-
-			return prod;
-		} else {
-			// Manejar el caso en el que categoriaId es null
-			// Puedes lanzar una excepción o manejarlo de otra manera según tus necesidades
-			return null;
-		}
 	}
 
 	@DeleteMapping("/producto/{id}")
