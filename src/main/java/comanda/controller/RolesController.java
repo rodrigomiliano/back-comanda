@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import comanda.controller.dto.request.RolInsertDto;
 import comanda.controller.dto.request.RolUpdateDto;
 import comanda.controller.dto.response.RolResponse;
 import comanda.entity.Rol;
@@ -54,43 +55,46 @@ public class RolesController {
 	}
 
 	@PostMapping("/rol")
-	public Rol guardar(@RequestBody Rol rol) {
-		serviceRoles.guardar(rol);
-		return rol;
+	public RolResponse guardar(@RequestBody RolInsertDto rolDto) throws ComandaServiceException {
+
+		// Creamos rol a insertar
+		Rol rol = null;
+		rol = rolMapper.mapToRol(rolDto);
+		LOGGER.info(">>>>>> Rol luego del mapper : " + rol);
+
+		rol = serviceRoles.guardar(rol);
+
+		RolResponse rolResponse = rolMapper.mapToRolDto(rol);
+		LOGGER.info(">>>>>> rolResponse: " + rolResponse);
+
+		return rolResponse;		
 	}
 
-	@PutMapping("/rol")
+	/*@PutMapping("/rol")
 	public Rol modificar(@RequestBody Rol rol) {
 		serviceRoles.guardar(rol);
 		return rol;
-	}
+	}*/
 
 	@PutMapping("/rol/{id}")
-	public Rol modificar(@PathVariable("id") int idRol, @RequestBody RolUpdateDto rolDto)
+	public RolResponse modificar(@PathVariable("id") int idRol, @RequestBody RolUpdateDto rolDto)
 			throws ComandaServiceException {
+
+		Rol rol = null;
+		rol = rolMapper.mapToRol(rolDto);
+		rol.setId(idRol);
+		LOGGER.info(">>>>>> Rol luego del mapper : " + rol);
 
 		LOGGER.info("idRol: " + idRol);
 		LOGGER.info("Rol: " + rolDto.toString());
 
-		// Buscar rol existente
-		Rol rol = null;
-		try {
-			rol = serviceRoles.buscarRol(idRol);
-		} catch (ComandaServiceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		// Reemplazo el valor del objeto actualmente en la DB con el valor que se pasa
-		// por el Body
-		rol.setNombre(rolDto.getNombre());
-
-		LOGGER.info("rol: " + rol.toString());
-
-		serviceRoles.guardar(rol);
+		rol = serviceRoles.modificar(rol);
 		LOGGER.info("Rol guardado: " + rol.toString());
 
-		return rol;
+		RolResponse rolResponse = rolMapper.mapToRolDto(rol);
+		LOGGER.info(">>>>>> rolResponse: " + rolResponse);
+
+		return rolResponse;
 	}
 
 	@DeleteMapping("/rol/{id}")

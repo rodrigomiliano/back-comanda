@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import comanda.entity.Categoria;
-import comanda.entity.Producto;
 import comanda.repository.CategoriasRepository;
 import comanda.service.ComandaServiceException;
 import comanda.service.ICategoriasService;
