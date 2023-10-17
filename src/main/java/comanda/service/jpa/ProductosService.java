@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import comanda.controller.ProductosController;
 import comanda.entity.Categoria;
 import comanda.entity.Producto;
 import comanda.repository.ProductosRepository;

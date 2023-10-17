@@ -16,10 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import comanda.controller.dto.request.ProductoInsertDto;
 import comanda.controller.dto.request.ProductoUpdateDto;
 import comanda.controller.dto.response.ProductoResponse;
-import comanda.entity.Categoria;
 import comanda.entity.Producto;
 import comanda.service.ComandaServiceException;
-import comanda.service.ICategoriasService;
 import comanda.service.IProductosService;
 import comanda.service.mapper.ProductoMapper;
 
