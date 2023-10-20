@@ -1,13 +1,13 @@
 package comanda.service;
 
 import java.util.List;
-import java.util.Optional;
 import comanda.entity.Cliente;
 
 public interface IClientesService {
 
-	List<Cliente> buscarTodos();
-	void guardar(Cliente cliente);
-	void eliminar(int idCliente);
-	Optional<Cliente> buscarCliente(int idCliente);
+    List<Cliente> buscarTodos();
+    Cliente guardar(Cliente cliente) throws ComandaServiceException;
+    Cliente modificar(Cliente cliente) throws ComandaServiceException;
+    void eliminar(int idCliente) throws Exception;
+    Cliente buscarCliente(int idCliente) throws ComandaServiceException;
 }

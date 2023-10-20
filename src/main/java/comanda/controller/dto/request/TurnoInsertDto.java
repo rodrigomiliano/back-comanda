@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 
-public class EstadoUpdateDto {
+public class TurnoInsertDto {
 
-	private String nombre;	
-	private String descripcion;
+	private String horario;
+	private Integer estadoId;	
 
 }

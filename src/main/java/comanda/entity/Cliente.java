@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -34,9 +32,9 @@ public class Cliente {
 	private String contrasena;
 	// @Column(name = "USER_ROL")
 	// private Integer rol;
-	@ManyToOne
-	@JoinColumn(name = "CLIENT_ROL") // "idRol")
-	private Rol rol;
+	//@ManyToOne
+	//@JoinColumn(name = "CLIENT_ROL") // "idRol")
+	//private Rol rol;
 
 	public Integer getId() {
 		return id;
@@ -102,22 +100,23 @@ public class Cliente {
 		this.contrasena = contrasena;
 	}
 
+	@Override
+	public String toString() {
+		return "Cliente [id=" + id + ", usuario=" + usuario + ", nombre=" + nombre + ", apellido=" + apellido + ", dni="
+				+ dni + ", email=" + email + ", telefono=" + telefono + ", contrasena=" + contrasena + "]";
+	}
+
 	/*public Rol getRol() {
 		return rol;
 	}*/
-	public String getRol() {
+	/*public String getRol() {
 		return rol.getNombre();
 	}
 
 	public void setRol(Rol rol) {
 		this.rol = rol;
-	}
+	}*/
 
-	@Override
-	public String toString() {
-		return "Cliente [id=" + id + ", usuario=" + usuario + ", nombre=" + nombre + ", apellido=" + apellido + ", dni="
-				+ dni + ", email=" + email + ", telefono=" + telefono + ", contrasena=" + contrasena + ", rol=" + rol
-				+ "]";
-	}
+	
 
 }

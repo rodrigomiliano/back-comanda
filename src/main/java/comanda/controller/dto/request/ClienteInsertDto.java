@@ -10,9 +10,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 
-public class EstadoUpdateDto {
-
+public class ClienteInsertDto {  	
+	private String usuario;	
 	private String nombre;	
-	private String descripcion;
-
+	private String apellido;	
+	private Integer dni;	
+	private String email;	
+	private String telefono;	
+	private String contrasena;	
 }

@@ -10,9 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 
-public class EstadoUpdateDto {
-
+public class EstadoInsertDto {
 	private String nombre;	
-	private String descripcion;
-
+    private String descripcion;
 }

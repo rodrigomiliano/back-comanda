@@ -21,11 +21,11 @@ public class UsuarioLocal {
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "USER_ID") // "idComanda")
+	@JoinColumn(name = "USER_ID") // "idUsuario")
 	private Usuario usuario;
 
 	@ManyToOne
-	@JoinColumn(name = "LOCAL_ID") // "idProducto")
+	@JoinColumn(name = "LOCAL_ID") // "idLocal")
 	private Local local;
 
 	public Integer getId() {

@@ -13,120 +13,106 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import comanda.controller.dto.request.TurnoUpdateDto;
-import comanda.controller.dto.response.TurnoResponse;
-import comanda.entity.Estado;
-import comanda.entity.Turno;
+import comanda.controller.dto.request.TurnoInsertDto; 
+import comanda.controller.dto.request.TurnoUpdateDto; 
+import comanda.controller.dto.response.TurnoResponse; 
+import comanda.entity.Turno; 
 import comanda.service.ComandaServiceException;
-import comanda.service.IEstadosService;
-import comanda.service.ITurnosService;
-import comanda.service.mapper.TurnoMapper;
+import comanda.service.ITurnosService; 
+import comanda.service.mapper.TurnoMapper; 
 
 @RestController
 @RequestMapping("/comanda")
-public class TurnosController {
+public class TurnosController { 
 
-	private final Logger LOGGER = LoggerFactory.getLogger(TurnosController.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(TurnosController.class); 
 
-	@Autowired
-	private ITurnosService serviceTurnos;
+    @Autowired
+    private ITurnosService serviceTurnos; 
 
-	@Autowired
-	private IEstadosService serviceEstados;
+    private final TurnoMapper turnoMapper = TurnoMapper.INSTANCE; 
 
-	private final TurnoMapper turnoMapper = TurnoMapper.INSTANCE;
+    @GetMapping("/turno") 
+    public List<TurnoResponse> buscarTodos() {
+        List<Turno> turnos = serviceTurnos.buscarTodos(); 
+        List<TurnoResponse> response = turnoMapper.mapToTurnoResponseList(turnos);
+        return response;
+    }
 
-	@GetMapping("/turno")
-	public List<TurnoResponse> buscarTodos() {
-		List<Turno> turnos = serviceTurnos.buscarTodos();
-		List<TurnoResponse> response = turnoMapper.mapToTurnoResponseList(turnos);
-		return response;
-	}
+    @GetMapping("/turno/{id}") 
+    public TurnoResponse buscarTurno(@PathVariable("id") int idTurno) { 
+        Turno turno = null; 
+        try {
+            turno = serviceTurnos.buscarTurno(idTurno); 
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        LOGGER.info(">>>>>> Turno: " + turno); 
+        LOGGER.info(">>>>>> Turno Estado: " + turno.getEstado());
+        // EstadoResponse estadoResponse = o
+        // estadoMapper.mapToEstadoResponse(turno.getEstado()); 
+        // LOGGER.info(">>>>>> estadoResponse: " + estadoResponse); 
 
-	@GetMapping("/turno/{id}")
-	public TurnoResponse buscarTurno(@PathVariable("id") int idTurno) {
-		Turno turno = null;
-		try {
-			turno = serviceTurnos.buscarTurno(idTurno);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		LOGGER.info(">>>>>> Turno: " + turno);
-		LOGGER.info(">>>>>> Turno Estado: " + turno.getEstado());
+        TurnoResponse turnoResponse = turnoMapper.mapToTurnoDto(turno); 
+        LOGGER.info(">>>>>> turnoResponse: " + turnoResponse); 
+        // turnoResponse.setEstado(estadoResponse); 
+        // LOGGER.info(">>>>>> turnoResponse: " + turnoResponse); 
+        return turnoResponse;
+    }
 
-		TurnoResponse turnoResponse = turnoMapper.mapToTurnoDto(turno);
-		LOGGER.info(">>>>>> turnoResponse: " + turnoResponse);
+    @PostMapping("/turno") 
+    public TurnoResponse guardar(@RequestBody TurnoInsertDto turnoDto) throws ComandaServiceException { 
 
-		return turnoResponse;
-	}
+        // Creamos el turno a insertar
+        Turno turno = null; 
+        turno = turnoMapper.mapToTurno(turnoDto); 
+        LOGGER.info(">>>>>> Turno luego del mapper : " + turno); 
 
-	@PostMapping("/turno")
-	public Turno guardar(@RequestBody Turno turno) {
-		serviceTurnos.guardar(turno);
-		return turno;
-	}
+        turno = serviceTurnos.guardar(turno, turnoDto.getEstadoId()); 
+        
+        TurnoResponse turnoResponse = turnoMapper.mapToTurnoDto(turno); 
+        LOGGER.info(">>>>>> turnoResponse: " + turnoResponse); 
+        return turnoResponse;
+    }
 
-	@PutMapping("/turno")
-	public Turno modificar(@RequestBody Turno turno) {
-		serviceTurnos.guardar(turno);
-		return turno;
-	}
+    /*@PutMapping("/turno")
+    public Turno modificar(@RequestBody Turno turno) throws ComandaServiceException {
+        serviceTurnos.guardar(turno, null);
+        return turno;
+    }*/
 
-	@PutMapping("/turno/{id}")
-	public Turno modificar(@PathVariable("id") int idTurno, @RequestBody TurnoUpdateDto turnoDto)
-			throws ComandaServiceException {
+    @PutMapping("/turno/{id}") 
+    public TurnoResponse modificar(@PathVariable("id") int idTurno, @RequestBody TurnoUpdateDto turnoDto) 
+            throws ComandaServiceException {
 
-		LOGGER.info("idTurno: " + idTurno);
-		LOGGER.info("Turno: " + turnoDto.toString());
+        Turno turno = null; 
+        turno = turnoMapper.mapToTurno(turnoDto); 
+        turno.setId(idTurno);
+        LOGGER.info(">>>>>> Turno luego del mapper : " + turno); 
 
-		if (turnoDto.getEstadoId() != null) {
-			Turno turn = null;
-			try {
-				turn = serviceTurnos.buscarTurno(idTurno);
-			} catch (ComandaServiceException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+        LOGGER.info("idTurno: " + idTurno); 
+        LOGGER.info("Turno: " + turnoDto.toString()); 
 
-			// Reemplazo el valor del objeto actualmente en la DB con el valor que se pasa
-			// por el Body
-			turn.setHorario(turnoDto.getHorario());
+        turno = serviceTurnos.modificar(turno, turnoDto.getEstadoId()); 
+        
+        LOGGER.info("Turno guardado: " + turno.toString());
 
-			// Buscar estado por ID usando serviceEstados
-			Estado estado = serviceEstados.buscarEstado(turnoDto.getEstadoId());
+        TurnoResponse turnoResponse = turnoMapper.mapToTurnoDto(turno); 
+        LOGGER.info(">>>>>> turnoResponse: " + turnoResponse); 
 
-			if (estado != null) {
-				turn.setEstado(estado);
-			} else {
-				// Manejar el caso en el que Estado no se encuentra
-				// Puedes lanzar una excepción o manejarlo de otra manera según tus necesidades
-			}
+        return turnoResponse;
 
-			LOGGER.info("Estado actual: " + turn.getEstado());
+    }
 
-			LOGGER.info("turn: " + turn.toString());
-
-			serviceTurnos.guardar(turn);
-			LOGGER.info("Turno guardado: " + turn.toString());
-
-			return turn;
-		} else {
-			// Manejar el caso en el que estadoId es null
-			// Puedes lanzar una excepción o manejarlo de otra manera según tus necesidades
-			return null;
-		}
-	}
-
-	@DeleteMapping("/turno/{id}")
-	public String eliminar(@PathVariable("id") int idTurno) {
-		try {
-			serviceTurnos.eliminar(idTurno);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "Registro Eliminado";
-	}
-
+    @DeleteMapping("/turno/{id}") 
+    public String eliminar(@PathVariable("id") int idTurno) {
+        try {
+            serviceTurnos.eliminar(idTurno); 
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return "Registro Eliminado";
+    }
 }

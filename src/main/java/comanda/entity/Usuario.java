@@ -1,5 +1,7 @@
 package comanda.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -38,6 +41,11 @@ public class Usuario {
 	@JoinColumn(name = "USER_ROL") // "idRol")
 	private Rol rol;
 
+	@OneToMany(mappedBy = "usuario")	
+	//@JoinTable(name = "USUARIOS_LOCALES", joinColumns = @JoinColumn(name = "LOCAL_ID", referencedColumnName = "LOCAL_ID"), inverseJoinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID"))
+	private List<UsuarioLocal> usuariosLocales;
+	
+	
 	public Integer getId() {
 		return id;
 	}
