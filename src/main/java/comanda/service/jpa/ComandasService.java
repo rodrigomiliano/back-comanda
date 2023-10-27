@@ -5,10 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import comanda.entity.Comanda;
-import comanda.entity.ItemComanda;
-import comanda.entity.Producto;
 import comanda.repository.ComandasRepository;
-import comanda.repository.ItemComandasRepository;
 import comanda.service.IComandasService;
 
 @Service
@@ -17,9 +14,6 @@ public class ComandasService implements IComandasService {
 	@Autowired
 	private ComandasRepository repoComandas;
 	
-	@Autowired
-	private ItemComandasRepository repoItemComandas;
-
 	public List<Comanda> buscarTodas() {
 		System.out.println("------------------------------------------------------------");
 		List<Comanda> comandas = repoComandas.findAll(); // spring
