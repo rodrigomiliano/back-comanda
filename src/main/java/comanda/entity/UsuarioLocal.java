@@ -9,6 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "USUARIOS_LOCALES") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
 
@@ -21,20 +24,22 @@ public class UsuarioLocal {
 	private Integer id;
 
 	@ManyToOne
+	@JsonBackReference
 	@JoinColumn(name = "USER_ID") // "idUsuario")
 	private Usuario usuario;
 
 	@ManyToOne
+	@JsonBackReference
 	@JoinColumn(name = "LOCAL_ID") // "idLocal")
 	private Local local;
 
-	public Integer getId() {
+	/*public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
+	}*/
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -54,7 +59,7 @@ public class UsuarioLocal {
 
 	@Override
 	public String toString() {
-		return "UsuarioLocal [id=" + id + ", usuario=" + usuario + ", local=" + local + "]";
+		return "UsuarioLocal [usuario=" + usuario + ", local=" + local + "]";
 	}
 
 	

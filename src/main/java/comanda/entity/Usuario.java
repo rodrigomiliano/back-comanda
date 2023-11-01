@@ -2,8 +2,10 @@ package comanda.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "Usuarios") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
@@ -41,7 +46,8 @@ public class Usuario {
 	@JoinColumn(name = "USER_ROL") // "idRol")
 	private Rol rol;
 
-	@OneToMany(mappedBy = "usuario")	
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = true)	
+	@JsonBackReference
 	//@JoinTable(name = "USUARIOS_LOCALES", joinColumns = @JoinColumn(name = "LOCAL_ID", referencedColumnName = "LOCAL_ID"), inverseJoinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID"))
 	private List<UsuarioLocal> usuariosLocales;
 	
@@ -121,11 +127,21 @@ public class Usuario {
 		this.rol = rol;
 	}
 
+	
+	
+	public List<UsuarioLocal> getUsuariosLocales() {
+		return usuariosLocales;
+	}
+
+	public void setUsuariosLocales(List<UsuarioLocal> usuariosLocales) {
+		this.usuariosLocales = usuariosLocales;
+	}
+
 	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", usuario=" + usuario + ", nombre=" + nombre + ", apellido=" + apellido + ", dni="
 				+ dni + ", email=" + email + ", telefono=" + telefono + ", contrasena=" + contrasena + ", rol=" + rol
-				+ "]";
+				+ ", usuariosLocales=" + usuariosLocales + "]";
 	}
 
 }
