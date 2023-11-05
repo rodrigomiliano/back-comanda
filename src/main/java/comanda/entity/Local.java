@@ -12,7 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -38,12 +39,25 @@ public class Local {
 	private String imagen;
 
 	@OneToMany(mappedBy = "local", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = true)		
-	@JsonBackReference
-	//@JoinTable(name = "USUARIOS_LOCALES", joinColumns = @JoinColumn(name = "LOCAL_ID", referencedColumnName = "LOCAL_ID"), inverseJoinColumns = @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID"))
+	@JsonManagedReference
 	private List<UsuarioLocal> usuariosLocales;
+		
+	public Local() {
+		super();		
+	}	
 
-	
-	
+	public Local(String nombre, String calle, Integer altura, Integer codigo_postal, Integer telefono,
+			String imagen, List<UsuarioLocal> usuariosLocales) {
+		super();		
+		this.nombre = nombre;
+		this.calle = calle;
+		this.altura = altura;
+		this.codigo_postal = codigo_postal;
+		this.telefono = telefono;
+		this.imagen = imagen;
+		this.usuariosLocales = usuariosLocales;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -114,7 +128,7 @@ public class Local {
 	public String toString() {
 		return "Local [id=" + id + ", nombre=" + nombre + ", calle=" + calle + ", altura=" + altura + ", codigo_postal="
 				+ codigo_postal + ", telefono=" + telefono + ", imagen=" + imagen + ", usuariosLocales="
-				+ usuariosLocales + "]";
+				+ usuariosLocales.size() + "]";
 	}
 
 }

@@ -1,5 +1,7 @@
 package comanda.controller.dto.response;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,4 +31,6 @@ public class UsuarioResponse {
 	private String contrasena;
 	
 	private RolResponse rol;
+	
+	//private List<UsuarioLocalResponse> usuariosLocales;
 }

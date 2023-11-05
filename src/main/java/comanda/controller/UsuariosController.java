@@ -50,6 +50,7 @@ public class UsuariosController {
         }
         LOGGER.info(">>>>>> Usuario: " + usuario);
         LOGGER.info(">>>>>> Usuario Rol: " + usuario.getRol());
+        //LOGGER.info(">>>>>> Usuario usrloc: " + usuario.getUsuariosLocales());
 
         UsuarioResponse usuarioResponse = usuarioMapper.mapToUsuarioDto(usuario);
         LOGGER.info(">>>>>> usuarioResponse: " + usuarioResponse);

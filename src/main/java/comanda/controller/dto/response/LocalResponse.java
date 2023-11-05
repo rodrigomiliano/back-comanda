@@ -1,5 +1,8 @@
 package comanda.controller.dto.response;
 
+import java.util.List;
+
+import comanda.entity.UsuarioLocal;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,4 +28,6 @@ public class LocalResponse {
 	private Integer telefono;
 	
 	private String imagen;		
+	
+	private List<UsuarioLocal> usuariosLocales;
 }

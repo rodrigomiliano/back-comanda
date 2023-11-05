@@ -10,36 +10,46 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name = "USUARIOS_LOCALES") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
+@Table(name = "Usuarios_Locales") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
 
 public class UsuarioLocal {
 	
 	@Id // para que se sepa que es primary key
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // para que la pk sea autoincremental y la estrategia de cómo se
 														// va a generar (en mysql).
-	@Column(name = "USER_LOCAL_ID")
+	@Column(name = "USRLOC_ID")
 	private Integer id;
-
-	@ManyToOne
+	
+	@ManyToOne	
+	@JoinColumn(name = "USRLOC_LOCAL") // "idLocal")
 	@JsonBackReference
-	@JoinColumn(name = "USER_ID") // "idUsuario")
-	private Usuario usuario;
-
-	@ManyToOne
-	@JsonBackReference
-	@JoinColumn(name = "LOCAL_ID") // "idLocal")
 	private Local local;
 
-	/*public Integer getId() {
+	@ManyToOne	
+	@JoinColumn(name = "USRLOC_USER") // "idUsuario")	
+	private Usuario usuario;	
+		
+	public UsuarioLocal() {
+		super();		
+	}
+		
+	public UsuarioLocal(Usuario usuario, Local local) {
+		super();		
+		this.usuario = usuario;
+		this.local = local;
+	}
+
+
+
+	public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
-	}*/
+	}
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -59,7 +69,7 @@ public class UsuarioLocal {
 
 	@Override
 	public String toString() {
-		return "UsuarioLocal [usuario=" + usuario + ", local=" + local + "]";
+		return "UsuarioLocal [id=" + id + ", usuario=" + usuario + ", local=" + local + "]";
 	}
 
 	
