@@ -63,8 +63,8 @@ public class Reserva {
 	/*
 	 * public Cliente getCliente() { return cliente; }
 	 */
-	public String getCliente() {
-		return cliente.getApellido() + " " + cliente.getNombre();
+	public Cliente getCliente() {
+		return cliente;/*cliente.getApellido() + " " + cliente.getNombre();*/
 	}
 
 	public void setCliente(Cliente cliente) {
@@ -98,8 +98,8 @@ public class Reserva {
 	/*
 	 * public String getEstado() { return estado; }
 	 */
-	public String getEstado() {
-		return estado.getNombre();
+	public Estado getEstado() {
+		return estado;/*estado.getNombre();*/
 	}
 
 	public void setEstado(Estado estado) {
@@ -109,8 +109,8 @@ public class Reserva {
 	/*
 	 * public Mesa getMesa() { return mesa; }
 	 */
-	public String getMesa() {
-		return "Hasta " + mesa.getSillas() + " comensales ";
+	public Mesa getMesa() {
+		return mesa;/*"Hasta " + mesa.getSillas() + " comensales ";*/
 	}
 
 	public void setMesa(Mesa mesa) {

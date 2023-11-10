@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,17 +12,15 @@ import lombok.NoArgsConstructor;
 
 public class ProductoResponse {
 
-
-
 	private Integer id;
 
 	private String nombre;
 
-	/*private String descripcion;
+	private String descripcion;
 
 	private Double precio;
 
 	private CategoriaResponse categoria;
 
-	private String imagen;*/
+	private String imagen;
 }

@@ -1,13 +1,13 @@
 package comanda.service;
 
 import java.util.List;
-import java.util.Optional;
 import comanda.entity.Local;
 
 public interface ILocalesService {
 
-	List<Local> buscarTodos();
-	void guardar(Local local);
-	void eliminar(int idLocal);
-	Optional<Local> buscarLocal(int idLocal);
+    List<Local> buscarTodos();
+    Local guardar(Local local) throws ComandaServiceException;
+    Local modificar(Local local) throws ComandaServiceException;
+    void eliminar(int idLocal) throws Exception;
+    Local buscarLocal(int idLocal) throws ComandaServiceException;
 }

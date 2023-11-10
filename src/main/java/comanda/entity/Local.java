@@ -1,11 +1,20 @@
 package comanda.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "Locales") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
@@ -28,6 +37,26 @@ public class Local {
 	private Integer telefono;
 	@Column(name = "LOCAL_IMG")
 	private String imagen;
+
+	@OneToMany(mappedBy = "local", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = true)		
+	@JsonManagedReference
+	private List<UsuarioLocal> usuariosLocales;
+		
+	public Local() {
+		super();		
+	}	
+
+	public Local(String nombre, String calle, Integer altura, Integer codigo_postal, Integer telefono,
+			String imagen, List<UsuarioLocal> usuariosLocales) {
+		super();		
+		this.nombre = nombre;
+		this.calle = calle;
+		this.altura = altura;
+		this.codigo_postal = codigo_postal;
+		this.telefono = telefono;
+		this.imagen = imagen;
+		this.usuariosLocales = usuariosLocales;
+	}
 
 	public Integer getId() {
 		return id;
@@ -84,12 +113,22 @@ public class Local {
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
+	
+	
+
+	public List<UsuarioLocal> getUsuariosLocales() {
+		return usuariosLocales;
+	}
+
+	public void setUsuariosLocales(List<UsuarioLocal> usuariosLocales) {
+		this.usuariosLocales = usuariosLocales;
+	}
 
 	@Override
 	public String toString() {
 		return "Local [id=" + id + ", nombre=" + nombre + ", calle=" + calle + ", altura=" + altura + ", codigo_postal="
-				+ codigo_postal + ", telefono=" + telefono + ", imagen=" + imagen + "]";
+				+ codigo_postal + ", telefono=" + telefono + ", imagen=" + imagen + ", usuariosLocales="
+				+ usuariosLocales.size() + "]";
 	}
 
-	
 }

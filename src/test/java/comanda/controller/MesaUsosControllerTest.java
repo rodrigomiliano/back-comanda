@@ -82,7 +82,7 @@ class MesaUsosControllerTest {
 		System.out.println("------");
 
 
-		MesaResponse mesaDTO = mesaMapper.mapToMesaDTO(mesa);
+		MesaResponse mesaDTO = mesaMapper.mapToMesaDto(mesa);
 		System.out.println("------");
 		System.out.println(">>> mesaDTO: " + mesaDTO);
 		System.out.println("------");

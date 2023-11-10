@@ -1,26 +1,26 @@
 package comanda.service.mapper;
 
-import java.util.Collection;
 import java.util.List;
-
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+import comanda.controller.dto.request.MesaInsertDto;
+import comanda.controller.dto.request.MesaUpdateDto;
 import comanda.controller.dto.response.MesaResponse;
 import comanda.entity.Mesa;
-
-
 
 @Mapper(componentModel = "spring")
 public interface MesaMapper {
 
-	MesaMapper INSTANCE = Mappers.getMapper( MesaMapper.class );
+    MesaMapper INSTANCE = Mappers.getMapper(MesaMapper.class);
 
-	MesaResponse mapToMesaDTO(Mesa mesa);
+    @Mapping(target = "estado.id", source = "estado.id") // Mapea solo el id del estado
+    MesaResponse mapToMesaDto(Mesa mesa);
 
-	List<MesaResponse> mapToListMesaDTO(Collection<Mesa> mesas);
+    List<MesaResponse> mapToMesaResponseList(List<Mesa> mesas);
 
-	Mesa mapToMesa(MesaResponse mesaDTO);
+    Mesa mapToMesa(MesaInsertDto mesaDto);
 
-	List<Mesa> mapToListMesa(Collection<MesaResponse> mesasDTO);
+    Mesa mapToMesa(MesaUpdateDto mesaDto);
 }

@@ -1,13 +1,13 @@
 package comanda.service;
 
 import java.util.List;
-import java.util.Optional;
 import comanda.entity.Mesa;
 
 public interface IMesasService {
 
-	List<Mesa> buscarTodas();
-	void guardar(Mesa mesa);
-	void eliminar(int idMesa);
-	Optional<Mesa> buscarMesa(int idMesa);
+    List<Mesa> buscarTodos();
+    Mesa guardar(Mesa mesa, Integer estadoId, Integer usuarioId, Integer localId) throws ComandaServiceException;
+    Mesa modificar(Mesa mesa, Integer estadoId, Integer usuarioId, Integer localId) throws ComandaServiceException;
+    void eliminar(int idMesa) throws Exception;
+    Mesa buscarMesa(int idMesa) throws ComandaServiceException;
 }

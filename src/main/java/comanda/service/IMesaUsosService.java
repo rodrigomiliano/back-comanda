@@ -1,9 +1,7 @@
 package comanda.service;
 
 import java.util.List;
-import java.util.Optional;
 
-import comanda.entity.Comanda;
 import comanda.entity.Comprobante;
 import comanda.entity.ItemComanda;
 import comanda.entity.MesaUso;

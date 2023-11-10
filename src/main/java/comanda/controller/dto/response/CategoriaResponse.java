@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+
 public class CategoriaResponse {
 
-private Integer id;
+	private Integer id;
 
-private String nombre;
-
+	private String nombre;
 
 }

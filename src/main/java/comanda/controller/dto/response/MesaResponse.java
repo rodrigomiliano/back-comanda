@@ -18,7 +18,16 @@ public class MesaResponse {
 =======
 	
 	private Integer sillas;
+	
+	private String observacion;
 
+<<<<<<< HEAD
+>>>>>>> rodri
+=======
+	private EstadoResponse estado;
 >>>>>>> rodri
 
+	private UsuarioResponse usuario;
+	
+	private LocalResponse local;
 }

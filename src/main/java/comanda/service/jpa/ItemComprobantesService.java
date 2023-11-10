@@ -5,9 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import comanda.entity.ItemComanda;
 import comanda.entity.ItemComprobante;
-import comanda.entity.Producto;
 import comanda.repository.ItemComprobantesRepository;
 import comanda.service.IItemComprobantesService;
 

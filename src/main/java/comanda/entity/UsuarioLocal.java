@@ -9,24 +9,39 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
-@Table(name = "USUARIOS_LOCALES") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
+@Table(name = "Usuarios_Locales") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
 
 public class UsuarioLocal {
 	
 	@Id // para que se sepa que es primary key
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // para que la pk sea autoincremental y la estrategia de cómo se
 														// va a generar (en mysql).
-	@Column(name = "USER_LOCAL_ID")
+	@Column(name = "USRLOC_ID")
 	private Integer id;
-
-	@ManyToOne
-	@JoinColumn(name = "USER_ID") // "idComanda")
-	private Usuario usuario;
-
-	@ManyToOne
-	@JoinColumn(name = "LOCAL_ID") // "idProducto")
+	
+	@ManyToOne	
+	@JoinColumn(name = "USRLOC_LOCAL") // "idLocal")
+	@JsonBackReference
 	private Local local;
+
+	@ManyToOne	
+	@JoinColumn(name = "USRLOC_USER") // "idUsuario")	
+	private Usuario usuario;	
+		
+	public UsuarioLocal() {
+		super();		
+	}
+		
+	public UsuarioLocal(Usuario usuario, Local local) {
+		super();		
+		this.usuario = usuario;
+		this.local = local;
+	}
+
+
 
 	public Integer getId() {
 		return id;
