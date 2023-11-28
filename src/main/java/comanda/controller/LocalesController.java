@@ -4,6 +4,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import comanda.service.mapper.LocalMapper;
 
 @RestController
 @RequestMapping("/comanda")
+@CrossOrigin(origins = "http://localhost:3000") // Permite solicitudes desde el dominio del frontend
 public class LocalesController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(LocalesController.class);

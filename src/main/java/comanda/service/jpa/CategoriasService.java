@@ -37,7 +37,7 @@ public class CategoriasService implements ICategoriasService {
 		LOGGER.info(">>>>>> Categoria a guardar via el repo: " + categoria);
 		System.out.println("Guardando " + categoria);
 
-		return repoCategorias.save(categoria);
+		return repoCategorias.save(categoria);		
 	}
 
 	public Categoria modificar(Categoria categoria) throws ComandaServiceException {
