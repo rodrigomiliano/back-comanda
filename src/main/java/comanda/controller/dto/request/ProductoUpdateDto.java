@@ -17,5 +17,5 @@ public class ProductoUpdateDto {
 	private Double precio;
 	private Integer categoriaId;
 	private String imagen;
-
+	private Integer localId;
 }

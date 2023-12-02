@@ -16,5 +16,5 @@ public class ProductoInsertDto {
 	private Double precio;
 	private Integer categoriaId;
 	private String imagen;
-
+	private Integer localId;
 }

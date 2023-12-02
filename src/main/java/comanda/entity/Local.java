@@ -124,11 +124,20 @@ public class Local {
 		this.usuariosLocales = usuariosLocales;
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		return "Local [id=" + id + ", nombre=" + nombre + ", calle=" + calle + ", altura=" + altura + ", codigo_postal="
 				+ codigo_postal + ", telefono=" + telefono + ", imagen=" + imagen + ", usuariosLocales="
 				+ usuariosLocales.size() + "]";
+	}*/
+
+	@Override
+	public String toString() {
+	    String usuariosLocalesInfo = (usuariosLocales != null) ? String.valueOf(usuariosLocales.size()) : "null";
+	    return "Local [id=" + id + ", nombre=" + nombre + ", calle=" + calle + ", altura=" + altura +
+	            ", codigo_postal=" + codigo_postal + ", telefono=" + telefono + ", imagen=" + imagen +
+	            ", usuariosLocales=" + usuariosLocalesInfo + "]";
 	}
 
+	
 }

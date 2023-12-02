@@ -17,23 +17,6 @@ CREATE TABLE `CATEGORIAS` (
   UNIQUE KEY (`CATEGO_NOMBRE`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
--- PRODCUTOS: OK
-CREATE TABLE `PRODUCTOS` (
-  `PRODUC_ID` int NOT NULL AUTO_INCREMENT,
-  `PRODUC_NOMBRE` varchar(255) NOT NULL,
-  `PRODUC_DESCRP` varchar(255) DEFAULT NULL,
-  `PRODUC_PRECIO` double NOT NULL,
-  `PRODUC_CATEGO` int NOT NULL,
-  `PRODUC_IMG` varchar(255) ,
-  -- `ITEMCOM_ID` int DEFAULT NULL,  
-  PRIMARY KEY (`PRODUC_ID`),
-  UNIQUE KEY (`PRODUC_NOMBRE`),
-  KEY `FK_PRODUC_CATEGO_ID` (`PRODUC_CATEGO`),  
-  -- KEY `FK_ITEMCOM_ID` (`ITEMCOM_ID`),
-  CONSTRAINT `FK_PRODUC_CATEGO` FOREIGN KEY (`PRODUC_CATEGO`) REFERENCES `CATEGORIAS` (`CATEGO_ID`)
-  -- CONSTRAINT `FK_ITEMCOM_ID` FOREIGN KEY (`ITEMCOM_ID`) REFERENCES `ITEMCOMANDAS` (`ITEMCOM_ID`)  
-) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
-
 -- LOCALES: OK, ver como poner los horarios
 CREATE TABLE `LOCALES` (
   `LOCAL_ID` int NOT NULL AUTO_INCREMENT,
@@ -46,6 +29,26 @@ CREATE TABLE `LOCALES` (
   -- `LOCAL_HORARIO`
   PRIMARY KEY (`LOCAL_ID`),
   UNIQUE KEY (`LOCAL_NOMBRE`)
+) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
+
+-- PRODCUTOS: OK
+CREATE TABLE `PRODUCTOS` (
+  `PRODUC_ID` int NOT NULL AUTO_INCREMENT,
+  `PRODUC_NOMBRE` varchar(255) NOT NULL,
+  `PRODUC_DESCRP` varchar(255) DEFAULT NULL,
+  `PRODUC_PRECIO` double NOT NULL,
+  `PRODUC_CATEGO` int NOT NULL,
+  `PRODUC_IMG` varchar(255) ,
+  `PRODUC_LOCAL` int NOT NULL,
+  -- `ITEMCOM_ID` int DEFAULT NULL,  
+  PRIMARY KEY (`PRODUC_ID`),
+  -- UNIQUE KEY (`PRODUC_NOMBRE`),
+  KEY `FK_PRODUC_CATEGO_ID` (`PRODUC_CATEGO`),  
+  KEY `FK_PRODUC_LOCAL_ID` (`PRODUC_CATEGO`),  
+  -- KEY `FK_ITEMCOM_ID` (`ITEMCOM_ID`),
+  CONSTRAINT `FK_PRODUC_CATEGO` FOREIGN KEY (`PRODUC_CATEGO`) REFERENCES `CATEGORIAS` (`CATEGO_ID`),
+  CONSTRAINT `FK_PRODUC_LOCAL` FOREIGN KEY (`PRODUC_LOCAL`) REFERENCES `LOCALES` (`LOCAL_ID`)
+  -- CONSTRAINT `FK_ITEMCOM_ID` FOREIGN KEY (`ITEMCOM_ID`) REFERENCES `ITEMCOMANDAS` (`ITEMCOM_ID`)  
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 
 -- ESTADOS: OK
@@ -265,32 +268,6 @@ VALUES
 ('Vinos')
 ;
 
-INSERT INTO `comandabd`.`PRODUCTOS`
-(`PRODUC_NOMBRE`,`PRODUC_DESCRP`,`PRODUC_PRECIO`,`PRODUC_CATEGO`,`PRODUC_IMG`)
-VALUES
-('Provoleta','Provoleta grillada a la parrilla con finas hierbas.',950,1,'provo.png'),
-('Mozzarelitas','Bastones de mozzarella con panko y salsa criolla.',1100,1,'mozza.png'),
-('Tabla de Quesos','Variedad de quesos.',850,1,'queso.png'),
-('Entraña Provenzal','Entraña a la provenzal con papas fritas.',2600,2,'entrana.png'),
-('Vacío','Porción de vacío con guarnición.',2300,2,'vacio.png'),
-('Asado','Porción de asado con guarnición.',2300,2,'asado.png'),
-('Mix de achuras','Molleja, riñón, chinchulín, chorizo y morcilla.',2750,2,'achuras.png'),
-('Tallarines Fileto','Tallarines con salsa fileto',1300,3,'tallarines.png'),
-('Tagliatelle Bolognesa','Tagliatelle con salsa bolognesa.',1550,3,'taglia.png'),
-('Ñoquis Azafrán','Ñoquis con salsa crema de azafrán.',1450,3,'noquis.png'),
-('Tortilla de Papas','Clásica tortilla de papas con cebolla. Para compartir.',1900,4,'tortilla.png'),
-('Empanada Casera','Empanda sabor a elección: carne, pollo, jamon y queso.',250,5,'empanada.png'),
-('Pizza Mozzarella Chica','Pizza Mozzarella 6 porciones.',1650,5,'pizzamuzza.png'),
-('Pizza Mozzarella Grande','Pizza Mozzarella 8 porciones, para compartir.',2450,5,'pizzamuzza.png'),
-('Aguas','Agua con o sin gas.',650,6,'agua.png'),
-('Gaseosas','Gaseosa lína Coca - Cola.',650,6,'gaseosa.png'),
-('Jarra de Limonada','Limonada con menta y jengibre.',950,6,'limonada.png'),
-('Flan Casero','Flan casero con crema y dulce de leche.',1500,7,'flan.png'),
-('Helado','Dos bochas de helado, gustos a elección.',1300,7,'helado.png'),
-('Trumpeter','Malbec, Cabernet - Sauvignon.',2500,8,'trumpeter.png'),
-('Lugi Bosca','Malbec, Cabernet - Sauvignon.',300,8,'luigibosca.png')
-;
-
 INSERT INTO `comandabd`.`LOCALES`
 (`LOCAL_NOMBRE`,`LOCAL_CALLE`,`LOCAL_ALTURA`,`LOCAL_CODPOS`,`LOCAL_TELEFN`,`LOCAL_IMG`)
 VALUES
@@ -300,6 +277,33 @@ VALUES
 ('Kentucky Microcentro 1','Calle Microcentro 1',1234,1111,'44444444','kentuckymic1.png'),
 ('Kentucky Microcentro 2','Calle Microcentro 2',1234,1111,'44444444','kentuckymic2.png')
 ;
+
+INSERT INTO `comandabd`.`PRODUCTOS`
+(`PRODUC_NOMBRE`,`PRODUC_DESCRP`,`PRODUC_PRECIO`,`PRODUC_CATEGO`,`PRODUC_IMG`,`PRODUC_LOCAL`)
+VALUES
+('Provoleta','Provoleta grillada a la parrilla con finas hierbas.',950,1,'provo.png',1),
+('Mozzarelitas','Bastones de mozzarella con panko y salsa criolla.',1100,1,'mozza.png',1),
+('Tabla de Quesos','Variedad de quesos.',850,1,'queso.png',1),
+('Entraña Provenzal','Entraña a la provenzal con papas fritas.',2600,2,'entrana.png',1),
+('Vacío','Porción de vacío con guarnición.',2300,2,'vacio.png',1),
+('Asado','Porción de asado con guarnición.',2300,2,'asado.png',2),
+('Mix de achuras','Molleja, riñón, chinchulín, chorizo y morcilla.',2750,2,'achuras.png',2),
+('Tallarines Fileto','Tallarines con salsa fileto',1300,3,'tallarines.png',2),
+('Tagliatelle Bolognesa','Tagliatelle con salsa bolognesa.',1550,3,'taglia.png',2),
+('Ñoquis Azafrán','Ñoquis con salsa crema de azafrán.',1450,3,'noquis.png',2),
+('Tortilla de Papas','Clásica tortilla de papas con cebolla. Para compartir.',1900,4,'tortilla.png',3),
+('Empanada Casera','Empanda sabor a elección: carne, pollo, jamon y queso.',250,5,'empanada.png',3),
+('Pizza Mozzarella Chica','Pizza Mozzarella 6 porciones.',1650,5,'pizzamuzza.png',3),
+('Pizza Mozzarella Grande','Pizza Mozzarella 8 porciones, para compartir.',2450,5,'pizzamuzza.png',3),
+('Aguas','Agua con o sin gas.',650,6,'agua.png',3),
+('Gaseosas','Gaseosa lína Coca - Cola.',650,6,'gaseosa.png',4),
+('Jarra de Limonada','Limonada con menta y jengibre.',950,6,'limonada.png',4),
+('Flan Casero','Flan casero con crema y dulce de leche.',1500,7,'flan.png',4),
+('Helado','Dos bochas de helado, gustos a elección.',1300,7,'helado.png',4),
+('Trumpeter','Malbec, Cabernet - Sauvignon.',2500,8,'trumpeter.png', 4),
+('Lugi Bosca','Malbec, Cabernet - Sauvignon.',300,8,'luigibosca.png',5)
+;
+
 
 INSERT INTO `comandabd`.`ROLES`
 (`ROL_NOMBRE`)

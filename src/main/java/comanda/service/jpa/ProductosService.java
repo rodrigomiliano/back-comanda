@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 
 import comanda.entity.Categoria;
 import comanda.entity.Producto;
+import comanda.entity.Local;
 import comanda.repository.ProductosRepository;
 import comanda.service.ComandaServiceException;
 import comanda.service.ICategoriasService;
+import comanda.service.ILocalesService;
 import comanda.service.IProductosService;
 
 @Service
@@ -26,6 +28,9 @@ public class ProductosService implements IProductosService {
 
 	@Autowired
 	private ICategoriasService serviceCategorias;
+	
+	@Autowired
+	private ILocalesService serviceLocales;
 
 	public List<Producto> buscarTodos() {
 		System.out.println("------------------------------------------------------------");
@@ -37,39 +42,43 @@ public class ProductosService implements IProductosService {
 		return repoProductos.findAll();
 	}
 
-	public Producto guardar(Producto producto, Integer categoriaId) throws ComandaServiceException {
-		System.out.println("------------------------------------------------------------");
+	public Producto guardar(Producto producto, Integer categoriaId, Integer localId) throws ComandaServiceException {
+	    System.out.println("------------------------------------------------------------");
 
-		LOGGER.info(">>>>>> Producto a guardar: " + producto);
-		LOGGER.info(">>>>>> categoriaId: " + categoriaId);
+	    LOGGER.info(">>>>>> Producto a guardar: " + producto);
+	    LOGGER.info(">>>>>> categoriaId: " + categoriaId);
+	    LOGGER.info(">>>>>> localId: " + localId);
 
-		if (categoriaId != null) {
-			// Buscar la categoría por ID usando serviceCategorias
-			Categoria categoria = serviceCategorias.buscarCategoria(categoriaId);
+	    if (categoriaId != null && localId != null) {
+	        // Buscar la categoría por ID usando serviceCategorias
+	        Categoria categoria = serviceCategorias.buscarCategoria(categoriaId);
+	        Local local = serviceLocales.buscarLocal(localId);
 
-			LOGGER.info(">>>>>> categoria: " + categoria);
+	        LOGGER.info(">>>>>> categoria: " + categoria);
+	        LOGGER.info(">>>>>> local: " + local);
 
-			if (categoria != null) {
-				producto.setCategoria(categoria);
-			} else {
-				throw new ComandaServiceException("PS02", "No existe categoría para el id: " + categoriaId);
-			}
-
-		} else {
-			throw new ComandaServiceException("PS01", "El id de la categoría es nulo");
-		}
-
-		LOGGER.info(">>>>>> Producto a guardar via el repo: " + producto);
-		System.out.println("Guardando " + producto);
-
-		return repoProductos.save(producto);
+	        if (categoria != null && local != null) {
+	            producto.setCategoria(categoria);
+	            // Asignar el local al producto si se encuentra
+	            producto.setLocal(local);
+	            LOGGER.info(">>>>>> Producto a guardar via el repo: " + producto);
+	            System.out.println("Guardando " + producto);
+	            return repoProductos.save(producto);
+	        } else {
+	            throw new ComandaServiceException("PS03", "La categoría o el local no existen para los IDs proporcionados");
+	        }
+	    } else {
+	        throw new ComandaServiceException("PS04", "El ID de la categoría o el ID del local son nulos");
+	    }
 	}
 
-	public Producto modificar(Producto producto, Integer categoriaId) throws ComandaServiceException {
+
+	public Producto modificar(Producto producto, Integer categoriaId, Integer localId) throws ComandaServiceException {
 		System.out.println("------------------------------------------------------------");
 
 		LOGGER.info(">>>>>> Producto a guardar: " + producto);
 		LOGGER.info(">>>>>> categoriaId: " + categoriaId);
+		LOGGER.info(">>>>>> localId: " + localId);
 
 		// Buscar el producto existente
 		Producto productoNew = null;
@@ -88,12 +97,13 @@ public class ProductosService implements IProductosService {
 		productoNew.setImagen(producto.getImagen());
 
 		LOGGER.info("Categoria actual: " + producto.getCategoria());
+		LOGGER.info("Local actual: " + producto.getLocal());
 
 		LOGGER.info("prod: " + producto.toString());
 		LOGGER.info(">>>>>> Producto a guardar via el repo: " + producto);
 		System.out.println("Guardando " + producto);
 
-		return guardar(producto, categoriaId);
+		return guardar(producto, categoriaId, localId);
 	}
 
 

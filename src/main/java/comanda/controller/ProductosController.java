@@ -52,6 +52,7 @@ public class ProductosController {
 		}
 		LOGGER.info(">>>>>> Producto: " + producto);
 		LOGGER.info(">>>>>> Producto Categoria: " + producto.getCategoria());
+		LOGGER.info(">>>>>> Producto Lcoal: " + producto.getLocal());
 		// CategoriaResponse categoriaResponse =
 		// categoriaMapper.mapToCategoriaResponse(producto.getCategoria());
 		// LOGGER.info(">>>>>> categoriaResponse: " + categoriaResponse);
@@ -71,7 +72,7 @@ public class ProductosController {
 		producto = productoMapper.mapToProducto(productoDto);
 		LOGGER.info(">>>>>> Producto luego del mapper : " + producto);
 
-		producto = serviceProductos.guardar(producto, productoDto.getCategoriaId());
+		producto = serviceProductos.guardar(producto, productoDto.getCategoriaId(), productoDto.getLocalId());
 
 		ProductoResponse productoResponse = productoMapper.mapToProductoDto(producto);
 		LOGGER.info(">>>>>> productoResponse: " + productoResponse);
@@ -97,7 +98,7 @@ public class ProductosController {
 		LOGGER.info("idProducto: " + idProducto);
 		LOGGER.info("Producto: " + productoDto.toString());
 
-		producto = serviceProductos.modificar(producto, productoDto.getCategoriaId());
+		producto = serviceProductos.modificar(producto, productoDto.getCategoriaId(), productoDto.getLocalId());
 		LOGGER.info("Producto guardado: " + producto.toString());
 
 		ProductoResponse productoResponse = productoMapper.mapToProductoDto(producto);

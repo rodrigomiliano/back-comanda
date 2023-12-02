@@ -23,4 +23,6 @@ public class ProductoResponse {
 	private CategoriaResponse categoria;
 
 	private String imagen;
+	
+	private LocalResponse local;
 }

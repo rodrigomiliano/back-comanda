@@ -41,32 +41,25 @@ public class LocalesService implements ILocalesService {
 
     public Local modificar(Local local) throws ComandaServiceException {
         System.out.println("------------------------------------------------------------");
-        LOGGER.info(">>>>>> Local a guardar: " + local);
+        LOGGER.info(">>>>>> Local a modificar: " + local);
 
         // Buscar el local existente
-        Local localNew = null;
-        try {
-            localNew = buscarLocal(local.getId());
-        } catch (ComandaServiceException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        Local localNew = buscarLocal(local.getId());
 
-        // Reemplazo el valor del objeto actualmente en la DB con el valor que se pasa
-        // por el Body        
+        // Reemplazo el valor del objeto actualmente en la DB con el valor que se pasa por el Body
         localNew.setNombre(local.getNombre());
         localNew.setCalle(local.getCalle());
         localNew.setAltura(local.getAltura());
         localNew.setCodigo_postal(local.getCodigo_postal());
         localNew.setTelefono(local.getTelefono());
-        localNew.setImagen(local.getImagen());                
-     
-        LOGGER.info("local: " + local.toString());
-        LOGGER.info(">>>>>> Local a guardar via el repo: " + local);
-        System.out.println("Guardando " + local);
+        localNew.setImagen(local.getImagen());
 
-        return guardar(local);
+        LOGGER.info("Local modificado: " + localNew.toString());
+        System.out.println("Guardando cambios en " + localNew);
+
+        return repoLocales.save(localNew);
     }
+
 
     public void eliminar(int idLocal) throws Exception {
         System.out.println("Eliminando registro: " + buscarLocal(idLocal));

@@ -29,6 +29,11 @@ public class Producto {
 	private Categoria categoria;
 	@Column(name = "PRODUC_IMG")
 	private String imagen;
+	@ManyToOne
+	@JoinColumn(name = "PRODUC_LOCAL") // "idCategoria")
+	private Local local;
+	
+	
 
 	public Producto() {
 		super();		
@@ -94,11 +99,19 @@ public class Producto {
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
+	
+	public Local getLocal() {
+		return local;
+	}
+
+	public void setLocal(Local local) {
+		this.local = local;
+	}
 
 	@Override
 	public String toString() {
 		return "Producto [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", precio=" + precio
-				+ ", categoria=" + categoria + ", imagen=" + imagen + "]";
+				+ ", categoria=" + categoria + ", imagen=" + imagen + ", local=" + local + "]";
 	}
 
 	public ItemComanda get(int i) {
