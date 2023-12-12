@@ -15,5 +15,7 @@ public class CategoriaResponse {
 	private Integer id;
 
 	private String nombre;
+	
+	private String imagen;
 
 }

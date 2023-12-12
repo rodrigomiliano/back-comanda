@@ -18,15 +18,18 @@ public class Categoria {
 	private Integer id;
 	@Column(name = "CATEGO_NOMBRE")
 	private String nombre;
+	@Column(name = "CATEGO_IMG")
+	private String imagen;
 
 	public Categoria() {
 		super();
 	}
 
-	public Categoria(Integer id, String nombre) {
+	public Categoria(Integer id, String nombre, String imagen) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
+		this.imagen = imagen;
 	}
 
 	public Integer getId() {
@@ -44,10 +47,19 @@ public class Categoria {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
 
 	@Override
 	public String toString() {
-		return "Categoria [id=" + id + ", nombre=" + nombre + "]";
+		return "Categoria [id=" + id + ", nombre=" + nombre + ", imagen=" + imagen + "]";
 	}
 
 }

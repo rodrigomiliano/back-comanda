@@ -57,6 +57,7 @@ public class CategoriasService implements ICategoriasService {
 		// Reemplazo el valor del objeto actualmente en la DB con el valor que se pasa
 		// por el Body
 		categoriaNew.setNombre(categoria.getNombre());
+		categoriaNew.setImagen(categoria.getImagen());
 
 		LOGGER.info("categoria: " + categoria.toString());
 		LOGGER.info(">>>>>> Categoria a guardar via el repo: " + categoria);

@@ -13,6 +13,7 @@ SET SQL_SAFE_UPDATES = 0;
 CREATE TABLE `CATEGORIAS` (
   `CATEGO_ID` int NOT NULL AUTO_INCREMENT,
   `CATEGO_NOMBRE` varchar(255) NOT NULL,  
+  `CATEGO_IMG` varchar(255) ,
   PRIMARY KEY (`CATEGO_ID`),
   UNIQUE KEY (`CATEGO_NOMBRE`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
@@ -44,7 +45,7 @@ CREATE TABLE `PRODUCTOS` (
   PRIMARY KEY (`PRODUC_ID`),
   -- UNIQUE KEY (`PRODUC_NOMBRE`),
   KEY `FK_PRODUC_CATEGO_ID` (`PRODUC_CATEGO`),  
-  KEY `FK_PRODUC_LOCAL_ID` (`PRODUC_CATEGO`),  
+  KEY `FK_PRODUC_LOCAL_ID` (`PRODUC_LOCAL`),  
   -- KEY `FK_ITEMCOM_ID` (`ITEMCOM_ID`),
   CONSTRAINT `FK_PRODUC_CATEGO` FOREIGN KEY (`PRODUC_CATEGO`) REFERENCES `CATEGORIAS` (`CATEGO_ID`),
   CONSTRAINT `FK_PRODUC_LOCAL` FOREIGN KEY (`PRODUC_LOCAL`) REFERENCES `LOCALES` (`LOCAL_ID`)
@@ -256,52 +257,94 @@ CREATE TABLE `USUARIOS_LOCALES` (
 /********** INSERTAR REGISTROS **********/
 
 INSERT INTO `comandabd`.`CATEGORIAS`
-(`CATEGO_NOMBRE`)
+(`CATEGO_NOMBRE`,`CATEGO_IMG`)
 VALUES
-('Entradas'),
-('Parrilla'),
-('Pastas'),
-('Minutas'),
-('Pizzas y Empanadas'),
-('Bebidas'),
-('Postres'),
-('Vinos')
+('Entradas','https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg'),
+('Parrilla','https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg'),
+('Pastas','https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg'),
+('Minutas','https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg'),
+('Pizzas y Empanadas','https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg'),
+('Bebidas','https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg'),
+('Postres','https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg'),
+('Vinos','https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg'),
+('Hamburguesas','https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg'),
+('Vegano','https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg'),
+('Mexicano','https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg'),
+('Vegetariano','https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg')
 ;
 
 INSERT INTO `comandabd`.`LOCALES`
 (`LOCAL_NOMBRE`,`LOCAL_CALLE`,`LOCAL_ALTURA`,`LOCAL_CODPOS`,`LOCAL_TELEFN`,`LOCAL_IMG`)
 VALUES
-('Kentucky Palermo','Calle Palermo',1234,1111,'44444444','kentuckypal.png'),
-('Kentucky Belgrano','Calle Belgrano',1234,1111,'44444444','kentuckybel.png'),
-('Kentucky Recoleta','Calle Recoleta',1234,1111,'44444444','kentuckyrec.png'),
-('Kentucky Microcentro 1','Calle Microcentro 1',1234,1111,'44444444','kentuckymic1.png'),
-('Kentucky Microcentro 2','Calle Microcentro 2',1234,1111,'44444444','kentuckymic2.png')
+('Kentucky Almagro','Av. Corrientes',3599,1194,'48625377','https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809041/comanda/kentucky_yhvcvz.webp'),
+('La Reverde: Parrilla Vegana','Montevideo',40,1019,'43841093','https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809040/comanda/la_reverde_xqq2in.jpg'),
+('Il Ballo del Mattone','Gorriti',5893,1414 ,'47745681','https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809040/comanda/il_ballo_del_mattone_jsqc8g.jpg'),
+('Burguer 54','Nueva York',4074,1419,'45038587','https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809043/comanda/burguer54_pc1vvs.jpg'),
+('La Choza','Gascón',1701,1414,'48333334','https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809039/comanda/la_choza_mw8zjq.jpg'),
+('No Mames Wey','Fitz Roy',1617,1414,'1150366960','https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809046/comanda/no_mames_wey_enj2su.jpg')
 ;
 
 INSERT INTO `comandabd`.`PRODUCTOS`
 (`PRODUC_NOMBRE`,`PRODUC_DESCRP`,`PRODUC_PRECIO`,`PRODUC_CATEGO`,`PRODUC_IMG`,`PRODUC_LOCAL`)
 VALUES
-('Provoleta','Provoleta grillada a la parrilla con finas hierbas.',950,1,'provo.png',1),
-('Mozzarelitas','Bastones de mozzarella con panko y salsa criolla.',1100,1,'mozza.png',1),
-('Tabla de Quesos','Variedad de quesos.',850,1,'queso.png',1),
-('Entraña Provenzal','Entraña a la provenzal con papas fritas.',2600,2,'entrana.png',1),
-('Vacío','Porción de vacío con guarnición.',2300,2,'vacio.png',1),
-('Asado','Porción de asado con guarnición.',2300,2,'asado.png',2),
-('Mix de achuras','Molleja, riñón, chinchulín, chorizo y morcilla.',2750,2,'achuras.png',2),
-('Tallarines Fileto','Tallarines con salsa fileto',1300,3,'tallarines.png',2),
-('Tagliatelle Bolognesa','Tagliatelle con salsa bolognesa.',1550,3,'taglia.png',2),
-('Ñoquis Azafrán','Ñoquis con salsa crema de azafrán.',1450,3,'noquis.png',2),
-('Tortilla de Papas','Clásica tortilla de papas con cebolla. Para compartir.',1900,4,'tortilla.png',3),
-('Empanada Casera','Empanda sabor a elección: carne, pollo, jamon y queso.',250,5,'empanada.png',3),
-('Pizza Mozzarella Chica','Pizza Mozzarella 6 porciones.',1650,5,'pizzamuzza.png',3),
-('Pizza Mozzarella Grande','Pizza Mozzarella 8 porciones, para compartir.',2450,5,'pizzamuzza.png',3),
-('Aguas','Agua con o sin gas.',650,6,'agua.png',3),
-('Gaseosas','Gaseosa lína Coca - Cola.',650,6,'gaseosa.png',4),
-('Jarra de Limonada','Limonada con menta y jengibre.',950,6,'limonada.png',4),
-('Flan Casero','Flan casero con crema y dulce de leche.',1500,7,'flan.png',4),
-('Helado','Dos bochas de helado, gustos a elección.',1300,7,'helado.png',4),
-('Trumpeter','Malbec, Cabernet - Sauvignon.',2500,8,'trumpeter.png', 4),
-('Lugi Bosca','Malbec, Cabernet - Sauvignon.',300,8,'luigibosca.png',5)
+('Pizza Mozzarella Grande','Pizza Mozzarella y salsa de tomate 8 porciones, para compartir.',6450,5,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809029/comanda/muzza_qp3jqs.jpg',1),
+('Pizza de Verdura y Salsa blanca','Pizza de 8 porciones con verdura y salsa blanca.',7600,5,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809034/comanda/verdura_e2y2iu.jpg',1),
+('Pizza de Palmitos','Pizza con queso, palmitos, salsa golf y aceitunas.',7300,5,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809028/comanda/palmitos_sghuho.jpg',1),
+('Pizza Napolitana','Pizza con mozzarella y rodajas de tomate.',7400,5,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809026/comanda/napolitana_awmcqf.jpg',1),
+('Pizza Jamón y Morrón','Pizza con mozzarella, jamón cocido y morrón.',8300,5,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809024/comanda/jamonymorron_yqajzp.jpg',1),
+('Pizza Fugazzeta con Jamón','Pizza con relleno de mozzarella, jamón y cebolla.',9450,5,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809023/comanda/fugazeta_qg73lk.jpg',1),
+('Fainá','Porción de fainá.',600,5,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809023/comanda/faina_ouyomj.jpg',1),
+('Empanada J&Q','Al horno, rellena de jamón y queso.',950,5,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809021/comanda/empanada_fnqp9v.jpg',1),
+('Empanada Pollo','Al horno, rellena de pollo.',950,5,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809021/comanda/empanada_fnqp9v.jpg',1),
+('Empanada Humita','Al horno, rellena de choclo.',950,5,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809021/comanda/empanada_fnqp9v.jpg',1),
+('Quesadilla de queso x 3','Tortilla de maíz con queso y champiñón.',1800,1,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809038/comanda/quesadilla_n5xkcu.jpg',6),
+('Veggie Burguer','Hamburguesa de quinoa, arroz integral, porotos negros y remolacha con lechuga. Tomate y cebolla.',3400,9,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809034/comanda/Veggie-Burger-1_tkocui.png',4),
+('Salmón Burguer','Hamburguesa casera de salmon rosado con lechuga morada, cebolla morada, tomate y salsa tártara.',4400,9,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809032/comanda/salmon_xpmznb.png',4),
+('Vacío c/papas','Vacío de seitán con papas fritas',4250,10,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809032/comanda/vacioconpapasvegano_gduegw.jpg',2),
+('Tacos de carne x 3','Tacos de RES con cebolla morada, choclo, morrones',4320,11,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809032/comanda/tacoscarne_ql2fpl.jpg',6),
+('Risotto de la casa','Arroz con hongos de estación, cebolla, manteca, queso parmesano y pimienta.',3100,12,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809032/comanda/rissoto_js3dx4.jpg',5),
+('Penne rigate y hongos','Fideos penne rigate, portobellos, champingnon, cebolla, puerro y parmesano.',3300,3,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809031/comanda/pennehongo_nmdhx2.png',5),
+('Pollo c/salsa de puerro y papas','Pollo al horno con salsa de puerro y papas noisette.',3710,4,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809031/comanda/polloypapas_tcti8z.jpg',3),
+('Ñoquis c/boloñesa','Ñoquis de papa con salsa boloñesa.',4700,3,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809030/comanda/noquis-de-calabaza_z8xwir.jpg',3),
+('Not Cheese Burguer','Hamburguesa casera vegana a base de plantas con lechuga, tomate, cebolla y salsa burger 54.',3400,9,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809029/comanda/NOT-Cheese-Burger_mq4vew.png',4),
+('Bruschetta','Pan con tomate y albahaca picada, queso y aceite de oliva.',1900,1,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809029/comanda/BruschettaItaliana_dtbukn.jpg',3),
+('Nachos c/guacamole','Nachos con guacamole.',2700,11,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809028/comanda/nachosguacamole_iypjbm.jpg',6),
+('Nachos c/cheddar','Nachos con cheddar.',2700,11,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809026/comanda/nachoschedar_j0mnxv.jpg',6),
+('Milanesa napolitana c/puré','Milanesa de carne con salsa de tomate y queso, con puré.',3920,4,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809025/comanda/milanapopure_pani2y.jpg',3),
+('Tacos veggie x 3','Tacos de verduras: cebolla, morrones, hongos, chile',4320,11,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809032/comanda/tacoscarne_ql2fpl.jpg',6),
+('Matambrito c/papas','Matambrito de seitán con papas fritas',4250,10,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809025/comanda/matambritovegano_bxgjcu.jpg',2),
+('Girgolas a la provenzal c/papas','Girgolas a la provenzal con papas fritas',4680,10,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809024/comanda/girgolasprovenzal_d0vwo7.jpg',2),
+('Ensalada mixta','Tomates, cebolla y lechuga',2200,4,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809022/comanda/ensaladamixta_s1m59r.jpg',5),
+('Chicken Sandwich','Pechuga de pollo a la plancha con lechuga, tomate. Cebolla y salsa burger 54.',3300,9,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809023/comanda/chicken_a2bg4e.png',4),
+('Empanada J&Q vegano','Frita, rellena de jamón y queso veganos.',1200,5,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809022/comanda/empanadavegana_wsowxx.jpg',2),
+('Empanada caprese','Frita, rellena de tomate, albahaca y queso vegano.',1200,5,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809022/comanda/empanadavegana_wsowxx.jpg',2),
+('Empanada Q&Champi','Frita, rellena de champiñón y queso vegano.',1200,5,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809022/comanda/empanadavegana_wsowxx.jpg',2),
+('Chorisaurio','Sandwich de chorizo vegano con tomate, lechuga y papas fritas',4400,10,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809021/comanda/chorisaurio_f5f7gd.jpg',2),
+('Cheese Burguer','Hamburguesa casera con queso cheddar, lechuga, tomate, cebolla y salsa burger 54.',3400,9,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809018/comanda/cheeseburger_o72j6s.png',4),
+('Breaded Chicken','Sandwich de pechuga de pollo rebozada con lechuga, tomate, cebolla morada y mayonesa.',3400,9,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809017/comanda/Breaded-Chicken-1_vjhdpl.png',4),
+('Canelones de verdura','Canelones rellenos de espinaca y ricota, con salsa fileto.',4900,3,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809017/comanda/canelonesverdura_pxa982.jpg',5),
+('Aros de cebolla','Aros empanados de cebolla c/ketchup.',1200,1,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809017/comanda/aroscebolla_ocs28v.jpg',4),
+('Albóndigas c/puré','Albóndigas caseras con salsa roja, con puré.',3600,4,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809017/comanda/albondigapure_ryjihc.jpg',3),
+
+
+('Provoleta','Provoleta grillada a la parrilla con finas hierbas.',950,1,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg',1),
+('Mozzarelitas','Bastones de mozzarella con panko y salsa criolla.',1100,1,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg',1),
+('Tabla de Quesos','Variedad de quesos.',850,1,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg',1),
+('Entraña Provenzal','Entraña a la provenzal con papas fritas.',2600,2,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg',1),
+('Vacío','Porción de vacío con guarnición.',2300,2,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg',1),
+('Asado','Porción de asado con guarnición.',2300,2,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg',2),
+('Mix de achuras','Molleja, riñón, chinchulín, chorizo y morcilla.',2750,2,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg',2),
+('Tallarines Fileto','Tallarines con salsa fileto',1300,3,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg',2),
+('Tagliatelle Bolognesa','Tagliatelle con salsa bolognesa.',1550,3,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg',2),
+('Tortilla de Papas','Clásica tortilla de papas con cebolla. Para compartir.',1900,4,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg',3),
+('Empanada Casera','Empanda sabor a elección: carne, pollo, jamon y queso.',250,5,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg',3),
+('Aguas','Agua con o sin gas.',650,6,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg',3),
+('Gaseosas','Gaseosa lína Coca - Cola.',650,6,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg',4),
+('Jarra de Limonada','Limonada con menta y jengibre.',950,6,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg',4),
+('Flan Casero','Flan casero con crema y dulce de leche.',1500,7,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg',4),
+('Helado','Dos bochas de helado, gustos a elección.',1300,7,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg',4),
+('Trumpeter','Malbec, Cabernet - Sauvignon.',2500,8,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg', 4),
+('Lugi Bosca','Malbec, Cabernet - Sauvignon.',300,8,'https://res.cloudinary.com/dgyxvj3xu/image/upload/v1701809027/comanda/no-imagen_yvqwrt.jpg',5)
 ;
 
 
