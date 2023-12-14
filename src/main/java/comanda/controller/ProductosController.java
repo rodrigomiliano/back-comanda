@@ -116,4 +116,12 @@ public class ProductosController {
 		}
 		return "Registro Eliminado";
 	}
+	
+	@GetMapping("/producto/local/{idLocal}")
+	public List<ProductoResponse> buscarProductosPorLocal(@PathVariable("idLocal") int idLocal) {
+	    List<Producto> productos = serviceProductos.buscarProductosPorLocal(idLocal);
+	    List<ProductoResponse> response = productoMapper.mapToProductoResponseList(productos);
+	    return response;
+	}
+
 }

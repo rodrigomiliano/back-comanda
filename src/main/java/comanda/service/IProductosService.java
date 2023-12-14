@@ -10,4 +10,6 @@ public interface IProductosService {
 	Producto modificar(Producto producto, Integer categoriaId, Integer localId) throws ComandaServiceException;
 	void eliminar(int idProducto) throws Exception;
 	Producto buscarProducto(int idProducto) throws ComandaServiceException;
+	List<Producto> buscarProductosPorLocal(Integer localId);
+
 }

@@ -125,4 +125,9 @@ public class ProductosService implements IProductosService {
 			throw new ComandaServiceException("PS001", "No existe el Producto n° " + idProducto);
 		}
 	}
+	
+	public List<Producto> buscarProductosPorLocal(Integer localId) {
+	    return repoProductos.findByLocalId(localId);
+	}
+
 }
