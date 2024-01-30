@@ -11,8 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder
 
 public class EstadoUpdateDto {
-
-	private String nombre;	
-	private String descripcion;
-
+	private String nombre;
 }

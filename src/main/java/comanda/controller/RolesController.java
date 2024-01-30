@@ -4,15 +4,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import comanda.controller.dto.request.RolInsertDto;
 import comanda.controller.dto.request.RolUpdateDto;
 import comanda.controller.dto.response.RolResponse;
@@ -22,6 +14,7 @@ import comanda.service.IRolesService;
 import comanda.service.mapper.RolMapper;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/comanda")
 public class RolesController {
 
@@ -30,7 +23,8 @@ public class RolesController {
 	@Autowired
 	private IRolesService serviceRoles;
 
-	private final RolMapper rolMapper = RolMapper.INSTANCE;
+	@Autowired
+	private RolMapper rolMapper;
 
 	@GetMapping("/rol")
 	public List<RolResponse> buscarTodos() {
@@ -67,15 +61,9 @@ public class RolesController {
 		RolResponse rolResponse = rolMapper.mapToRolDto(rol);
 		LOGGER.info(">>>>>> rolResponse: " + rolResponse);
 
-		return rolResponse;		
+		return rolResponse;
 	}
-
-	/*@PutMapping("/rol")
-	public Rol modificar(@RequestBody Rol rol) {
-		serviceRoles.guardar(rol);
-		return rol;
-	}*/
-
+	
 	@PutMapping("/rol/{id}")
 	public RolResponse modificar(@PathVariable("id") int idRol, @RequestBody RolUpdateDto rolDto)
 			throws ComandaServiceException {

@@ -41,6 +41,9 @@ public class UsuarioLocal {
 		this.local = local;
 	}
 
+	public UsuarioLocal(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
 
 	public Integer getId() {

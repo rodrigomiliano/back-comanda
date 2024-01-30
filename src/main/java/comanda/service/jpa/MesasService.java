@@ -1,17 +1,16 @@
 package comanda.service.jpa;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+import comanda.entity.*;
+import comanda.repository.UsuarioLocalesRepository;
+import comanda.repository.UsuariosRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
-
-import comanda.entity.Estado;
-import comanda.entity.Local;
-import comanda.entity.Mesa;
-import comanda.entity.Usuario;
 import comanda.repository.MesasRepository;
 import comanda.service.ComandaServiceException;
 import comanda.service.IEstadosService;
@@ -21,117 +20,136 @@ import comanda.service.IUsuariosService;
 
 @Service
 public class MesasService implements IMesasService {
-
-    private final Logger LOGGER = LoggerFactory.getLogger(MesasService.class);
+	
+	private final Logger LOGGER = LoggerFactory.getLogger(ProductosService.class);
 
     @Autowired
     private MesasRepository repoMesas;
-
     @Autowired
-    private IEstadosService serviceEstados;
+    private UsuariosRepository usuariosRepository;
+    @Autowired
+    private UsuarioLocalesRepository repoUsuarioLocales;
     
     @Autowired
-    private IUsuariosService serviceUsuarios;
-    
+  	private IEstadosService serviceEstados;
     @Autowired
-    private ILocalesService serviceLocales;
+  	private IUsuariosService serviceUsuarios;
+    @Autowired
+	private ILocalesService serviceLocales;
 
     public List<Mesa> buscarTodos() {
-        System.out.println("------------------------------------------------------------");
-        List<Mesa> mesas = repoMesas.findAll();
-        System.out.println("Listado de Mesas: ");
-        mesas.forEach(m -> {
-            System.out.println(m);
-        });
         return repoMesas.findAll();
     }
 
-    public Mesa guardar(Mesa mesa, Integer estadoId, Integer usuarioId, Integer localId) throws ComandaServiceException {
-        System.out.println("------------------------------------------------------------");
-
-        LOGGER.info(">>>>>> Mesa a guardar: " + mesa);
-        LOGGER.info(">>>>>> estadoId: " + estadoId);
-        LOGGER.info(">>>>>> usuarioId: " + usuarioId);
-        LOGGER.info(">>>>>> localId: " + localId);
-
-        if (estadoId != null && usuarioId != null && localId != null)   {
-            // Buscar el estado por ID usando serviceEstados
-            Estado estado = serviceEstados.buscarEstado(estadoId);
-            Usuario usuario = serviceUsuarios.buscarUsuario(usuarioId);
-            Local local = serviceLocales.buscarLocal(localId);
-
-            LOGGER.info(">>>>>> estado: " + estado);
-            LOGGER.info(">>>>>> usuario: " + usuario);
-            LOGGER.info(">>>>>> local: " + local);
-
-            if (estado != null && usuario != null && local != null) {
-                mesa.setEstado(estado);
-                mesa.setUsuario(usuario);
-                mesa.setLocal(local);
-            } else {
-                throw new ComandaServiceException("MS02", "No existe estado/usuario/local " /*+ estadoId*/);
-            }
-
-        } else {
-            throw new ComandaServiceException("MS01", "El id del estado/usuario/local es nulo");
-        }
-
-        LOGGER.info(">>>>>> Mesa a guardar via el repo: " + mesa);
-        System.out.println("Guardando " + mesa);
-
+    public Mesa guardar(Mesa mesa) throws ComandaServiceException {
         return repoMesas.save(mesa);
-    }
+    }    
+    
+	public Mesa guardarbis(Mesa mesa, Integer estadoId, Integer usuarioId, Integer localId) throws ComandaServiceException {
+		System.out.println("------------------------------------------------------------");
 
-    public Mesa modificar(Mesa mesa, Integer estadoId, Integer usuarioId, Integer localId) throws ComandaServiceException {
-        System.out.println("------------------------------------------------------------");
+		LOGGER.info("----- Mesa a guardar: " + mesa);
+		LOGGER.info("----- estadoId: " + estadoId);
+		LOGGER.info("----- usuarioId: " + usuarioId);
+		LOGGER.info("----- localId: " + localId);
 
-        LOGGER.info(">>>>>> Mesa a guardar: " + mesa);
-        LOGGER.info(">>>>>> estadoId: " + estadoId);
-        LOGGER.info(">>>>>> usuarioId: " + usuarioId);
-        LOGGER.info(">>>>>> localId: " + localId);
+		if (estadoId != null && usuarioId != null && localId != null) {
+			
+			Estado estado = serviceEstados.buscarEstado(estadoId);
+			Usuario usuario = serviceUsuarios.buscarUsuario(usuarioId);
+			Local local = serviceLocales.buscarLocal(localId);
 
-        // Buscar la mesa existente
-        Mesa mesaNew = null;
-        try {
-            mesaNew = buscarMesa(mesa.getId());
-        } catch (ComandaServiceException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+			LOGGER.info("----- estado: " + estado);
+			LOGGER.info("----- usuario: " + usuario);
+			LOGGER.info("----- local: " + local);
 
-        // Reemplazo el valor del objeto actualmente en la DB con el valor que se pasa
-        // por el Body               
+			if (estadoId != null && usuarioId != null && localId != null) {
+				mesa.setEstado(estado);
+				mesa.setUsuario(usuario);;
+				mesa.setLocal(local);
+				LOGGER.info("----- Mesa a guardar via el repo: " + mesa);
+				System.out.println("Guardando " + mesa);
+				return repoMesas.save(mesa);
+			} else {
+				throw new ComandaServiceException("PS03",
+						"La categoría o el local no existen para los IDs proporcionados");
+			}
+		} else {
+			throw new ComandaServiceException("PS04", "El ID de estado/usuario/local son nulos");
+		}
+	}
+
+    public Mesa modificar(Mesa mesa) throws ComandaServiceException {
+        Mesa mesaNew = buscarMesa(mesa.getId());
         mesaNew.setSillas(mesa.getSillas());
         mesaNew.setObservacion(mesa.getObservacion());
-
-        LOGGER.info("Estado actual: " + mesa.getEstado());
-        LOGGER.info("Usuario actual: " + mesa.getUsuario());
-        LOGGER.info("Local actual: " + mesa.getLocal());
-
-        LOGGER.info("mesa: " + mesa.toString());
-        LOGGER.info(">>>>>> Mesa a guardar via el repo: " + mesa);
-        System.out.println("Guardando " + mesa);
-
-        return guardar(mesa, estadoId, usuarioId, localId);
+        return guardar(mesa);
     }
+    
+    public Mesa modificarbis(Mesa mesa, Integer estadoId, Integer usuarioId, Integer localId) throws ComandaServiceException {
+		System.out.println("------------------------------------------------------------");
+
+		LOGGER.info("----- Mesa a guardar: " + mesa);
+		LOGGER.info("----- estadoId: " + estadoId);
+		LOGGER.info("----- usuarioId: " + usuarioId);
+		LOGGER.info("----- localId: " + localId);
+
+		// Buscar mesa existente
+		Mesa mesaNew = null;
+		try {
+			mesaNew = buscarMesa(mesa.getId());
+		} catch (ComandaServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// Reemplazo el valor del objeto actualmente en la DB con el valor que se pasa
+		// por el Body
+		
+		mesaNew.setSillas(mesa.getSillas());
+		mesaNew.setObservacion(mesa.getObservacion());				
+
+		return guardarbis(mesa, estadoId, usuarioId, localId);
+	}
 
 
     public void eliminar(int idMesa) throws Exception {
-        System.out.println("Eliminando registro: " + buscarMesa(idMesa));
         repoMesas.deleteById(idMesa);
     }
 
     public Mesa buscarMesa(int idMesa) throws ComandaServiceException {
-        System.out.println("------------------------------------------------------------");
         Optional<Mesa> optional = repoMesas.findById(idMesa);
         if (optional.isPresent()) {
             Mesa m = optional.get();
-            System.out.println("Elegiste " + m);
             return m;
         } else {
-            System.out.println("------------------------------------------------------------");
-            System.out.println("No existe la Mesa n° " + idMesa);
             throw new ComandaServiceException("MS001", "No existe la Mesa n° " + idMesa);
         }
     }
+
+    @Override
+    public List<Mesa> buscarPorUsuario(int idUsuario) {
+        Optional<Usuario> user = usuariosRepository.findById(idUsuario);
+        if (!user.isPresent())
+            return new ArrayList<>();
+
+        if (user.get().getRol().getNombre().equalsIgnoreCase("ADMIN")) {
+            return repoMesas.findAll();
+        }
+        else {
+            UsuarioLocal usuarioLocal = new UsuarioLocal(user.get());
+            Example<UsuarioLocal> exampleUserLocal = Example.of(usuarioLocal);
+
+            List<UsuarioLocal> userLocal = repoUsuarioLocales.findAll(exampleUserLocal);
+
+            if (userLocal.isEmpty())
+                return new ArrayList<>();
+
+            Local local = userLocal.get(0).getLocal();
+            Mesa mesa = new Mesa(local);
+            Example<Mesa> exampleMesa = Example.of(mesa);
+            return repoMesas.findAll(exampleMesa);
+        }
+    }
+	
 }

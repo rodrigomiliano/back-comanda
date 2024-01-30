@@ -13,4 +13,5 @@ import lombok.NoArgsConstructor;
 public class CategoriaInsertDto {
 	private String nombre;
 	private String imagen;
+	private Boolean destacado;
 }

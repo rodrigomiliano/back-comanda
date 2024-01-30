@@ -1,34 +1,29 @@
 package comanda.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import comanda.controller.dto.request.CategoriaInsertDto;
 import comanda.controller.dto.request.CategoriaUpdateDto;
 import comanda.controller.dto.response.CategoriaResponse;
 import comanda.entity.Categoria;
+import comanda.entity.Local;
 import comanda.service.ComandaServiceException;
 import comanda.service.ICategoriasService;
 import comanda.service.mapper.CategoriaMapper;
 
-
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/comanda")
 public class CategoriasController {
 
-	private final Logger LOGGER = LoggerFactory.getLogger(ProductosController.class);
+	private final Logger LOGGER = LoggerFactory.getLogger(CategoriasController.class);
 
 	@Autowired
-	private ICategoriasService serviceCategorias;	
+	private ICategoriasService serviceCategorias;
 
 	private final CategoriaMapper categoriaMapper = CategoriaMapper.INSTANCE;
 
@@ -44,8 +39,7 @@ public class CategoriasController {
 		Categoria categoria = null;
 		try {
 			categoria = serviceCategorias.buscarCategoria(idCategoria);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {		
 			e.printStackTrace();
 		}
 		LOGGER.info(">>>>>> Categoria: " + categoria);
@@ -67,18 +61,12 @@ public class CategoriasController {
 		CategoriaResponse categoriaResponse = categoriaMapper.mapToCategoriaDto(categoria);
 		LOGGER.info(">>>>>> categoriaResponse: " + categoriaResponse);
 
-		return categoriaResponse;		
+		return categoriaResponse;
 	}
-
-	/*@PutMapping("/categoria")
-	public Categoria modificar(@RequestBody Categoria categoria) throws ComandaServiceException {
-		serviceCategorias.guardar(categoria);
-		return categoria;
-	}*/
-
+	
 	@PutMapping("/categoria/{id}")
-	public CategoriaResponse modificar(@PathVariable("id") int idCategoria, @RequestBody CategoriaUpdateDto categoriaDto)
-			throws ComandaServiceException {
+	public CategoriaResponse modificar(@PathVariable("id") int idCategoria,
+			@RequestBody CategoriaUpdateDto categoriaDto) throws ComandaServiceException {
 
 		Categoria categoria = null;
 		categoria = categoriaMapper.mapToCategoria(categoriaDto);
@@ -101,11 +89,21 @@ public class CategoriasController {
 	public String eliminar(@PathVariable("id") int idCategoria) {
 		try {
 			serviceCategorias.eliminar(idCategoria);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {			
 			e.printStackTrace();
 		}
 		return "Registro Eliminado";
 	}
+	
+	 // Endpoint para obtener locales relacionados con una categoría específica
+    @GetMapping("/categoria/{id}/locales")
+    public List<Local> obtenerLocalesPorCategoria(@PathVariable("id") int idCategoria) {
+        try {
+            return serviceCategorias.obtenerLocalesPorCategoria(idCategoria);
+        } catch (Exception e) {            
+            e.printStackTrace();
+            return new ArrayList<>(); 
+        }
+    }
 
 }

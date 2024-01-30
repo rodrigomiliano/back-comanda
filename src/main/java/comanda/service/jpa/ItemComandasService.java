@@ -2,7 +2,10 @@ package comanda.service.jpa;
 
 import java.util.List;
 import java.util.Optional;
+
+import comanda.entity.Comanda;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import comanda.entity.ItemComanda;
 import comanda.entity.Producto;
@@ -71,6 +74,13 @@ public class ItemComandasService implements IItemComandasService{
 			System.out.println("No existe el ItemComanda n° " + idItemComanda);
 		}
 		return null;
+	}
+
+	@Override
+	public List<ItemComanda> buscarItemsPorComanda(Comanda comanda) {
+		ItemComanda itemComanda = new ItemComanda(comanda);
+		Example<ItemComanda> exampleItemComanda = Example.of(itemComanda);
+		return repoItemComandas.findAll(exampleItemComanda);
 	}
 
 }

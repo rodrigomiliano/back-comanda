@@ -31,23 +31,23 @@ public class Usuario {
 	@Column(name = "USER_TELEFN")
 	private String telefono;
 	@Column(name = "USER_PASWRD")
-	private String contrasena;
-	// @Column(name = "USER_ROL")
-	// private Integer rol;
+	private String contrasena;	
 	@ManyToOne
 	@JoinColumn(name = "USER_ROL") // "idRol")
 	private Rol rol;
-
-	/*@OneToMany(mappedBy = "usuario", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = true)	
-	@JsonManagedReference	
-	private List<UsuarioLocal> usuariosLocales;*/
-		
+	@Column(name = "USER_ACTIVO")
+	private Boolean activo;
+			
 	public Usuario() {
 		super();		
 	}
-		
+	public Usuario(String name) {
+		super();
+		this.nombre = name;
+	}
+
 	public Usuario(String usuario, String nombre, String apellido, Integer dni, String email, String telefono,
-			String contrasena, Rol rol) {
+			String contrasena, Rol rol, Boolean activo) {
 		super();
 		this.usuario = usuario;
 		this.nombre = nombre;
@@ -57,6 +57,7 @@ public class Usuario {
 		this.telefono = telefono;
 		this.contrasena = contrasena;
 		this.rol = rol;		
+		this.activo = activo;
 	}
 
 	public Integer getId() {
@@ -134,14 +135,19 @@ public class Usuario {
 		this.rol = rol;
 	}
 
-	
+	public Boolean getActivo() {
+		return activo;
+	}
 
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
+	}
 
 	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", usuario=" + usuario + ", nombre=" + nombre + ", apellido=" + apellido + ", dni="
 				+ dni + ", email=" + email + ", telefono=" + telefono + ", contrasena=" + contrasena + ", rol=" + rol
-				+ "]";
+				+ ", activo=" + activo + "]";
 	}
 	
 	public UsuarioLocal get(int i) {

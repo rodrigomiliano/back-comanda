@@ -46,6 +46,15 @@ public class Mesa {
 		this.local = local;
 	}
 
+	public Mesa(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Mesa(Local local) {
+		this.local = local;
+	}
+
+
 	public Integer getId() {
 		return id;
 	}

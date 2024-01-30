@@ -4,24 +4,20 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import comanda.controller.dto.request.ProductoInsertDto;
 import comanda.controller.dto.request.ProductoUpdateDto;
 import comanda.controller.dto.response.ProductoResponse;
+import comanda.entity.Local;
 import comanda.entity.Producto;
+import comanda.form.FormUsuario;
 import comanda.service.ComandaServiceException;
 import comanda.service.IProductosService;
+import comanda.service.IUsuarioLocalesService;
 import comanda.service.mapper.ProductoMapper;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/comanda")
 public class ProductosController {
 
@@ -29,6 +25,8 @@ public class ProductosController {
 
 	@Autowired
 	private IProductosService serviceProductos;
+	@Autowired
+	private IUsuarioLocalesService serviceUsuarioLocales;
 
 	private final ProductoMapper productoMapper = ProductoMapper.INSTANCE;
 
@@ -39,26 +37,31 @@ public class ProductosController {
 		return response;
 	}
 
+	@PostMapping("/buscarproducto")
+	public List<Producto> buscarTodosPorUsuario(@RequestBody FormUsuario formUsuario) {
+		if (formUsuario != null && formUsuario.getId() != null) {
+			Local local = serviceUsuarioLocales.buscarLocalDeUsuario(formUsuario.getId());
+			if (local != null) {
+				return serviceProductos.buscarTodosPorLocal(local.getId());
+			}
+		}
+		return serviceProductos.buscarTodos();
+	}
+
 	@GetMapping("/producto/{id}")
 	public ProductoResponse buscarProducto(@PathVariable("id") int idProducto) {
 		Producto producto = null;
 		try {
 			producto = serviceProductos.buscarProducto(idProducto);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {			
 			e.printStackTrace();
 		}
 		LOGGER.info(">>>>>> Producto: " + producto);
 		LOGGER.info(">>>>>> Producto Categoria: " + producto.getCategoria());
-		LOGGER.info(">>>>>> Producto Lcoal: " + producto.getLocal());
-		// CategoriaResponse categoriaResponse =
-		// categoriaMapper.mapToCategoriaResponse(producto.getCategoria());
-		// LOGGER.info(">>>>>> categoriaResponse: " + categoriaResponse);
+		LOGGER.info(">>>>>> Producto Lcoal: " + producto.getLocal());		
 
 		ProductoResponse productoResponse = productoMapper.mapToProductoDto(producto);
-		LOGGER.info(">>>>>> productoResponse: " + productoResponse);
-		// productoResponse.setCategoria(categoriaResponse);
-		// LOGGER.info(">>>>>> productoResponse: " + productoResponse);
+		LOGGER.info(">>>>>> productoResponse: " + productoResponse);	
 		return productoResponse;
 	}
 
@@ -77,13 +80,7 @@ public class ProductosController {
 
 		return productoResponse;
 	}
-
-	/*@PutMapping("/producto")
-	public Producto modificar(@RequestBody Producto producto) throws ComandaServiceException {
-		serviceProductos.guardar(producto, null);
-		return producto;
-	}*/
-
+	
 	@PutMapping("/producto/{id}")
 	public ProductoResponse modificar(@PathVariable("id") int idProducto, @RequestBody ProductoUpdateDto productoDto)
 			throws ComandaServiceException {
@@ -110,18 +107,23 @@ public class ProductosController {
 	public String eliminar(@PathVariable("id") int idProducto) {
 		try {
 			serviceProductos.eliminar(idProducto);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {			
 			e.printStackTrace();
 		}
 		return "Registro Eliminado";
 	}
-	
+
 	@GetMapping("/producto/local/{idLocal}")
 	public List<ProductoResponse> buscarProductosPorLocal(@PathVariable("idLocal") int idLocal) {
-	    List<Producto> productos = serviceProductos.buscarProductosPorLocal(idLocal);
+		List<Producto> productos = serviceProductos.buscarProductosPorLocal(idLocal);
+		List<ProductoResponse> response = productoMapper.mapToProductoResponseList(productos);
+		return response;
+	}
+	
+	@GetMapping("/producto/categoria/{idCategoria}")
+	public List<ProductoResponse> buscarProductosPorCategoria(@PathVariable("idCategoria") int idCategoria) {
+	    List<Producto> productos = serviceProductos.buscarProductosPorCategoria(idCategoria);
 	    List<ProductoResponse> response = productoMapper.mapToProductoResponseList(productos);
 	    return response;
-	}
-
+	}	
 }

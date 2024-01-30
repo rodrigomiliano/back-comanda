@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 
 public class MesaInsertDto {    
-	private Integer sillas;	
+	private Integer id;
+	private Integer sillas;
 	private String observacion;
 	private Integer estadoId;
 	private Integer usuarioId;	

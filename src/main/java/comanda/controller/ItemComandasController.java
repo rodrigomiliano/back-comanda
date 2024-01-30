@@ -3,19 +3,12 @@ package comanda.controller;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import comanda.entity.ItemComanda;
 import comanda.service.IItemComandasService;
 
-
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/comanda")
 public class ItemComandasController {
 
@@ -31,33 +24,11 @@ public class ItemComandasController {
 	public Optional<ItemComanda> buscarItemComanda(@PathVariable("id") int idItemComanda) {
 		return serviceItemComandas.buscarItemComanda(idItemComanda);
 	}
-
-	/*@PostMapping("/itemcomanda")
-	public ItemComanda guardar(@RequestBody ItemComanda itemComanda) {
-		Integer productoId = itemComanda.getProducto().getId();
-		System.out.println("Envio el producto con el id: " + productoId);
-		Optional<Producto> productoObtenido = serviceProductos.buscarProducto(productoId);
-		if (productoObtenido.isPresent()) {
-			itemComanda.setProducto(productoObtenido.get());
-			itemComanda.setPrecio(productoObtenido.get().getPrecio());
-			itemComanda.setTotal();
-			serviceItemComandas.guardar(itemComanda);
-		} else {
-			System.out.println("error");
-		}
-		return itemComanda;
 		
-		  serviceItemComandas.guardar(itemComanda); return itemComanda;
-		 
-	}*/
-	
 	@PostMapping("/itemcomanda")
 	public ItemComanda guardar(@RequestBody ItemComanda itemComanda) {
 		serviceItemComandas.guardar(itemComanda);
-		return itemComanda;
-		/*
-		 * serviceItemComandas.guardar(itemComanda); return itemComanda;
-		 */
+		return itemComanda;		
 	}
 
 	@PutMapping("/itemcomanda")

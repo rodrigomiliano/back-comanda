@@ -18,5 +18,5 @@ public class LocalUpdateDto {
 	private Integer codigo_postal;	
 	private Integer telefono;	
 	private String imagen;	
-	
+	private String descripcion;
 }

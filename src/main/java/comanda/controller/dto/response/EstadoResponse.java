@@ -10,11 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class EstadoResponse {
-
 	private Integer id;
-
 	private String nombre;
-
-	private String descripcion;
-
 }

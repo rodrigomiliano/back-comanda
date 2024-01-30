@@ -11,6 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder
 
 public class EstadoInsertDto {
-	private String nombre;	
-    private String descripcion;
+	private String nombre;    
 }

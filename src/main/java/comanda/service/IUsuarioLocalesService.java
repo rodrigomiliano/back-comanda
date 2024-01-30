@@ -2,6 +2,8 @@ package comanda.service;
 
 import java.util.List;
 import java.util.Optional;
+
+import comanda.entity.Local;
 import comanda.entity.UsuarioLocal;
 
 public interface IUsuarioLocalesService {
@@ -10,4 +12,5 @@ public interface IUsuarioLocalesService {
 	void guardar(UsuarioLocal usuarioLocal);
 	void eliminar(int idUsuarioLocal);
 	Optional<UsuarioLocal> buscarUsuarioLocal(int idUsuarioLocal);
+	public Local buscarLocalDeUsuario(int idUsuario) ;
 }

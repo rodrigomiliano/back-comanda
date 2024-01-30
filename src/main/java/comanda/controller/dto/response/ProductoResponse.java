@@ -25,4 +25,6 @@ public class ProductoResponse {
 	private String imagen;
 	
 	private LocalResponse local;
+	
+	private Boolean activo;
 }

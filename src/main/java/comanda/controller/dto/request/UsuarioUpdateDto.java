@@ -20,5 +20,5 @@ public class UsuarioUpdateDto {
 	private String telefono;	
 	private String contrasena;	
 	private Integer rolId;
-	
+	private Boolean activo;
 }

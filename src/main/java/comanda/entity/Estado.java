@@ -11,25 +11,29 @@ import javax.persistence.Table;
 @Table(name = "Estados") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
 public class Estado {
 
+	public static int ESTADO_DISPONIBLE = 1;
+	public static int ESTADO_EN_CURSO = 2;
+	public static int ESTADO_CERRADA = 3;
+
 	@Id // para que se sepa que es primary key
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // para que la pk sea autoincremental y la estrategia de cómo se
 														// va a generar (en mysql).
 	@Column(name = "ESTADO_ID")
 	private Integer id;
 	@Column(name = "ESTADO_NOMBRE")
-	private String nombre;
-	@Column(name = "ESTADO_DESCRP")
-	private String descripcion;
+	private String nombre;	
 
 	public Estado() {
-		super();
-		// TODO Auto-generated constructor stub
+		super();		
 	}
 
-	public Estado(String nombre, String descripcion) {
+	public Estado(String nombre) {
 		super();		
-		this.nombre = nombre;
-		this.descripcion = descripcion;
+		this.nombre = nombre;		
+	}
+
+	public Estado(int id) {
+		this.id = id;
 	}
 
 	public Integer getId() {
@@ -47,18 +51,10 @@ public class Estado {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
+	
 	@Override
 	public String toString() {
-		return "Estado [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + "]";
+		return "Estado [id=" + id + ", nombre=" + nombre + "]";
 	}
 
 }

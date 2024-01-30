@@ -14,4 +14,5 @@ public class CategoriaUpdateDto {
 
 	private String nombre;	
 	private String imagen;
+	private Boolean destacado;
 }

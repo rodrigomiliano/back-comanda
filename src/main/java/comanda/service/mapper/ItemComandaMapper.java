@@ -11,12 +11,13 @@ import org.mapstruct.Mapping;
 import comanda.controller.dto.request.ItemComandaInsertRequest;
 import comanda.controller.dto.response.ItemComandaResponse;
 import comanda.entity.ItemComanda;
+import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface ItemComandaMapper {
 
 
-	//ItemComandaMapper INSTANCE = Mappers.getMapper( ItemComandaMapper.class );
+	ItemComandaMapper INSTANCE = Mappers.getMapper( ItemComandaMapperImpl.class );
 
 	ItemComandaResponse mapToItemComandaDTO(ItemComanda itemComanda);
 

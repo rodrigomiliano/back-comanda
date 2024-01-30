@@ -1,5 +1,6 @@
 package comanda.service.jpa;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import comanda.entity.Categoria;
+import comanda.entity.Local;
+import comanda.repository.LocalesRepository;
 import comanda.repository.CategoriasRepository;
 import comanda.service.ComandaServiceException;
 import comanda.service.ICategoriasService;
@@ -20,32 +23,22 @@ public class CategoriasService implements ICategoriasService {
 
 	@Autowired
 	private CategoriasRepository repoCategorias;
+	
+	@Autowired
+    private LocalesRepository localesRepository; // Inyecta tu repositorio de locales aquí
+
 
 	public List<Categoria> buscarTodas() {
-		System.out.println("------------------------------------------------------------");
-		List<Categoria> categorias = repoCategorias.findAll(Sort.by("id")); // Esto lo ordena en la consola de spring
-		System.out.println("Listado de Categorías: ");
-		categorias.forEach(t -> {
-			System.out.println(t);
-		});
 		return repoCategorias.findAll(Sort.by("id")); // Esto lo ordena en postman
 	}
 
 	public Categoria guardar(Categoria categoria) throws ComandaServiceException {
-		LOGGER.info(">>>>>> Categoria a guardar: " + categoria);
-
-		LOGGER.info(">>>>>> Categoria a guardar via el repo: " + categoria);
-		System.out.println("Guardando " + categoria);
 
 		return repoCategorias.save(categoria);		
 	}
 
 	public Categoria modificar(Categoria categoria) throws ComandaServiceException {
-		System.out.println("------------------------------------------------------------");
 
-		LOGGER.info(">>>>>> Categoria a guardar: " + categoria);
-
-		// Buscar Categoria existente
 		Categoria categoriaNew = null;
 		try {
 			categoriaNew = buscarCategoria(categoria.getId());
@@ -58,10 +51,7 @@ public class CategoriasService implements ICategoriasService {
 		// por el Body
 		categoriaNew.setNombre(categoria.getNombre());
 		categoriaNew.setImagen(categoria.getImagen());
-
-		LOGGER.info("categoria: " + categoria.toString());
-		LOGGER.info(">>>>>> Categoria a guardar via el repo: " + categoria);
-		System.out.println("Guardando " + categoria);
+		categoriaNew.setDestacado(categoria.getDestacado());
 
 		return guardar(categoria);
 	}
@@ -83,5 +73,29 @@ public class CategoriasService implements ICategoriasService {
 			System.out.println("No existe la Categoria n° " + idCategoria);
 			throw new ComandaServiceException("PS002", "No existe la Categoria n° " + idCategoria);
 		}
+	}
+
+		
+	@Override
+	public List<Local> obtenerLocalesPorCategoria(int idCategoria) {
+	    List<Object[]> result = localesRepository.findLocalesWithMaxProductByCategoriaId(idCategoria);
+	    List<Local> locales = new ArrayList<>();
+
+	    for (Object[] row : result) {
+	        Local local = new Local();
+	        local.setId((Integer) row[0]);// Asigna el nombre desde la primera columna
+	        // Asigna los otros atributos del Local desde las otras columnas
+	        // Asegúrate de convertir cada atributo al tipo correspondiente
+	        local.setNombre((String) row[1]);
+	        local.setCalle((String) row[2]);  
+	        local.setAltura((Integer) row[3]);
+	        local.setCodigo_postal((Integer) row[4]);
+	        local.setTelefono((Integer) row[5]);
+	        local.setImagen((String) row[6]);        
+	        // Agrega el local mapeado a la lista de locales
+	        locales.add(local);
+	    }
+
+	    return locales;
 	}
 }

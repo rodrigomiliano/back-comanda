@@ -1,27 +1,23 @@
 package comanda.controller;
 
 import java.util.List;
+import comanda.entity.Usuario;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import comanda.controller.dto.request.LocalInsertDto;
 import comanda.controller.dto.request.LocalUpdateDto;
 import comanda.controller.dto.response.LocalResponse;
 import comanda.entity.Local;
+import comanda.entity.Producto;
 import comanda.service.ComandaServiceException;
 import comanda.service.ILocalesService;
+import comanda.service.IProductosService;
 import comanda.service.mapper.LocalMapper;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/comanda")
 public class LocalesController {
 
@@ -29,6 +25,9 @@ public class LocalesController {
 
     @Autowired
     private ILocalesService serviceLocales;
+
+    @Autowired
+    private IProductosService serviceProductos;
 
     private final LocalMapper localMapper = LocalMapper.INSTANCE;
 
@@ -39,17 +38,31 @@ public class LocalesController {
         return response;
     }
 
+    @PostMapping("/localPorUsuario")
+    public List<LocalResponse> buscarTodosPorUsuario(@RequestBody Usuario usuario) {
+        if (usuario != null && usuario.getId() != null) {
+            if (usuario.getRol().getNombre().equals("ADMIN")) {
+                return localMapper.mapToLocalResponseList(serviceLocales.buscarTodos());
+            } else {
+                List<Local> locales = serviceLocales.buscarTodosPorUsuario(usuario);
+                List<LocalResponse> response = localMapper.mapToLocalResponseList(locales);
+                return response;
+            }
+        } else {
+            return localMapper.mapToLocalResponseList(serviceLocales.buscarTodos());
+        }
+    }
+
     @GetMapping("/local/{id}")
     public LocalResponse buscarLocal(@PathVariable("id") int idLocal) {
         Local local = null;
         try {
             local = serviceLocales.buscarLocal(idLocal);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {            
             e.printStackTrace();
         }
         LOGGER.info(">>>>>> Local: " + local);
-        
+
         LocalResponse localResponse = localMapper.mapToLocalDto(local);
         LOGGER.info(">>>>>> localResponse: " + localResponse);
         return localResponse;
@@ -96,8 +109,7 @@ public class LocalesController {
     public String eliminar(@PathVariable("id") int idLocal) {
         try {
             serviceLocales.eliminar(idLocal);
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {            
             e.printStackTrace();
         }
         return "Registro Eliminado";

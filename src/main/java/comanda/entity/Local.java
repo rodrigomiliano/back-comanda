@@ -37,24 +37,27 @@ public class Local {
 	private Integer telefono;
 	@Column(name = "LOCAL_IMG")
 	private String imagen;
+	@Column(name = "LOCAL_DESCRIPCION")
+	private String descripcion;
 
-	@OneToMany(mappedBy = "local", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = true)		
+	@OneToMany(mappedBy = "local", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = true)
 	@JsonManagedReference
 	private List<UsuarioLocal> usuariosLocales;
-		
-	public Local() {
-		super();		
-	}	
 
-	public Local(String nombre, String calle, Integer altura, Integer codigo_postal, Integer telefono,
-			String imagen, List<UsuarioLocal> usuariosLocales) {
-		super();		
+	public Local() {
+		super();
+	}
+
+	public Local(String nombre, String calle, Integer altura, Integer codigo_postal, Integer telefono, String imagen,
+			String descripcion, List<UsuarioLocal> usuariosLocales) {
+		super();
 		this.nombre = nombre;
 		this.calle = calle;
 		this.altura = altura;
 		this.codigo_postal = codigo_postal;
 		this.telefono = telefono;
 		this.imagen = imagen;
+		this.descripcion = descripcion;
 		this.usuariosLocales = usuariosLocales;
 	}
 
@@ -113,8 +116,14 @@ public class Local {
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
-	
-	
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 
 	public List<UsuarioLocal> getUsuariosLocales() {
 		return usuariosLocales;
@@ -124,20 +133,19 @@ public class Local {
 		this.usuariosLocales = usuariosLocales;
 	}
 
-	/*@Override
-	public String toString() {
-		return "Local [id=" + id + ", nombre=" + nombre + ", calle=" + calle + ", altura=" + altura + ", codigo_postal="
-				+ codigo_postal + ", telefono=" + telefono + ", imagen=" + imagen + ", usuariosLocales="
-				+ usuariosLocales.size() + "]";
-	}*/
+	/*
+	 * @Override public String toString() { return "Local [id=" + id + ", nombre=" +
+	 * nombre + ", calle=" + calle + ", altura=" + altura + ", codigo_postal=" +
+	 * codigo_postal + ", telefono=" + telefono + ", imagen=" + imagen +
+	 * ", usuariosLocales=" + usuariosLocales.size() + "]"; }
+	 */
 
 	@Override
 	public String toString() {
-	    String usuariosLocalesInfo = (usuariosLocales != null) ? String.valueOf(usuariosLocales.size()) : "null";
-	    return "Local [id=" + id + ", nombre=" + nombre + ", calle=" + calle + ", altura=" + altura +
-	            ", codigo_postal=" + codigo_postal + ", telefono=" + telefono + ", imagen=" + imagen +
-	            ", usuariosLocales=" + usuariosLocalesInfo + "]";
+		String usuariosLocalesInfo = (usuariosLocales != null) ? String.valueOf(usuariosLocales.size()) : "null";
+		return "Local [id=" + id + ", nombre=" + nombre + ", calle=" + calle + ", altura=" + altura + ", codigo_postal="
+				+ codigo_postal + ", telefono=" + telefono + ", imagen=" + imagen + ", descripcion=" + descripcion
+				+ ",  usuariosLocales=" + usuariosLocalesInfo + "]";
 	}
 
-	
 }

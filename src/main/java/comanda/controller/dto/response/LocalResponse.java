@@ -29,5 +29,7 @@ public class LocalResponse {
 	
 	private String imagen;		
 	
+	private String descripcion;
+	
 	private List<UsuarioLocal> usuariosLocales;
 }

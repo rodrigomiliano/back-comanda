@@ -1,18 +1,11 @@
 package comanda.controller;
 
 import java.util.List;
+import comanda.entity.Estado;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import comanda.controller.dto.request.MesaInsertDto;
 import comanda.controller.dto.request.MesaUpdateDto;
 import comanda.controller.dto.response.MesaResponse;
@@ -22,84 +15,104 @@ import comanda.service.IMesasService;
 import comanda.service.mapper.MesaMapper;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/comanda")
 public class MesasController {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(ProductosController.class);
+	private final Logger LOGGER = LoggerFactory.getLogger(ProductosController.class);
 
-    @Autowired
-    private IMesasService serviceMesas;
+	@Autowired
+	private IMesasService serviceMesas;
 
-    private final MesaMapper mesaMapper = MesaMapper.INSTANCE;
+	private final MesaMapper mesaMapper = MesaMapper.INSTANCE;
 
-    @GetMapping("/mesa")
-    public List<MesaResponse> buscarTodos() {
-        List<Mesa> mesas = serviceMesas.buscarTodos();
-        List<MesaResponse> response = mesaMapper.mapToMesaResponseList(mesas);
-        return response;
-    }
+	@GetMapping("/mesa")
+	public List<MesaResponse> buscarTodos() {
+		List<Mesa> mesas = serviceMesas.buscarTodos();
+		List<MesaResponse> response = mesaMapper.mapToMesaResponseList(mesas);
+		return response;
+	}
 
-    @GetMapping("/mesa/{id}")
-    public MesaResponse buscarMesa(@PathVariable("id") int idMesa) {
-        Mesa mesa = null;
-        try {
-            mesa = serviceMesas.buscarMesa(idMesa);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        LOGGER.info(">>>>>> Mesa: " + mesa);
-        LOGGER.info(">>>>>> Mesa, estado, usuario, local: " + mesa.getEstado() + mesa.getUsuario() + mesa.getLocal());
+	@GetMapping("/mesa/{id}")
+	public MesaResponse buscarMesa(@PathVariable("id") int idMesa) throws ComandaServiceException {
+		Mesa mesa = serviceMesas.buscarMesa(idMesa);
+		return mesaMapper.mapToMesaDto(mesa);
+	}
 
-        MesaResponse mesaResponse = mesaMapper.mapToMesaDto(mesa);
-        LOGGER.info(">>>>>> mesaResponse: " + mesaResponse);
-        return mesaResponse;
-    }
+	@GetMapping("/mesausuario/{idUsuario}")
+	public List<Mesa> buscarTodos(@PathVariable int idUsuario) {
+		List<Mesa> mesas = serviceMesas.buscarPorUsuario(idUsuario);		
+		return mesas;
+	}
 
-    @PostMapping("/mesa")
-    public MesaResponse guardar(@RequestBody MesaInsertDto mesaDto) throws ComandaServiceException {
+	@PostMapping("/mesa")
+	public MesaResponse guardar(@RequestBody MesaInsertDto mesaDto) throws ComandaServiceException {
+		Mesa mesa = mesaMapper.mapToMesa(mesaDto);
+		mesa = serviceMesas.guardar(mesa);
+		return mesaMapper.mapToMesaDto(mesa);
+	}
 
-        // Creamos la mesa a insertar
-        Mesa mesa = null;
-        mesa = mesaMapper.mapToMesa(mesaDto);
-        LOGGER.info(">>>>>> Mesa luego del mapper : " + mesa);
+	@PostMapping("/mesabis")
+	public MesaResponse guardarbis(@RequestBody MesaInsertDto mesaDto) throws ComandaServiceException {
 
-        mesa = serviceMesas.guardar(mesa, mesaDto.getEstadoId(), mesaDto.getUsuarioId(), mesaDto.getLocalId());
+		// Creamos el producto a insertar
+		Mesa mesa = null;
+		mesa = mesaMapper.mapToMesa(mesaDto);
+		LOGGER.info(">>>>>> Mesa luego del mapper : " + mesa);
 
-        MesaResponse mesaResponse = mesaMapper.mapToMesaDto(mesa);
-        LOGGER.info(">>>>>> mesaResponse: " + mesaResponse);
+		mesa = serviceMesas.guardarbis(mesa, mesaDto.getEstadoId(), mesaDto.getUsuarioId(), mesaDto.getLocalId());
 
-        return mesaResponse;
-    }
+		MesaResponse mesaResponse = mesaMapper.mapToMesaDto(mesa);
+		LOGGER.info(">>>>>> mesaResponse: " + mesaResponse);
 
-    @PutMapping("/mesa/{id}")
-    public MesaResponse modificar(@PathVariable("id") int idMesa, @RequestBody MesaUpdateDto mesaDto)
-            throws ComandaServiceException {
+		return mesaResponse;
+	}
 
-        Mesa mesa = null;
-        mesa = mesaMapper.mapToMesa(mesaDto);
-        mesa.setId(idMesa);
-        LOGGER.info(">>>>>> Mesa luego del mapper : " + mesa);
+	@PostMapping("/seleccion")
+	public Mesa seleccion(@RequestBody MesaInsertDto mesaDto) throws ComandaServiceException {
+		Mesa mesa = serviceMesas.buscarMesa(mesaDto.getId());
+		mesa.setEstado(new Estado(2));
+		return serviceMesas.guardar(mesa);
+	}
 
-        LOGGER.info("idMesa: " + idMesa);
-        LOGGER.info("Mesa: " + mesaDto.toString());
+	@PutMapping("/mesa/{id}")
+	public MesaResponse modificar(@PathVariable("id") int idMesa, @RequestBody MesaUpdateDto mesaDto)
+			throws ComandaServiceException {
+		Mesa mesa = mesaMapper.mapToMesa(mesaDto);
+		mesa.setId(idMesa);
+		mesa = serviceMesas.modificar(mesa);
+		return mesaMapper.mapToMesaDto(mesa);
+	}
+	
+	@PutMapping("/mesabis/{id}")
+	public MesaResponse modificarbis(@PathVariable("id") int idMesa, @RequestBody MesaUpdateDto mesaDto)
+			throws ComandaServiceException {
 
-        mesa = serviceMesas.modificar(mesa, mesaDto.getEstadoId(), mesaDto.getUsuarioId(), mesaDto.getLocalId());
-        LOGGER.info("Mesa guardada: " + mesa.toString());
+		Mesa mesa = null;
+		mesa = mesaMapper.mapToMesa(mesaDto);
+		mesa.setId(idMesa);
+		LOGGER.info(">>>>>> Mesa luego del mapper : " + mesa);
 
-        MesaResponse mesaResponse = mesaMapper.mapToMesaDto(mesa);
-        LOGGER.info(">>>>>> mesaResponse: " + mesaResponse);
+		LOGGER.info("idMesa: " + idMesa);
+		LOGGER.info("Mesa: " + mesaDto.toString());
 
-        return mesaResponse;
+		mesa = serviceMesas.modificarbis(mesa, mesaDto.getEstadoId(), mesaDto.getUsuarioId(), mesaDto.getLocalId());
+		LOGGER.info("Mesa guardado: " + mesa.toString());
 
-    }
+		MesaResponse mesaResponse = mesaMapper.mapToMesaDto(mesa);
+		LOGGER.info(">>>>>> mesaResponse: " + mesaResponse);
 
-    @DeleteMapping("/mesa/{id}")
-    public String eliminar(@PathVariable("id") int idMesa) {
-        try {
-            serviceMesas.eliminar(idMesa);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "Registro Eliminado";
-    }
+		return mesaResponse;
+
+	}
+
+	@DeleteMapping("/mesa/{id}")
+	public String eliminar(@PathVariable("id") int idMesa) {
+		try {
+			serviceMesas.eliminar(idMesa);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "Registro Eliminado";
+	}
 }

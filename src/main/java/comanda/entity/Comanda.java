@@ -1,60 +1,69 @@
 package comanda.entity;
 
+import java.util.Date;
 import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "Comandas") // Esto debe coincidir con el nombre de la tabla tal cual en bd.
 public class Comanda {
 
+
 	@Id // para que se sepa que es primary key
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // para que la pk sea autoincremental y la estrategia de cómo se
 														// va a generar (en mysql).
 	@Column(name = "COMAND_ID")
-	private Integer id;
-	// @Column(name = "COMAND_RESERV")
-	// private Integer reserva;
-	// @OneToOne
-	// @JoinColumn(name = "COMAND_RESERV") // "idReserva")
-	// private Reserva reserva;
+	private Integer id;	
 	@ManyToOne
 	@JoinColumn(name = "COMAND_ESTADO") // "idEstado")
 	private Estado estado;
 	@ManyToOne
-	@JoinColumn(name = "COMAND_MESAUSO") // "idMesaUso")
-	@JsonBackReference
-	private MesaUso mesaUso;
+	@JoinColumn(name = "COMAND_MESA")
+//	FetchType.EAGER
+	private Mesa mesa;
 
-	@OneToMany(mappedBy = "comanda", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = true)
-	@JsonManagedReference
-	private List<ItemComanda> itemComandas;
+	@Column
+	private Date fecha;
+
+	@Column
+	private Double total;
+
 
 	public Comanda() {
 		super();
+		this.fecha = new Date();
 	}
 
-	public Comanda(Estado estado, MesaUso mesaUso, List<ItemComanda> itemComandas) {
+	public Comanda(Estado estado, List<ItemComanda> itemComandas) {
 		super();
 		this.estado = estado;
-		this.mesaUso = mesaUso;
-		this.itemComandas = itemComandas;
+		this.fecha = new Date();
+//		/this.itemComandas = itemComandas;
 	}
 
-	public Integer getId() {
+	public Comanda(Mesa table) {
+		this.mesa = table;
+		this.estado = new Estado(2);
+		this.fecha = new Date();
+	}
+
+	public Comanda(Mesa mesa, Estado estado) {
+		this.mesa = mesa;
+		this.estado = estado;
+	}
+
+    public Comanda(Date date) {
+		this.fecha = date;
+    }
+
+    public Integer getId() {
 		return id;
 	}
 
@@ -70,33 +79,27 @@ public class Comanda {
 		this.estado = estado;
 	}
 
-	public MesaUso getMesaUso() {
-		return mesaUso;
+	public Mesa getMesa() {
+		return mesa;
 	}
 
-	public void setMesaUso(MesaUso mesaUso) {
-		this.mesaUso = mesaUso;
+	public void setMesa(Mesa mesa) {
+		this.mesa = mesa;
 	}
 
-
-
-	public List<ItemComanda> getItemComandas() {
-		return itemComandas;
+	public Date getFecha() {
+		return fecha;
 	}
 
-	public void setItemComandas(List<ItemComanda> itemComandas) {
-		this.itemComandas = itemComandas;
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}
 
-	public void addItemComanda(ItemComanda itemComanda) {
-		this.itemComandas.add(itemComanda);
+	public Double getTotal() {
+		return total;
 	}
 
-
-	@Override
-	public String toString() {
-		return "Comanda [id=" + id + ", estado=" + estado + ", mesaUso=" + mesaUso + ", itemComandas=" + itemComandas.size()
-				+ "]";
+	public void setTotal(Double total) {
+		this.total = total;
 	}
-
 }

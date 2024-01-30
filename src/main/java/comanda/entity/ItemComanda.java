@@ -53,6 +53,10 @@ public class ItemComanda {
 		this.total = total;
 	}
 
+    public ItemComanda(Comanda comanda) {
+		this.comanda = comanda;
+    }
+
 	/*public ItemComanda(Comanda comanda, Producto producto, Integer cantidad) {				
 		this.comanda = comanda;
 		this.producto = producto;

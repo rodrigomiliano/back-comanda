@@ -18,4 +18,5 @@ public class ProductoUpdateDto {
 	private Integer categoriaId;
 	private String imagen;
 	private Integer localId;
+	private Boolean activo;
 }

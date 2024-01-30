@@ -15,10 +15,8 @@ import comanda.entity.Comanda;
 @Mapper(componentModel = "spring")
 public interface ComandaMapper {
 
-	ComandaMapper INSTANCE = Mappers.getMapper( ComandaMapper.class );
+	ComandaMapper INSTANCE = Mappers.getMapper( ComandaMapperImpl.class );
 
-	@Mapping (target = "mesaUsoId", source = "comanda.mesaUso.id")
-	ComandaResponse mapToComandaDTO(Comanda comanda);
 
 	List<ComandaResponse> mapToListComandaDTO(Collection<Comanda> comandas);
 

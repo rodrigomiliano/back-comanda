@@ -18,4 +18,5 @@ public class CategoriaResponse {
 	
 	private String imagen;
 
+	private Boolean destacado;
 }

@@ -20,16 +20,19 @@ public class Categoria {
 	private String nombre;
 	@Column(name = "CATEGO_IMG")
 	private String imagen;
+	@Column(name = "CATEGO_DESTACADO")
+	private Boolean destacado;
 
 	public Categoria() {
 		super();
 	}
 
-	public Categoria(Integer id, String nombre, String imagen) {
+	public Categoria(Integer id, String nombre, String imagen, Boolean destacado) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.imagen = imagen;
+		this.destacado = destacado;
 	}
 
 	public Integer getId() {
@@ -56,10 +59,18 @@ public class Categoria {
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
+		
+	public Boolean getDestacado() {
+		return destacado;
+	}
+
+	public void setDestacado(Boolean destacado) {
+		this.destacado = destacado;
+	}
 
 	@Override
 	public String toString() {
-		return "Categoria [id=" + id + ", nombre=" + nombre + ", imagen=" + imagen + "]";
+		return "Categoria [id=" + id + ", nombre=" + nombre + ", imagen=" + imagen + ", destacado=" + destacado + "]";
 	}
 
 }

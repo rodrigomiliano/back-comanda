@@ -13,7 +13,7 @@ import comanda.entity.Rol;
 @Mapper(componentModel = "spring")
 public interface RolMapper {
 
-    RolMapper INSTANCE = Mappers.getMapper(RolMapper.class);
+    RolMapper INSTANCE = Mappers.getMapper(RolMapperImpl.class);
 
     RolResponse mapToRolDto(Rol rol);
 

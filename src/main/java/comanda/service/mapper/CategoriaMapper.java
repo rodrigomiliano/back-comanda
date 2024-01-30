@@ -3,6 +3,7 @@ package comanda.service.mapper;
 import java.util.List;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import comanda.controller.dto.request.CategoriaInsertDto;
@@ -18,9 +19,9 @@ public interface CategoriaMapper {
 	CategoriaResponse mapToCategoriaDto(Categoria categoria);
 
 	List<CategoriaResponse> mapToCategoriaResponseList(List<Categoria> categorias);
-	
+
 	Categoria mapToCategoria(CategoriaInsertDto categoriaDto);
-	
-	Categoria mapToCategoria(CategoriaUpdateDto categoriaDto);	
-	
+
+	Categoria mapToCategoria(CategoriaUpdateDto categoriaDto);
+
 }

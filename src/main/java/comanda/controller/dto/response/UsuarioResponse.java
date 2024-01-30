@@ -32,5 +32,7 @@ public class UsuarioResponse {
 	
 	private RolResponse rol;
 	
+	private Boolean activo;
+	
 	//private List<UsuarioLocalResponse> usuariosLocales;
 }

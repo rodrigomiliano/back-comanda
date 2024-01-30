@@ -1,18 +1,15 @@
 package comanda.controller;
 
 import java.util.List;
+import comanda.form.FormEmail;
+import comanda.form.FormLogin;
+import comanda.service.exception.InvalidPasswordException;
+import comanda.service.exception.RolNoEncontradoException;
+import comanda.service.exception.UsuarioNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import comanda.controller.dto.request.UsuarioInsertDto;
 import comanda.controller.dto.request.UsuarioUpdateDto;
 import comanda.controller.dto.response.UsuarioResponse;
@@ -20,8 +17,10 @@ import comanda.entity.Usuario;
 import comanda.service.ComandaServiceException;
 import comanda.service.IUsuariosService;
 import comanda.service.mapper.UsuarioMapper;
+import javax.mail.MessagingException;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/comanda")
 public class UsuariosController {
 
@@ -71,6 +70,20 @@ public class UsuariosController {
         LOGGER.info(">>>>>> usuarioResponse: " + usuarioResponse);
 
         return usuarioResponse;
+    }
+
+    @PostMapping("/login")
+    public Usuario guardar(@RequestBody FormLogin formLogin) throws RolNoEncontradoException {
+        try {
+            return serviceUsuarios.login(formLogin);
+        } catch (UsuarioNotFoundException | InvalidPasswordException e) {
+            return null;
+        }
+    }
+
+    @PostMapping("/email")
+    public void email(@RequestBody FormEmail formEmail) throws RolNoEncontradoException, MessagingException, ComandaServiceException {
+        serviceUsuarios.sendEmail(formEmail.getEmail());
     }
 
     @PutMapping("/usuario/{id}")
